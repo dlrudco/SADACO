@@ -90,8 +90,8 @@ class BaseTrainer():
             )
         return valid_stats
     
-    def train_epoch(self, epoch):
+    def train_epoch(self):
         raise NotImplementedError
     
-    def validate_epoch(self, epoch):
+    def validate_epoch(self):
         raise NotImplementedError

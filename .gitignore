@@ -5,6 +5,7 @@
 *.pyc
 *.txt
 .vscode/*
+sadaco.egg-info/*
 demo/demo5_interactive/*
 demo/demo6_CNN-MoE/*
 demo/demo7_UNO/*
