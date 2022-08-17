@@ -3,7 +3,7 @@ README
 
 Welcome to SADACO repository! Where spooky chest sounds are brought to life.
 
-We currently provide basic train-test-explain pipelines for ICBHI[ref] Fraiwan[ref] PASCAL-Heartsound[ref] and bunch of other NN APIs.
+We currently provide basic train-test-explain pipelines for ICBHI[ref](https://bhichallenge.med.auth.gr/ICBHI_2017_Challenge) Fraiwan[ref](https://data.mendeley.com/datasets/jwyy9np4gv/3) PASCAL-Heartsound[ref](http://www.peterjbentley.com/heartchallenge/) and bunch of other NN APIs.
 
 
 **** We are still under development process. Let us know if there's any question or suggestion. We'll try to make it happen :) ****
