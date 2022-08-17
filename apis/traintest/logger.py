@@ -8,9 +8,9 @@ import random
 class BaseLogger:
     def __init__(self, config, log_path = 'logs'):
         self.configs = config
-        group_id = self.configs.prefix
-        exp_id =  self.generate_expid()
-        self.log_path = os.path.join(log_path, group_id, exp_id)
+        self.group_id = self.configs.prefix
+        self.exp_id =  self.generate_expid()
+        self.log_path = os.path.join(log_path, self.group_id, self.exp_id)
         os.makedirs(self.log_path, exist_ok=True)
         self.exp_logs = os.path.join(self.log_path, 'log.txt')
         json.dump(self.configs, open(os.path.join(self.log_path, 'configs.json', 'w')))
