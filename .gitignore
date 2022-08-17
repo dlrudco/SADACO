@@ -1,0 +1,10 @@
+*.npy
+*.yml
+*.yaml
+*.pth
+*.pyc
+*.txt
+.vscode/*
+demo/demo5_interactive/*
+demo/demo6_CNN-MoE/*
+demo/demo7_UNO/*
