@@ -5,6 +5,12 @@ Welcome to SADACO repository! Where spooky chest sounds are brought to life.
 
 We currently provide basic train-test-explain pipelines for ICBHI[ref] Fraiwan[ref] PASCAL-Heartsound[ref] and bunch of other NN APIs.
 
+
+**** We are still under development process. Let us know if there's any question or suggestion. We'll try to make it happen :) ****
+
+**** Detailed READMEs and Documentations are also coming ****
+
+
 RUN
 <pre><code>python setup.py develop</code></pre>
 
