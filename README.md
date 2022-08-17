@@ -1,5 +1,7 @@
-README
-=======
+<h1>
+    <img src="https://user-images.githubusercontent.com/38484045/155925781-fe7795d9-4e7c-439d-bbb3-ac4888f8254c.png" width=80 height=80/> 
+    SADACO : Swift Audio DAta COmprehension Framework + Stethoscope Audio DAtaset Collections
+</h1> 
 
 Welcome to SADACO repository! Where spooky chest sounds are brought to life.
 
