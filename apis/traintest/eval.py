@@ -13,7 +13,7 @@ from torch.cuda.amp import autocast,GradScaler
 def move_device(data : Tuple, device : torch.device):
     return (d.to(device) for d in data)
 
-def test_epoch(
+def test_basic_epoch(
     model: nn.Module,
     device: torch.device,
     test_loader: DataLoader,

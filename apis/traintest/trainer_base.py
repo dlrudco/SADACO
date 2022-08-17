@@ -6,7 +6,6 @@ import torch
 from torch.utils.data import DataLoader
 
 from utils.config_parser import parse_config_obj
-from apis.traintest import train_epoch, validate_epoch
 from dataman import build_dataset
 
 import torch
@@ -68,9 +67,6 @@ class BaseTrainer():
             logger = wandb.init(project=self.configs.project_name, group=group_id, name=exp_id, config=self.log_configs, entity='sadaco')
         except ModuleNotFoundError:
             from apis.logger import base_logger
-            import os
-            group_id = self.configs.prefix
-            os.makedirs(f'logs/{group_id}', exist_ok=True)
             logger = base_logger(config=self.log_configs)
         return logger
     
@@ -83,11 +79,13 @@ class BaseTrainer():
                 self.configs, self.model, self.optimizer, self.device, self.val_loader, epoch, "TEST"
             )
             self.scheduler.step(train_stats, valid_stats)
+            self.logger.log({**train_stats, **valid_stats})
     
     def validate(self):
         valid_stats = self.validate_epoch(
                 self.configs, self.model, self.optimizer, self.device, self.val_loader, 0, "TEST"
             )
+        self.logger.log(valid_stats)
         return valid_stats
     
     def train_epoch(self):
