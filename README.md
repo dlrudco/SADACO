@@ -1,9 +1,11 @@
-README
-=======
+<h1>
+    <img src="https://user-images.githubusercontent.com/38484045/155925781-fe7795d9-4e7c-439d-bbb3-ac4888f8254c.png" width=80 height=80/> 
+    SADACO : Swift Audio DAta COmprehension Framework + Stethoscope Audio DAtaset Collections
+</h1> 
 
 Welcome to SADACO repository! Where spooky chest sounds are brought to life.
 
-We currently provide basic train-test-explain pipelines for ICBHI[ref] Fraiwan[ref] PASCAL-Heartsound[ref] and bunch of other NN APIs.
+We currently provide basic train-test-explain pipelines for [ICBHI](https://bhichallenge.med.auth.gr/ICBHI_2017_Challenge) [Fraiwan](https://data.mendeley.com/datasets/jwyy9np4gv/3) [PASCAL-Heartsound](http://www.peterjbentley.com/heartchallenge/) and bunch of other NN APIs.
 
 
 **** We are still under development process. Let us know if there's any question or suggestion. We'll try to make it happen :) ****
