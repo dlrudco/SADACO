@@ -1,11 +1,11 @@
-from typing import Tuple, Union
+from typing import DefaultDict, Tuple, Union
 
 import numpy as np
 import torch
 from sklearn.metrics import precision_recall_fscore_support
 
 
-class Evaluation_Metrics:
+class ICBHI_Metrics:
     def __init__(
         self,
         num_classes: int = 4,
@@ -194,9 +194,19 @@ class Evaluation_Metrics:
     def _compute_sc(self) -> None:
         self.sc = (self.sp + self.se) * 0.5
 
+def print_stats(stats: Union[Tuple, DefaultDict], names : Tuple = None):
+    if isinstance(stats, DefaultDict):
+        stat_str = ' '.join([f'{k} : {v}' for k,v in stats])
+    elif names is None:
+        names = (f'Metric {i}' for i in range(len(stats)))
+        stat_str = ' '.join([f'{k} : {v}' for k,v in zip(names,stats)])
+    else:
+        assert len(stats) == len(names)
+        stat_str = ' '.join([f'{k} : {v}' for k,v in zip(names,stats)])
+    return stat_str
 
 if __name__ == "__main__":
-    cm = Evaluation_Metrics(num_classes=4, normal_class_label=0)
+    cm = ICBHI_Metrics(num_classes=4, normal_class_label=0)
     y_pred = torch.tensor(
         [
             [0.0540, 0.0671, 0.2014, -0.1081],  # 2
