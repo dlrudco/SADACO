@@ -21,15 +21,15 @@ class stft2meldb():
     def __call__(self, *inputs):
         mags = self.melscale(inputs[0])
         mags = torchaudio.functional.amplitude_to_DB(mags, multiplier = 10., amin=1e-8, db_multiplier=1)
-        return (mags,)
+        return (mags,*inputs[1:])
     
 class normalize():
     def __init__(self, mean=0, std=1):
         self.mean = mean
         self.std = std
     def __call__(self, *inputs):
-        inputs = (inputs[0] - self.mean) / self.std
-        return (inputs,)
+        scaled = (inputs[0] - self.mean) / self.std
+        return (scaled,*inputs[1:])
     
 if __name__ == "__main__":
     my_preproc = Preprocessor()
