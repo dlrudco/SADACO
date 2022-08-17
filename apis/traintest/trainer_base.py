@@ -26,11 +26,11 @@ class BaseTrainer():
         self.model = self.build_model(self.model_configs)
         self.optimizer = self.build_optimizer()
         
-        self.train_dataset = self.build_dataset(self.data_configs, split='train')
-        self.val_dataset = self.build_dataset(self.data_configs, split='val')
+        self.build_dataset(self.data_configs, split='train')
+        self.build_dataset(self.data_configs, split='val')
         
-        self.train_loader = self.build_dataloader(split='train')
-        self.val_loader = self.build_dataloader(split='val')
+        self.build_dataloader(split='train')
+        self.build_dataloader(split='val')
         
         self.device = torch.device(
             f"cuda:{self.configs.gpus}" if torch.cuda.is_available() else "cpu"

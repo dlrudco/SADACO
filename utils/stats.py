@@ -109,7 +109,7 @@ class ICBHI_Metrics:
         self._compute_confusion_matrix()
         self._compute_icbhi_scores()
         self.acc = self.confusion_matrix.diag().sum() / self.confusion_matrix.sum()
-        return self.acc, self.se, self.sp, self.sc
+        return {'Acc':self.acc, 'Se':self.se, 'Sp':self.sp, 'Sc':self.sc}
 
     def get_mixup_stats(self) -> float:
         self.acc = self.correct / self.total

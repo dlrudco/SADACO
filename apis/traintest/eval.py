@@ -7,7 +7,7 @@ import torch.nn as nn
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
-from utils.stats import Evaluation_Metrics, print_stats
+from utils.stats import ICBHI_Metrics, print_stats
 from torch.cuda.amp import autocast,GradScaler
 
 def move_device(data : Tuple, device : torch.device):
@@ -17,7 +17,7 @@ def test_basic_epoch(
     model: nn.Module,
     device: torch.device,
     test_loader: DataLoader,
-    metrics: Evaluation_Metrics,
+    metrics: ICBHI_Metrics,
     criterion: Callable[[torch.Tensor, torch.Tensor], torch.Tensor],
     epoch: int,
     verbose: bool = True,
