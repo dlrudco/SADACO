@@ -6,6 +6,7 @@ from apis.explain.hookman import FGHandler
 from utils.config_parser import parse_config_obj
 from apis.models import build_model
 from apis.explain.visualize import spec_display
+from apis.traintest.common import load_input
 
 class demo_helper:
     def __init__(self, master_cfg, model_cfg):
