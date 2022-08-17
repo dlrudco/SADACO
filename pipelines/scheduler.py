@@ -1,3 +1,4 @@
+import os
 import torch
 import math
 import shutil
@@ -59,8 +60,8 @@ class CosineAnnealingWarmUpRestarts(_LRScheduler):
             param_group['lr'] = lr
     
     
-class HPScheduler():
-    def __init__(self, train_configs, optimizer, model):
+class BaseScheduler():
+    def __init__(self, train_configs, optimizer, model, exp_id=None):
         try:
             self.lr_scheduler = getattr(torch.optim.lr_scheduler, train_configs.lr_scheduler.name)(
             optimizer, **train_configs.lr_scheduler.params
@@ -72,18 +73,21 @@ class HPScheduler():
         self.model = model
         self.optimizer=optimizer
         self.configs = train_configs
-        import os
-        os.makedirs(f'./{self.configs.output_dir}', exist_ok=True)
+        os.makedirs(f'{self.configs.output_dir}', exist_ok=True)
         self.best_score = 0
         self.epoch = 0
         self.save_interval = self.configs.save_interval
+        if exp_id is None:
+            self.exp_id = self.configs.prefix
+        else:
+            self.exp_id = os.path.join(self.configs.prefix, exp_id)
         
     def step(self, stats, *lr_sched_args):
         train_stats, valid_stats = stats
         self.lr_scheduler.step(*lr_sched_args)
         
         if (self.epoch + 1) % max(self.save_interval, 1) == 0:
-            filename=f'./{self.configs.output_dir}/{self.configs.prefix}_checkpoint.pth'
+            filename=os.path.join(self.configs.output_dir, self.exp_id, 'checkpoint.pth')
             state = {
                         'epoch': self.epoch + 1,
                         'state_dict': self.model.state_dict(),
@@ -95,11 +99,6 @@ class HPScheduler():
             if is_best:
                 # print("\nSave new best model\n")
                 self.best_score = valid_stats['best_score']
-                shutil.copyfile(filename, f'./{self.configs.output_dir}/{self.configs.prefix}_model_best.pth')
+                shutil.copyfile(filename, os.path.join(self.configs.output_dir, self.exp_id, 'checkpoint_best.pth'))
         
         self.epoch += 1
-        
-        
-def build_train_scheduler(train_configs, optimizer):
-    hpscheduler = HPScheduler(train_configs, optimizer)
-    return hpscheduler

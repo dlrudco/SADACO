@@ -3,33 +3,31 @@ import datetime
 from tqdm import tqdm
 
 import torch
-from torch.utils.data import DataLoader
 
 from utils.config_parser import parse_config_obj
-from dataman import build_dataset
-
 import torch
 
 from apis import models
+from utils.stats import print_stats
 
 class BaseTrainer():
     def __init__(self, train_configs):
         self.configs = train_configs
-        data_configs = parse_config_obj(yml_path=self.configs.data_configs)
-        model_configs = parse_config_obj(yml_path=self.configs.model_configs)
+        self.data_configs = parse_config_obj(yml_path=self.configs.data_configs)
+        self.model_configs = parse_config_obj(yml_path=self.configs.model_configs)
 
         ######## WANDB SETUP ########
         self.log_configs = {
-                **train_configs.__dict__,
-                **data_configs.__dict__,
-                **model_configs.__dict__,
+                **self.configs.__dict__,
+                **self.data_configs.__dict__,
+                **self.model_configs.__dict__,
             }
         self.logger = self.build_logger()
-        self.model = self.build_model()
+        self.model = self.build_model(self.model_configs)
         self.optimizer = self.build_optimizer()
         
-        self.train_dataset = build_dataset(data_configs, split='train')
-        self.val_dataset = build_dataset(data_configs, split='val')
+        self.train_dataset = self.build_dataset(self.data_configs, split='train')
+        self.val_dataset = self.build_dataset(self.data_configs, split='val')
         
         self.train_loader = self.build_dataloader(split='train')
         self.val_loader = self.build_dataloader(split='val')
@@ -38,12 +36,12 @@ class BaseTrainer():
             f"cuda:{self.configs.gpus}" if torch.cuda.is_available() else "cpu"
         )
         self.model = self.model.to(self.device)
-        self.scheduler = self.build_train_scheduler()
+        self.scheduler = None
     
-    def build_dataloader(self):
+    def build_dataset(self):
         raise NotImplementedError
     
-    def build_train_scheduler(self):
+    def build_dataloader(self):
         raise NotImplementedError
     
     def build_model(self, model_configs):
@@ -72,22 +70,21 @@ class BaseTrainer():
     
     def train(self):    
         for epoch in tqdm(range(self.configs.max_epochs)):
-            train_stats = self.train_epoch(
-                self.configs, self.model, self.optimizer, self.device, self.train_loader, epoch, "TEST"
-            )
-            valid_stats = self.validate_epoch(
-                self.configs, self.model, self.optimizer, self.device, self.val_loader, epoch, "TEST"
-            )
-            self.scheduler.step(train_stats, valid_stats)
+            train_stats = self.train_epoch(epoch)
+            valid_stats = self.validate_epoch(epoch)
+            if self.scheduler is not None:
+                self.scheduler.step(train_stats, valid_stats)
             self.logger.log({**train_stats, **valid_stats})
     
-    def validate(self):
-        valid_stats = self.validate_epoch(
-                self.configs, self.model, self.optimizer, self.device, self.val_loader, 0, "TEST"
-            )
-        self.logger.log(valid_stats)
-        return valid_stats
+    def validate(self, return_stats=False):
+        valid_stats = self.validate_epoch(0)
+        print(print_stats(valid_stats))
+        if return_stats:
+            return valid_stats
     
+    def test(self, **kwargs):
+        self.validate(**kwargs)
+
     def train_epoch(self):
         raise NotImplementedError
     
