@@ -13,8 +13,8 @@ from utils.stats import print_stats
 class BaseTrainer():
     def __init__(self, train_configs):
         self.configs = train_configs
-        self.data_configs = parse_config_obj(yml_path=self.configs.data_configs)
-        self.model_configs = parse_config_obj(yml_path=self.configs.model_configs)
+        self.data_configs = parse_config_obj(yml_path=self.configs.data_configs.file)
+        self.model_configs = parse_config_obj(yml_path=self.configs.model_configs.file)
 
         ######## WANDB SETUP ########
         self.log_configs = {
@@ -29,8 +29,9 @@ class BaseTrainer():
         self.build_dataset(self.data_configs, split='train')
         self.build_dataset(self.data_configs, split='val')
         
-        self.build_dataloader(split='train')
-        self.build_dataloader(split='val')
+        self.build_dataloader()
+        # self.build_dataloader(split='train')
+        # self.build_dataloader(split='val')
         
         self.device = torch.device(
             f"cuda:{self.configs.gpus}" if torch.cuda.is_available() else "cpu"
@@ -53,23 +54,28 @@ class BaseTrainer():
             trainables = [p for p in self.model.parameters() if p.requires_grad]
         else:
             pass
-        optimizer = getattr(torch.nn.optim, self.configs.optimizer.name)(trainables, **self.configs.optimizer.params)
+        optimizer = getattr(torch.nn.optim, self.configs.train.optimizer.name)(
+            trainables, **self.configs.train.optimizer.params)
         return optimizer
     
-    def build_logger(self):
-        try: 
-            import wandb
-            group_id = self.configs.prefix
-            now = datetime.datetime.now()
-            exp_id = now.strftime('%Y_%m_%d_') + wandb.util.generate_id()
-            logger = wandb.init(project=self.configs.project_name, group=group_id, name=exp_id, config=self.log_configs, entity='sadaco')
-        except ModuleNotFoundError:
+    def build_logger(self, use_wandb=True):
+        if use_wandb:
+            try: 
+                import wandb
+                group_id = self.configs.prefix
+                now = datetime.datetime.now()
+                exp_id = now.strftime('%Y_%m_%d_') + wandb.util.generate_id()
+                logger = wandb.init(project=self.configs.project_name, group=group_id, name=exp_id, config=self.log_configs, entity='sadaco')
+            except ModuleNotFoundError:
+                from apis.logger import base_logger
+                logger = base_logger(config=self.log_configs)
+        else:
             from apis.logger import base_logger
             logger = base_logger(config=self.log_configs)
         return logger
     
     def train(self):    
-        for epoch in tqdm(range(self.configs.max_epochs)):
+        for epoch in tqdm(range(self.configs.train.max_epochs)):
             train_stats = self.train_epoch(epoch)
             valid_stats = self.validate_epoch(epoch)
             if self.scheduler is not None:

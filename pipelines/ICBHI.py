@@ -6,13 +6,15 @@ from utils.config_parser import ArgsParser
 from .build_modules import build_criterion
 from .scheduler import BaseScheduler
 
+import dataman
 from dataman.icbhi.dummy import RespiDatasetSTFT
 from torch.utils.data import DataLoader
 
 class ICBHI_Basic_Trainer(BaseTrainer):
     def __init__(self, configs):
         super().__init__(configs)
-        self.criterion = build_criterion(self.configs.criterion, mixup=self.configs.criterion.loss_mixup)
+        self.criterion = build_criterion(self.configs.train.criterion.name, 
+                                        mixup=self.configs.train.criterion.loss_mixup)
         self.preproc = preps.Preprocessor(
                             [preps.stft2meldb(n_stft=self.train_dataset.n_stft),
                              preps.normalize(mean=self.train_dataset.norm_mean, std = self.train_dataset.norm_std * 2)]
@@ -20,14 +22,14 @@ class ICBHI_Basic_Trainer(BaseTrainer):
         self.scheduler = BaseScheduler(self.configs, self.optimizer, self.model, exp_id=self.logger.exp_id)
         self.evaluator = ICBHI_Metrics(num_classes=4, normal_class_label=0)
     def build_dataset(self):
-        self.train_dataset = RespiDatasetSTFT(split='train', data_dir='/train', initialize=True, 
-            num_mel=128, multi_label=False, fixed_length=128, mixup=True)
-        self.val_dataset = RespiDatasetSTFT(split='val', data_dir='/val', initialize=True, 
-            num_mel=128, multi_label=False, fixed_length=128, mixup=False)
+        self.train_dataset = RespiDatasetSTFT(split='train', **self.data_configs.train)
+        self.val_dataset = RespiDatasetSTFT(split='val', **self.data_configs.val)
     
     def build_dataloader(self):
-        self.train_loader = DataLoader(self.train_dataset, num_workers=8, batch_size=8, shuffle=True, drop_last=True)
-        self.val_loader = DataLoader(self.val_dataset, num_workers=8, batch_size=8, shuffle=False, drop_last=False)
+        train_sampler = getattr(dataman, self.configs.data.sampler.name)(
+                                self.train_dataset, **self.configs.data.sampler.params)
+        self.train_loader = DataLoader(self.train_dataset, batch_sampler=train_sampler, **self.configs.data.train_dataloader.params)
+        self.val_loader = DataLoader(self.val_dataset, **self.configs.data.val_dataloader.params)
     
     def train_epoch(self, epoch):
         train_stats = train_basic_epoch(model=self.model, device=self.device, train_loader=self.train_loader, 
@@ -45,8 +47,8 @@ class ICBHI_Basic_Trainer(BaseTrainer):
 class ICBHI_Contrast_Trainer(ICBHI_Basic_Trainer):
     def __init__(self, configs):
         super().__init__(configs)
-        self.criterion = build_criterion(self.configs.criterion, mixup=self.configs.criterion.loss_mixup)
-        self.contrast_criterion = build_criterion(self.configs.contrast_criterion, mixup=self.configs.contrast_criterion.loss_mixup)
+        self.contrast_criterion = build_criterion(self.configs.train.contrast_criterion.name, 
+                                                  mixup=self.configs.train.contrast_criterion.loss_mixup)
         
     def train_epoch(self, epoch):
         train_stats = train_mixcon_epoch(model=self.model, device=self.device, train_loader=self.train_loader, 

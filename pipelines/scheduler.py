@@ -63,8 +63,8 @@ class CosineAnnealingWarmUpRestarts(_LRScheduler):
 class BaseScheduler():
     def __init__(self, train_configs, optimizer, model, exp_id=None):
         try:
-            self.lr_scheduler = getattr(torch.optim.lr_scheduler, train_configs.lr_scheduler.name)(
-            optimizer, **train_configs.lr_scheduler.params
+            self.lr_scheduler = getattr(torch.optim.lr_scheduler, train_configs.train.lr_scheduler.name)(
+            optimizer, **train_configs.train.lr_scheduler.params
             )
         except AttributeError:
             self.lr_scheduler = globals()[train_configs.lr_scheduler.name](
@@ -76,7 +76,7 @@ class BaseScheduler():
         os.makedirs(f'{self.configs.output_dir}', exist_ok=True)
         self.best_score = 0
         self.epoch = 0
-        self.save_interval = self.configs.save_interval
+        self.save_interval = self.configs.train.save_interval
         if exp_id is None:
             self.exp_id = self.configs.prefix
         else:
