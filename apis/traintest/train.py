@@ -9,8 +9,8 @@ from tqdm import tqdm
 
 from torch.cuda.amp import autocast,GradScaler
 
-def move_device(data : Tuple, device : torch.device):
-    return (d.to(device) for d in data)
+def move_device(data : DefaultDict, device : torch.device):
+    return {k: d.to(device) for k,d in data.items() if hasattr(d, 'to')}
         
 def train_basic_epoch(
     model: nn.Module,
@@ -22,18 +22,23 @@ def train_basic_epoch(
     return_stats: bool = False,
     verbose: bool = False,
     preprocessing : Callable = None,
+    grad_thres = None
 ) -> Optional[Union[DefaultDict, np.ndarray]]:
     model.train().to(device)
 
     train_loss = 0
     scaler = GradScaler()
     with tqdm(
-        train_loader,
+        enumerate(train_loader),
         unit="batch",
         desc=f"Epoch [{epoch}]",
         total=train_loader.__len__(),
+        leave=False
     ) as pbar:
-        for batch_info in pbar:
+        for bidx, batch_info in pbar:
+            if isinstance(batch_info, list):
+                taglist = ['input', 'label', 'label2', 'lam', 'phase']
+                batch_info = {k : v for k,v in zip(taglist, batch_info[:len(taglist)])}
             batch_info = move_device(batch_info, device)
             
             model.zero_grad()
@@ -45,22 +50,28 @@ def train_basic_epoch(
             [INPUT, LABEL, (opt)LABEL2, ...]
             '''
             if preprocessing is not None:
-                inputs = preprocessing(*batch_info)
+                preprocessing.to(device)
+                inputs = preprocessing(batch_info)
+                if torch.isnan(inputs['input']).any():
+                    print(f'NaN mag!!! after preproc')
             else:
-                inputs = batch_info[0]
+                inputs = batch_info
             with autocast():
-                output = model(inputs)
-                
-                loss = criterion(output, *batch_info[1:])
+                output = model(inputs['input'])
+                if torch.isnan(output).any():
+                    print(f'NaN mag!!! after model')
+                batch_info.update({'output':output})
+                loss = criterion(**batch_info)
             scaler.scale(loss).backward()
+            torch.nn.utils.clip_grad_norm_(model.parameters(), grad_thres)
             scaler.step(optimizer)
             scaler.update()
-
-            pbar.set_postfix(loss=loss.item())
-
             train_loss += loss.item()
+            pbar.set_postfix(loss=train_loss/(bidx+1))
+
+            
         train_loss /= len(train_loader.dataset)
         if verbose:
             print(f"Train: Average Loss: {train_loss:.3f}")
         if return_stats:
-            return {'Loss' : train_loss}
+            return {'Train Loss' : train_loss}

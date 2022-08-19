@@ -4,7 +4,10 @@
 *.pth
 *.pyc
 *.txt
+*.json
 .vscode/*
+*wandb*
+*.log
 sadaco.egg-info/*
 demo/demo5_interactive/*
 demo/demo6_CNN-MoE/*

@@ -6,6 +6,14 @@ from typing import Dict, List, Union
 from munch import DefaultMunch
 import yaml
 
+## define custom tag handler
+def join(loader, node):
+    seq = loader.construct_sequence(node)
+    return ''.join([str(i) for i in seq])
+
+## register the tag handler
+yaml.add_constructor('!join', join)
+
 def parse_config_dict(
     yml_path: str = None,
     arg_type: str = "data",
@@ -73,6 +81,7 @@ class ArgsParser():
         
     def get_args(self):
         args = self.parser.parse_args(self.remaining_argv)
+        args = DefaultMunch.fromDict(args.__dict__)
         return args
         
     # def ParseArgswithConfig(argv=None):

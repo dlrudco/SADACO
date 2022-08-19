@@ -109,7 +109,9 @@ class ICBHI_Metrics:
         self._compute_confusion_matrix()
         self._compute_icbhi_scores()
         self.acc = self.confusion_matrix.diag().sum() / self.confusion_matrix.sum()
-        return {'Acc':self.acc, 'Se':self.se, 'Sp':self.sp, 'Sc':self.sc}
+        self.precision, self.recall, self.f1score, _ = self.get_precision_recall_fbeta()
+        return {'Accuracy':self.acc, 'Sensitivity':self.se, 'Specificity':self.sp, 'Score':self.sc,
+                'Precision':self.precision, 'Recall': self.recall, 'F1-Score':self.f1score}
 
     def get_mixup_stats(self) -> float:
         self.acc = self.correct / self.total
@@ -195,15 +197,15 @@ class ICBHI_Metrics:
         self.sc = (self.sp + self.se) * 0.5
 
 def print_stats(stats: Union[Tuple, DefaultDict], names : Tuple = None):
-    if isinstance(stats, DefaultDict):
-        stat_str = ' '.join([f'{k} : {v}' for k,v in stats])
+    if isinstance(stats, dict):
+        stat_str = ' '.join([f'{k} : {v}' for k,v in stats.items()])
     elif names is None:
         names = (f'Metric {i}' for i in range(len(stats)))
         stat_str = ' '.join([f'{k} : {v}' for k,v in zip(names,stats)])
     else:
         assert len(stats) == len(names)
         stat_str = ' '.join([f'{k} : {v}' for k,v in zip(names,stats)])
-    return stat_str
+    return '\n' + stat_str
 
 if __name__ == "__main__":
     cm = ICBHI_Metrics(num_classes=4, normal_class_label=0)

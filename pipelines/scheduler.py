@@ -62,18 +62,22 @@ class CosineAnnealingWarmUpRestarts(_LRScheduler):
     
 class BaseScheduler():
     def __init__(self, train_configs, optimizer, model, exp_id=None):
-        try:
-            self.lr_scheduler = getattr(torch.optim.lr_scheduler, train_configs.train.lr_scheduler.name)(
-            optimizer, **train_configs.train.lr_scheduler.params
-            )
-        except AttributeError:
-            self.lr_scheduler = globals()[train_configs.lr_scheduler.name](
-            optimizer, **train_configs.lr_scheduler.params
-            )
+        self.metric = train_configs.train.target_metric
+        if self.metric is None:
+            self.metric = 'Accuracy'
+        
+        if train_configs.train.lr_scheduler is not None:
+            try:
+                self.lr_scheduler = getattr(torch.optim.lr_scheduler, train_configs.train.lr_scheduler.name)(
+                optimizer, **train_configs.train.lr_scheduler.params
+                )
+            except AttributeError:
+                self.lr_scheduler = globals()[train_configs.train.lr_scheduler.name](
+                optimizer, **train_configs.train.lr_scheduler.params
+                )
         self.model = model
         self.optimizer=optimizer
         self.configs = train_configs
-        os.makedirs(f'{self.configs.output_dir}', exist_ok=True)
         self.best_score = 0
         self.epoch = 0
         self.save_interval = self.configs.train.save_interval
@@ -81,10 +85,11 @@ class BaseScheduler():
             self.exp_id = self.configs.prefix
         else:
             self.exp_id = os.path.join(self.configs.prefix, exp_id)
+        os.makedirs(os.path.join(self.configs.output_dir, self.exp_id), exist_ok=True)
         
-    def step(self, stats, *lr_sched_args):
-        train_stats, valid_stats = stats
-        self.lr_scheduler.step(*lr_sched_args)
+    def step(self, train_stats, valid_stats, *lr_sched_args):
+        if self.lr_scheduler is not None:
+            self.lr_scheduler.step(*lr_sched_args)
         
         if (self.epoch + 1) % max(self.save_interval, 1) == 0:
             filename=os.path.join(self.configs.output_dir, self.exp_id, 'checkpoint.pth')
@@ -95,10 +100,10 @@ class BaseScheduler():
                         'opts' : self.optimizer.state_dict(),
                         }
             torch.save(state, filename)
-            is_best =  self.best_score <= valid_stats['best_score']
+            is_best =  self.best_score <= valid_stats[self.metric]
             if is_best:
                 # print("\nSave new best model\n")
-                self.best_score = valid_stats['best_score']
+                self.best_score = valid_stats[self.metric]
                 shutil.copyfile(filename, os.path.join(self.configs.output_dir, self.exp_id, 'checkpoint_best.pth'))
         
         self.epoch += 1

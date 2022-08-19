@@ -10,8 +10,8 @@ from tqdm import tqdm
 from utils.stats import ICBHI_Metrics, print_stats
 from torch.cuda.amp import autocast,GradScaler
 
-def move_device(data : Tuple, device : torch.device):
-    return (d.to(device) for d in data)
+def move_device(data : DefaultDict, device : torch.device):
+    return {k: d.to(device) for k,d in data.items() if hasattr(d, 'to')}
 
 def test_basic_epoch(
     model: nn.Module,
@@ -30,19 +30,35 @@ def test_basic_epoch(
         unit="batch",
         desc=f"Epoch [{epoch}]",
         total=test_loader.__len__(),
+        leave=False
     ) as pbar, torch.no_grad(), autocast():
         for batch_info in pbar:
+            if isinstance(batch_info, list):
+                taglist = ['input', 'label', 'label2', 'lam', 'phase']
+                batch_info = {k : v for k,v in zip(taglist, batch_info[:len(taglist)])}
             batch_info = move_device(batch_info, device)
+            keep_info = batch_info['input']
+            if torch.isnan(batch_info['input']).any():
+                print(f'NaN mag!!! val before preproc')
             if preprocessing is not None:
-                inputs = preprocessing(*batch_info)
+                preprocessing.to(device)
+                inputs = preprocessing(batch_info)
             else:
-                inputs = batch_info[0]
-            output = model(inputs)
-            test_loss += criterion(output, *batch_info[1:]).item()
-            metrics.update_lists(logits=output, y_true=batch_info[1])
+                inputs = batch_info
+            if torch.isnan(inputs['input']).any():
+                print(f'NaN mag!!! val after preproc')
+            output = model(inputs['input'])
+            batch_info.update({'output':output})
+            loss = criterion(**batch_info).mean()
+            if torch.isnan(loss):
+                breakpoint()
+            test_loss += loss.item()
+            pbar.set_postfix(loss=loss.item())
+            metrics.update_lists(logits=output, y_true=torch.argmax(batch_info['label'], dim=-1))
 
-    test_loss /= len(test_loader.dataset)
+    test_loss /= test_loader.dataset.__len__()
     stats = metrics.get_stats()
+    stats.update({'Test Loss' : test_loss})
     metrics.reset_metrics()
     if verbose:
         print(print_stats(stats))

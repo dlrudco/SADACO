@@ -1,6 +1,7 @@
 import torch
 from typing import Union
 
+
 class CELoss(torch.nn.CrossEntropyLoss):
     def __init__(self, mode : Union[str, int] ='onehot', **kwargs):
         super().__init__(**kwargs)
@@ -13,12 +14,12 @@ class CELoss(torch.nn.CrossEntropyLoss):
         else:
             raise ValueError("Currently only Supporting One-hot or Integer")
         
-    def forward(self, input, target):
+    def forward(self, output, label, **kwargs):
         if self.mode == 0:
-            target = torch.argmax(target, axis=1).long()
+            target = torch.argmax(label, axis=-1)
         else :
             target = target
-        return self.base_forward(input, target)
+        return self.base_forward(output, target)
     
     
 class BCEWithLogitsLoss(torch.nn.BCEWithLogitsLoss):
@@ -35,11 +36,11 @@ class BCEWithLogitsLoss(torch.nn.BCEWithLogitsLoss):
         else:
             raise ValueError("Currently only Supporting Multi-hot or Integer")
         
-    def forward(self, input:torch.Tensor, target:torch.Tensor)->torch.Tensor:
+    def forward(self, input:torch.Tensor, label:torch.Tensor, **kwargs)->torch.Tensor:
         if self.mode == 0:
-            target = target
+            target = label
         else :
-            temptar = torch.zeros(target.shape[0], max).to(target.device)
-            temptar[target] = 1.
+            temptar = torch.zeros(label.shape[0], max).to(label.device)
+            temptar[:,label] = 1.
             target = temptar
         return self.base_forward(input, target)

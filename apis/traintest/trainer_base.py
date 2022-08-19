@@ -22,13 +22,11 @@ class BaseTrainer():
                 **self.data_configs.__dict__,
                 **self.model_configs.__dict__,
             }
-        self.logger = self.build_logger()
+        self.logger = self.build_logger(self.configs.use_wandb)
         self.model = self.build_model(self.model_configs)
         self.optimizer = self.build_optimizer()
         
-        self.build_dataset(self.data_configs, split='train')
-        self.build_dataset(self.data_configs, split='val')
-        
+        self.build_dataset()
         self.build_dataloader()
         # self.build_dataloader(split='train')
         # self.build_dataloader(split='val')
@@ -54,7 +52,7 @@ class BaseTrainer():
             trainables = [p for p in self.model.parameters() if p.requires_grad]
         else:
             pass
-        optimizer = getattr(torch.nn.optim, self.configs.train.optimizer.name)(
+        optimizer = getattr(torch.optim, self.configs.train.optimizer.name)(
             trainables, **self.configs.train.optimizer.params)
         return optimizer
     
@@ -67,11 +65,11 @@ class BaseTrainer():
                 exp_id = now.strftime('%Y_%m_%d_') + wandb.util.generate_id()
                 logger = wandb.init(project=self.configs.project_name, group=group_id, name=exp_id, config=self.log_configs, entity='sadaco')
             except ModuleNotFoundError:
-                from apis.logger import base_logger
-                logger = base_logger(config=self.log_configs)
+                from apis.logger import BaseLogger
+                logger = BaseLogger(config=self.log_configs)
         else:
-            from apis.logger import base_logger
-            logger = base_logger(config=self.log_configs)
+            from apis.logger import BaseLogger
+            logger = BaseLogger(config=self.log_configs)
         return logger
     
     def train(self):    
