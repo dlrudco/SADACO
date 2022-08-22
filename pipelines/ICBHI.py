@@ -8,6 +8,8 @@ from pipelines.scheduler import BaseScheduler
 
 import dataman
 from dataman.icbhi.dummy import RespiDatasetSTFT
+
+import torch
 from torch.utils.data import DataLoader
 
 class ICBHI_Basic_Trainer(BaseTrainer):
@@ -24,6 +26,7 @@ class ICBHI_Basic_Trainer(BaseTrainer):
                             )
         self.scheduler = BaseScheduler(self.configs, self.optimizer, self.model, exp_id=self.logger.name)
         self.evaluator = ICBHI_Metrics(num_classes=4, normal_class_label=0)
+        
     def build_dataset(self):
         self.train_dataset = RespiDatasetSTFT(split='train', **self.data_configs.train)
         self.val_dataset = RespiDatasetSTFT(split='val', **self.data_configs.val)

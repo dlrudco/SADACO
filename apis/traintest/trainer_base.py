@@ -78,9 +78,10 @@ class BaseTrainer():
             valid_stats = self.validate_epoch(epoch)
             if self.scheduler is not None:
                 self.scheduler.step(train_stats, valid_stats)
+                valid_stats.update({f'Best/{self.scheduler.metric}' : self.scheduler.best_score})
             self.logger.log({**train_stats, **valid_stats})
     
-    def validate(self, return_stats=False):
+    def validate(self, return_stats=True):
         valid_stats = self.validate_epoch(0)
         print(print_stats(valid_stats))
         if return_stats:
