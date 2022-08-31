@@ -1,0 +1,3 @@
+[submodule "apis/models/torchvggish"]
+	path = apis/models/torchvggish
+	url = https://github.com/harritaylor/torchvggish.git
