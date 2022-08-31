@@ -64,9 +64,12 @@ class FGHandler(object):
     def remove_handlers(self):
         for handle in self.handlers:
             handle.remove()
-
-    def __call__(self, inputs):
-        return self.net(inputs)
+            
+    def forward(self, input):
+        return self.net.forward(input)
+        
+    def __call__(self, input):
+        return self.forward(input)
 
     def get_features(self, name):
         return torch.cat([self.feature[name][k] for k in self.feature[name].keys()], dim=0)

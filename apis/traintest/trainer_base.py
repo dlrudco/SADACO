@@ -23,7 +23,8 @@ class BaseTrainer():
                 **self.model_configs.__dict__,
             }
         self.logger = self.build_logger(self.configs.use_wandb)
-        self.model = self.build_model(self.model_configs)
+        self.model = self.build_model()
+        # self.model = torch.hub.load('harritaylor/torchvggish', 'vggish')
         self.optimizer = self.build_optimizer()
         
         self.build_dataset()
@@ -32,7 +33,7 @@ class BaseTrainer():
         # self.build_dataloader(split='val')
         
         self.device = torch.device(
-            f"cuda:{self.configs.gpus}" if torch.cuda.is_available() else "cpu"
+            f"cuda" if torch.cuda.is_available() else "cpu"
         )
         self.model = self.model.to(self.device)
         self.scheduler = None
@@ -43,8 +44,10 @@ class BaseTrainer():
     def build_dataloader(self):
         raise NotImplementedError
     
-    def build_model(self, model_configs):
-        model = models.build_model(model_configs)
+    def build_model(self):
+        model = models.build_model(self.model_configs)
+        if self.model_configs.data_parallel == True:
+            model = torch.nn.DataParallel(model)
         return model
     
     def build_optimizer(self, trainables = None):

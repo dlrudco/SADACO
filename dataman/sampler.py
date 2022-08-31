@@ -12,7 +12,7 @@ class BalancedBatchSampler(BatchSampler):
     """
 
     def __init__(self, dataset, n_classes, n_samples):
-        loader = DataLoader(dataset, num_workers=8)
+        loader = DataLoader(dataset, num_workers=32)
         self.labels_list = []
         for batch_info in tqdm(loader):
             if isinstance(batch_info, list):

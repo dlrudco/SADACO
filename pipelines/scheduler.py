@@ -61,7 +61,7 @@ class CosineAnnealingWarmUpRestarts(_LRScheduler):
     
     
 class BaseScheduler():
-    def __init__(self, train_configs, optimizer, model, exp_id=None):
+    def __init__(self, train_configs, optimizer:torch.nn.Module, model:torch.nn.Module, exp_id=None, parallel=None):
         self.metric = train_configs.train.target_metric
         if self.metric is None:
             self.metric = 'Accuracy'
@@ -81,6 +81,7 @@ class BaseScheduler():
         self.best_score = 0
         self.epoch = 0
         self.save_interval = self.configs.train.save_interval
+        self.parallel = parallel
         if exp_id is None:
             self.exp_id = self.configs.prefix
         else:
@@ -93,9 +94,14 @@ class BaseScheduler():
         
         if (self.epoch + 1) % max(self.save_interval, 1) == 0:
             filename=os.path.join(self.configs.output_dir, self.exp_id, 'checkpoint.pth')
+            if self.parallel:
+                to_save_model = self.model.module.state_dict()
+            else:
+                to_save_model = self.model.state_dict()
+                
             state = {
                         'epoch': self.epoch + 1,
-                        'state_dict': self.model.state_dict(),
+                        'state_dict': to_save_model,
                         'best_val_acc': self.best_score,
                         'opts' : self.optimizer.state_dict(),
                         }

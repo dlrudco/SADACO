@@ -22,7 +22,8 @@ def train_basic_epoch(
     return_stats: bool = False,
     verbose: bool = False,
     preprocessing : Callable = None,
-    grad_thres = None
+    grad_thres = None,
+    update_interval = 1
 ) -> Optional[Union[DefaultDict, np.ndarray]]:
     model.train().to(device)
 
@@ -35,14 +36,14 @@ def train_basic_epoch(
         total=train_loader.__len__(),
         leave=False
     ) as pbar:
+        model.zero_grad()
+        optimizer.zero_grad(set_to_none=True)
         for bidx, batch_info in pbar:
             if isinstance(batch_info, list):
                 taglist = ['input', 'label', 'label2', 'lam', 'phase']
                 batch_info = {k : v for k,v in zip(taglist, batch_info[:len(taglist)])}
             batch_info = move_device(batch_info, device)
             
-            model.zero_grad()
-            optimizer.zero_grad(set_to_none=True)
             '''
             The first element of the tuple 'batch_info' should be the 
             input tensor.
@@ -62,11 +63,23 @@ def train_basic_epoch(
                     print(f'NaN mag!!! after model')
                 batch_info.update({'output':output})
                 loss = criterion(**batch_info)
-            scaler.scale(loss).backward()
-            torch.nn.utils.clip_grad_norm_(model.parameters(), grad_thres)
-            scaler.step(optimizer)
-            scaler.update()
-            train_loss += loss.item()
+            if criterion.reduction == 'mean':
+                scaler.scale(loss).backward()
+            else:
+                scaler.scale(loss).backward()
+                
+            if (bidx+1) % update_interval == 0:
+                torch.nn.utils.clip_grad_norm_(model.parameters(), grad_thres)
+                scaler.step(optimizer)
+                scaler.update()
+                model.zero_grad()
+                optimizer.zero_grad(set_to_none=True)
+            else:
+                pass
+            if criterion.reduction == 'mean':
+                train_loss += loss.item() * output.shape[0]
+            else:
+                train_loss += loss.item()
             pbar.set_postfix(loss=train_loss/(bidx+1))
 
             

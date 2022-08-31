@@ -47,7 +47,7 @@ class BasicBlock(nn.Module):
             out = self.cbam(out)
             # out = out + cbam_out
 
-        out += residual
+        out = out + residual
         out = self.relu(out)
 
         return out
@@ -91,9 +91,9 @@ class Bottleneck(nn.Module):
             residual = self.downsample(x)
 
         if not self.cbam is None:
-            out += self.cbam(out)
+            out = self.cbam(out)
 
-        out += residual
+        out = out + residual
         out = self.relu(out)
 
         return out

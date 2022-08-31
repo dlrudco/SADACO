@@ -2,7 +2,8 @@ from apis.models._ast import ASTModel
 from apis.models.resnet import ResidualNet
 # from apis.models.vgg import VGG
 from apis.models.custom import custom_model
-from apis.models.cnn_moe import cnn_moe
+from .cnn_moe import *
+from .vgg import VGGish
 
 #TODO: make all models more 'controllable' via configs
 def build_model(configs):

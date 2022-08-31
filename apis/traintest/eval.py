@@ -26,13 +26,13 @@ def test_basic_epoch(
     model.eval().to(device)
     test_loss = 0
     with tqdm(
-        test_loader,
+        enumerate(test_loader),
         unit="batch",
         desc=f"Epoch [{epoch}]",
         total=test_loader.__len__(),
         leave=False
     ) as pbar, torch.no_grad(), autocast():
-        for batch_info in pbar:
+        for bidx, batch_info in pbar:
             if isinstance(batch_info, list):
                 taglist = ['input', 'label', 'label2', 'lam', 'phase']
                 batch_info = {k : v for k,v in zip(taglist, batch_info[:len(taglist)])}
@@ -52,8 +52,11 @@ def test_basic_epoch(
             loss = criterion(**batch_info).mean()
             if torch.isnan(loss):
                 breakpoint()
-            test_loss += loss.item()
-            pbar.set_postfix(loss=loss.item())
+            if criterion.reduction == 'mean' :
+                test_loss += loss.item() * output.shape[0]
+            else:
+                test_loss += loss.item()
+            pbar.set_postfix(loss=loss.item()/(bidx+1))
             metrics.update_lists(logits=output, y_true=torch.argmax(batch_info['label'], dim=-1))
 
     test_loss /= test_loader.dataset.__len__()

@@ -23,9 +23,10 @@ class stft2meldb:
         self.n_stft=n_stft
         self.n_mels=n_mels
         self.melscale = torchaudio.transforms.MelScale(sample_rate=sample_rate, n_mels=n_mels, n_stft=n_stft)
+        self.p2d =  torchaudio.transforms.AmplitudeToDB(stype='magnitude', top_db = 80)
     def __call__(self, inputs:DefaultDict):
         inputs['input'] = self.melscale(inputs['input'])
-        inputs['input'] = torchaudio.functional.amplitude_to_DB(inputs['input'] , multiplier = 10., amin=1e-3, db_multiplier=1)
+        inputs['input'] = self.p2d(inputs['input'])
         return inputs
     def to(self, device):
         self.melscale = self.melscale.to(device)

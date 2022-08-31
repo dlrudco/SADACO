@@ -79,13 +79,14 @@ class RespiDatasetSTFT(Dataset):
 
             mix_waveform = mix_lambda * waveform1 + (1 - mix_lambda) * waveform2
             waveform = mix_waveform - mix_waveform.mean()
-
+            
+        waveform = torch.nn.functional.pad(waveform, (0, 0), "constant")
         cart = torch.stft(waveform, n_fft = int(1e-3*self.window_size*self.sample_rate+1), 
                            hop_length=int(1e-3*self.hop_length*self.sample_rate),
-                           window = torch.hann_window(int(1e-3*self.window_size*self.sample_rate+1))
-                           )
-        phase = torch.atan2(cart[:,:,:,1], cart[:,:,:,0])
-        mag = torch.sqrt(cart[:,:,:,0]**2 + cart[...,1]**2)
+                           window = torch.hann_window(int(1e-3*self.window_size*self.sample_rate+1)),
+                           return_complex=True, pad_mode='reflect')
+        phase = torch.atan2(cart.imag, cart.real)
+        mag = cart.abs()
         if torch.isnan(mag).any():
             print(f'NaN mag!!! {filename}-{filename2}')
         if filename2 == None:
