@@ -91,9 +91,9 @@ class FGHandler(object):
             min_size = torch.min(min_size.expand_as(torch.Tensor(list(features_list[-1].shape[1:]))), 
                                  torch.Tensor(list(features_list[-1].shape[1:])))
         
-        if c_reduce == 'none' and hw_reduce == 'none':
+        if c_reduce == None and hw_reduce == None:
             return features_list
-        elif c_reduce == 'none' or hw_reduce=='none':
+        elif c_reduce == None or hw_reduce== None:
             raise ValueError("Currently cannot reduce on one direction. Do it manually")
         else:
             pass

@@ -54,9 +54,7 @@ def train_mixcon_epoch(
             else:
                 inputs = batch_info[0]
             with autocast():
-                output = model(inputs)
-                layer_name = model.handler.layer_name[0]
-                contrast_feats = model.handler.get_features(layer_name).to(device)
+                output, contrast_feats = model(inputs)
                 base_loss = base_criterion(output, *batch_info[1:])
                 contrast_loss = contrast_criterion(output, contrast_feats, *batch_info[1:])
                 loss = weights[0] * base_loss + weights[1] * contrast_loss

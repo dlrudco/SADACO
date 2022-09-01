@@ -14,7 +14,7 @@ class SupervisedContrastiveLoss(nn.Module):
         self.base_temperature = base_temperature
         self.epsilon = torch.nextafter(torch.FloatTensor([0]), torch.FloatTensor([1]))[0]
 
-    def forward(self, features, labels=None, mask=None, breaker=False):
+    def forward(self, output, features, labels=None, mask=None, breaker=False):
         """Compute loss for model. If both `labels` and `mask` are None,
         it degenerates to SimCLR unsupervised loss:
         https://arxiv.org/pdf/2002.05709.pdf
