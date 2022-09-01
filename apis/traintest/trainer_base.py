@@ -18,9 +18,9 @@ class BaseTrainer():
 
         ######## WANDB SETUP ########
         self.log_configs = {
-                **self.configs.__dict__,
-                **self.data_configs.__dict__,
-                **self.model_configs.__dict__,
+                'Master' : {**self.configs.__dict__},
+                'Dataset' : {**self.data_configs.__dict__},
+                'Model' : {**self.model_configs.__dict__},
             }
         self.logger = self.build_logger(self.configs.use_wandb)
         self.model = self.build_model()

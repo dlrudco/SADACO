@@ -83,7 +83,7 @@ class FGHandler(object):
         # any other shape of feat&grad will produce weird results
         features_list = []
         max_size = torch.Tensor([0])
-        min_size = torch.Tensor([torch.inf])
+        min_size = torch.Tensor([torch.iinfo(torch.int64).max])
         for name in self.layer_name:
             features_list.append(torch.cat([self.feature[name][k] for k in self.feature[name].keys()], dim=0))
             max_size = torch.max(max_size.expand_as(torch.Tensor(list(features_list[-1].shape[1:]))), 
@@ -127,7 +127,7 @@ class FGHandler(object):
         # any other shape of feat&grad will produce weird results
         grads_list = []
         max_size = torch.Tensor([0])
-        min_size = torch.Tensor([torch.inf])
+        min_size = torch.Tensor([torch.iinfo(torch.int64).max])
         for name in self.layer_name:
             grads_list.append(torch.cat([self.gradient[name][k] for k in self.gradient[name].keys()], dim=0))
             max_size = torch.max(max_size.expand_as(torch.Tensor(list(grads_list[-1].shape[1:]))), 

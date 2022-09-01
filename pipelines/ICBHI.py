@@ -1,6 +1,6 @@
 from turtle import update
-from apis.traintest import BaseTrainer, train_basic_epoch, test_basic_epoch
-from apis.contrastive import train_mixcon_epoch
+from apis.traintest import BaseTrainer,  train_basic_epoch, test_basic_epoch
+from apis.contrastive import ContrastTrainer, train_mixcon_epoch
 from apis.traintest import preprocessings as preps
 from utils.stats import ICBHI_Metrics, print_stats
 from utils.config_parser import ArgsParser
