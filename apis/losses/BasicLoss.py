@@ -44,3 +44,19 @@ class BCEWithLogitsLoss(torch.nn.BCEWithLogitsLoss):
             temptar[:,label] = 1.
             target = temptar
         return self.base_forward(input, target)
+
+class Normalized_MSELoss(torch.nn.MSELoss):
+    r"""A modified version of the MSELoss for non-constrastive self-supervised learning in BYOL, which is between the normalized predictions and target projections."""
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.base_forward = super().forward
+
+    def forward(
+        self, predictions: torch.Tensor, target_projections: torch.Tensor, **kwargs
+    ) -> torch.Tensor:
+        normalized_predictions = torch.nn.functional.normalize(predictions, dim=-1, p=2)
+        normalized_target = torch.nn.functional.normalize(
+            target_projections, dim=-1, p=2
+        )
+        return self.base_forward(normalized_predictions, normalized_target)
