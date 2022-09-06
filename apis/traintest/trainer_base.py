@@ -37,6 +37,7 @@ class BaseTrainer():
         )
         self.model = self.model.to(self.device)
         self.scheduler = None
+        self.preproc = None
     
     def build_dataset(self):
         raise NotImplementedError
@@ -46,10 +47,12 @@ class BaseTrainer():
     
     def build_model(self):
         model = models.build_model(self.model_configs)
-        if self.model_configs.data_parallel == True:
-            model = torch.nn.DataParallel(model)
         return model
-    
+
+    def parallel(self):
+        if self.model_configs.data_parallel == True:
+            self.model = torch.nn.DataParallel(self.model)    
+        
     def build_optimizer(self, trainables = None):
         if trainables is None:
             trainables = [p for p in self.model.parameters() if p.requires_grad]
@@ -75,6 +78,17 @@ class BaseTrainer():
             logger = BaseLogger(config=self.log_configs)
         return logger
     
+    def resume(self):
+        if self.model_configs.resume is not None and self.configs.model_configs.resume:
+            checkpoint = torch.load(self.model_configs.resume)
+            self.model.load_state_dict(checkpoint['state_dict'])
+            if self.configs.model_configs.resume_optimizer:
+                self.optimizer.load_state_dict(checkpoint['opts'])
+            else:
+                pass
+        else:
+            pass
+        
     def train(self):    
         for epoch in tqdm(range(self.configs.train.max_epochs)):
             train_stats = self.train_epoch(epoch)

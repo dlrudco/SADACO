@@ -20,6 +20,7 @@ class FGHandler(object):
                 self.layer_name = layer_name
             else:
                 self.layer_name = [layer_name]
+        self.layer_name = self.layer_name + ['module.'+l for l in self.layer_name]
         self.feature = {}
         self.gradient = {}
         for layer in self.layer_name:
@@ -72,11 +73,24 @@ class FGHandler(object):
         return self.forward(input)
 
     def get_features(self, name):
-        return torch.cat([self.feature[name][k] for k in self.feature[name].keys()], dim=0)
+        feats = [self.feature[name][k] for k in self.feature[name].keys()]
+        if feats == []:
+            return None
+        else:
+            return torch.cat(feats, dim=0)
 
     def get_grads(self, name):
-        return torch.cat([self.gradient[name][k] for k in self.gradient[name].keys()], dim=0)
+        grads = [self.gradient[name][k] for k in self.gradient[name].keys()]
+        if grads == []:
+            return None
+        else:
+            return torch.cat(grads, dim=0)
     
+    def reset_all(self):
+        for layer in self.layer_name:
+            self.feature[layer] = {}
+            self.gradient[layer] = {}
+            
     def get_all_features(self, c_reduce=None, hw_reduce=None):
         #<<CAUTION>> 
         # Assuming only BCHW for now! 
@@ -85,7 +99,10 @@ class FGHandler(object):
         max_size = torch.Tensor([0])
         min_size = torch.Tensor([torch.iinfo(torch.int64).max])
         for name in self.layer_name:
-            features_list.append(torch.cat([self.feature[name][k] for k in self.feature[name].keys()], dim=0))
+            feats = [self.feature[name][k] for k in self.feature[name].keys()]
+            if feats == []:
+                continue
+            features_list.append(torch.cat(feats, dim=0))
             max_size = torch.max(max_size.expand_as(torch.Tensor(list(features_list[-1].shape[1:]))), 
                                  torch.Tensor(list(features_list[-1].shape[1:])))
             min_size = torch.min(min_size.expand_as(torch.Tensor(list(features_list[-1].shape[1:]))), 
