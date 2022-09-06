@@ -11,8 +11,8 @@ from torch.cuda.amp import autocast,GradScaler
 
 from utils.stats import print_stats
 
-def move_device(data : Tuple, device : torch.device):
-    return (d.to(device) for d in data)
+def move_device(data : DefaultDict, device : torch.device):
+    return {k: d.to(device) for k,d in data.items() if hasattr(d, 'to')}
         
 def train_mixcon_epoch(
     model: nn.Module,
@@ -26,6 +26,8 @@ def train_mixcon_epoch(
     return_stats: bool = True,
     verbose: bool = False,
     preprocessing : Callable = None,
+    grad_thres = None,
+    update_interval = 1
 ) -> Optional[Union[DefaultDict, np.ndarray]]:
     model.train().to(device)
     train_losses = 0
@@ -33,12 +35,16 @@ def train_mixcon_epoch(
     contrast_losses = 0
     scaler = GradScaler()
     with tqdm(
-        train_loader,
+        enumerate(train_loader),
         unit="batch",
         desc=f"Epoch [{epoch}]",
         total=train_loader.__len__(),
+        leave=False
     ) as pbar:
-        for batch_info in pbar:
+        for bidx, batch_info in pbar:
+            if isinstance(batch_info, list):
+                taglist = ['input', 'label', 'label2', 'lam', 'phase']
+                batch_info = {k : v for k,v in zip(taglist, batch_info[:len(taglist)])}
             batch_info = move_device(batch_info, device)
             
             model.zero_grad()
@@ -50,29 +56,43 @@ def train_mixcon_epoch(
             [INPUT, LABEL, (opt)LABEL2, ...]
             '''
             if preprocessing is not None:
-                inputs = preprocessing(*batch_info)
+                preprocessing.to(device)
+                inputs = preprocessing(batch_info)
             else:
-                inputs = batch_info[0]
+                inputs = batch_info
             with autocast():
-                output, contrast_feats = model(inputs)
-                base_loss = base_criterion(output, *batch_info[1:])
-                contrast_loss = contrast_criterion(output, contrast_feats, *batch_info[1:])
+                output, contrast_feats = model(inputs['input'])
+                batch_info.update({'output':output, 'features' : contrast_feats})
+                base_loss = base_criterion(**batch_info)
+                contrast_loss = contrast_criterion(**batch_info)
                 loss = weights[0] * base_loss + weights[1] * contrast_loss
             scaler.scale(loss).backward()
-            scaler.step(optimizer)
-            scaler.update()
+            if (bidx+1) % update_interval == 0:
+                torch.nn.utils.clip_grad_norm_(model.parameters(), grad_thres)
+                scaler.step(optimizer)
+                scaler.update()
+                model.zero_grad()
+                optimizer.zero_grad(set_to_none=True)
+            else:
+                pass
 
             pbar.set_postfix(loss=loss.item())
 
-            train_loss += loss.item()
-            base_losses += base_loss.item()
-            contrast_losses += contrast_loss.item()
-        train_loss /= len(train_loader.dataset)
+            if base_criterion.reduction == 'mean':
+                train_losses += loss.item() * output.shape[0]
+                base_losses += base_loss.item() * output.shape[0]
+                contrast_losses += contrast_loss.item() * output.shape[0]
+            else:
+                train_losses += loss.item()
+                base_losses += base_loss.item()
+                contrast_losses += contrast_loss.item()
+            
+        train_losses /= len(train_loader.dataset)
         base_losses /= len(train_loader.dataset)
         contrast_losses /= len(train_loader.dataset)
         
         if verbose:
-            print(print_stats((train_loss, base_losses, contrast_losses),
+            print(print_stats((train_losses, base_losses, contrast_losses),
                               ('Total Loss', 'Cls Loss', 'Cont Loss')))
         if return_stats:
-            return {'Total Loss' : train_loss, 'Cls Loss' : base_losses, 'Cont Loss' : contrast_losses}
+            return {'Total Loss' : train_losses, 'Cls Loss' : base_losses, 'Cont Loss' : contrast_losses}

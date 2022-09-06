@@ -14,7 +14,7 @@ class SupervisedContrastiveLoss(nn.Module):
         self.base_temperature = base_temperature
         self.epsilon = torch.nextafter(torch.FloatTensor([0]), torch.FloatTensor([1]))[0]
 
-    def forward(self, output, features, labels=None, mask=None, breaker=False):
+    def forward(self, features, label=None, mask=None, breaker=False, **kwargs):
         """Compute loss for model. If both `labels` and `mask` are None,
         it degenerates to SimCLR unsupervised loss:
         https://arxiv.org/pdf/2002.05709.pdf
@@ -27,9 +27,12 @@ class SupervisedContrastiveLoss(nn.Module):
         Returns:
             A loss scalar.
         """
-
+        labels = torch.argmax(label, axis=-1)
         if len(features.shape) < 3:
-            raise ValueError('`features` needs to be [bsz, n_views, ...],'
+            if len(features.shape) == 2:
+                features = features.unsqueeze(1)
+            else:
+                raise ValueError('`features` needs to be [bsz, n_views, ...],'
                              'at least 3 dimensions are required')
         if len(features.shape) > 3:
             features = features.view(features.shape[0], features.shape[1], -1)
