@@ -24,7 +24,8 @@ class ICBHI_Basic_Trainer(BaseTrainer):
         self.valid_criterion = build_criterion(self.configs.train.criterion.name, mixup=False,
                                                **self.configs.train.criterion.params)
         self.preproc = preps.Preprocessor(
-                            [preps.stft2meldb(n_stft=self.train_dataset.n_stft, n_mels = self.train_dataset.num_mel)]
+                            [preps.stft2meldb(n_stft=self.train_dataset.n_stft, n_mels = self.train_dataset.num_mel, 
+                                              sample_rate=self.train_dataset.sample_rate)]
                             )
         self.scheduler = BaseScheduler(self.configs, self.optimizer, self.model, exp_id=self.logger.name, parallel=self.model_configs.data_parallel)
         self.evaluator = ICBHI_Metrics(num_classes=4, normal_class_label=0)
@@ -65,7 +66,8 @@ class ICBHI_Contrast_Trainer(ContrastTrainer):
     def __init__(self, configs):
         super().__init__(configs)
         self.preproc = preps.Preprocessor(
-                    [preps.stft2meldb(n_stft=self.train_dataset.n_stft, n_mels = self.train_dataset.num_mel)]
+                    [preps.stft2meldb(n_stft=self.train_dataset.n_stft, n_mels = self.train_dataset.num_mel, 
+                                      sample_rate=self.train_dataset.sample_rate)]
                     )
         self.attach_extractor()
         self.wrap_model()
@@ -139,4 +141,6 @@ def parse_configs():
 
 if __name__ == "__main__":
     configs = parse_configs()
+    from utils.misc import seed_everything
+    seed_everything(configs.seed)
     main(configs)

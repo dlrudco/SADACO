@@ -1,3 +1,4 @@
+from cProfile import label
 from time import sleep
 from typing import Callable, Optional, Union, Tuple, DefaultDict, List
 
@@ -41,6 +42,8 @@ def train_mixcon_epoch(
         total=train_loader.__len__(),
         leave=False
     ) as pbar:
+        contrast_buffer = []
+        label_buffers = {}
         for bidx, batch_info in pbar:
             if isinstance(batch_info, list):
                 taglist = ['input', 'label', 'label2', 'lam', 'phase']
@@ -62,23 +65,34 @@ def train_mixcon_epoch(
                 inputs = batch_info
             with autocast():
                 output, contrast_feats = model(inputs['input'])
-                batch_info.update({'output':output, 'features' : contrast_feats})
+                contrast_buffer.append(contrast_feats)
+                for k, v in batch_info.items():
+                    if 'label' in k:
+                        if k in label_buffers.keys():
+                            label_buffers[k].append(v)
+                        else:
+                            label_buffers[k] = [v]
+                batch_info.update({'output':output, 'features' : torch.cat(contrast_buffer)})
                 base_loss = base_criterion(**batch_info)
+                batch_info.update({k : torch.cat(v) for k,v in label_buffers.items()})
                 contrast_loss = contrast_criterion(**batch_info)
                 loss = weights[0] * base_loss + weights[1] * contrast_loss
             scaler.scale(loss).backward()
-            if (bidx+1) % update_interval == 0:
+            if (bidx+1) % update_interval == 0 or bidx == len(train_loader.dataset) - 1:
                 torch.nn.utils.clip_grad_norm_(model.parameters(), grad_thres)
                 scaler.step(optimizer)
                 scaler.update()
                 model.zero_grad()
                 optimizer.zero_grad(set_to_none=True)
+                contrast_buffer = []
+                for k in label_buffers.keys():
+                    label_buffers[k] = []
             else:
-                pass
+                contrast_buffer[-1] = contrast_buffer[-1].detach()
 
             pbar.set_postfix(loss=loss.item())
 
-            if base_criterion.reduction == 'mean':
+            if base_criterion.reduction in ['mean', 'none']:
                 train_losses += loss.item() * output.shape[0]
                 base_losses += base_loss.item() * output.shape[0]
                 contrast_losses += contrast_loss.item() * output.shape[0]

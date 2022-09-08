@@ -15,7 +15,11 @@ def seed_everything(seed: int) -> None:
 
     import numpy as np
     import torch
-
+    if seed is None:
+        seed = -1
+    else:
+        pass
+    
     if seed != -1:
         torch.manual_seed(seed)
         torch.cuda.manual_seed_all(seed)
