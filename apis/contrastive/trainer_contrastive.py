@@ -78,8 +78,10 @@ class ContrastTrainer(BaseTrainer):
                 break
             #TODO make mapper controllable with custom model
             self.model._mapper = torch.nn.Sequential(
-                torch.nn.LayerNorm(shape),
-                torch.nn.Linear(shape, 128),
+                torch.nn.Linear(shape, (shape+128)//2),
+                torch.nn.ReLU(),
+                NormLayer(),
+                torch.nn.Linear((shape+128)//2, 128),
                 NormLayer()
             )
             if self.configs.train.mapper.classify:

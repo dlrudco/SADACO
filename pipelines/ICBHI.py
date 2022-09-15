@@ -7,7 +7,6 @@ from utils.config_parser import ArgsParser
 from pipelines.build_modules import build_criterion
 from pipelines.scheduler import BaseScheduler
 
-import dataman
 from dataman.icbhi.dummy import RespiDatasetSTFT
 
 import torch
@@ -18,36 +17,16 @@ class ICBHI_Basic_Trainer(BaseTrainer):
     def __init__(self, configs):
         super().__init__(configs)
         self.resume()
-        self.train_criterion = build_criterion(self.configs.train.criterion.name, 
-                                        mixup=self.configs.train.criterion.loss_mixup,
-                                        **self.configs.train.criterion.params)
-        self.valid_criterion = build_criterion(self.configs.train.criterion.name, mixup=False,
-                                               **self.configs.train.criterion.params)
+        
         self.preproc = preps.Preprocessor(
-                            [preps.stft2meldb(n_stft=self.train_dataset.n_stft, n_mels = self.train_dataset.num_mel)]
+                            [preps.stft2meldb(n_stft=self.train_dataset.n_stft, n_mels = self.train_dataset.num_mel, 
+                                              sample_rate=self.train_dataset.sample_rate)]
                             )
-        self.scheduler = BaseScheduler(self.configs, self.optimizer, self.model, exp_id=self.logger.name, parallel=self.model_configs.data_parallel)
         self.evaluator = ICBHI_Metrics(num_classes=4, normal_class_label=0)
         
     def build_dataset(self):
         self.train_dataset = RespiDatasetSTFT(split='train', **self.data_configs.train)
         self.val_dataset = RespiDatasetSTFT(split='val', **self.data_configs.val)
-    
-    def build_dataloader(self):
-        if self.configs.data.train_dataloader.sampler is not None:
-            train_sampler = getattr(dataman, self.configs.data.train_dataloader.sampler.name)(
-                                    self.train_dataset, **self.configs.data.train_dataloader.sampler.params)
-        else:
-            train_sampler = None
-        
-        if train_sampler is not None:
-            for _key in ['shuffle', 'batch_size', 'drop_last', 'sampler']:
-                try:
-                    self.configs.data.train_dataloader.params.pop(_key)
-                except KeyError:
-                    pass
-        self.train_loader = DataLoader(self.train_dataset, batch_sampler=train_sampler, **self.configs.data.train_dataloader.params)
-        self.val_loader = DataLoader(self.val_dataset, **self.configs.data.val_dataloader.params)
     
     def train_epoch(self, epoch):
         train_stats = train_basic_epoch(model=self.model, device=self.device, train_loader=self.train_loader, 
@@ -65,7 +44,8 @@ class ICBHI_Contrast_Trainer(ContrastTrainer):
     def __init__(self, configs):
         super().__init__(configs)
         self.preproc = preps.Preprocessor(
-                    [preps.stft2meldb(n_stft=self.train_dataset.n_stft, n_mels = self.train_dataset.num_mel)]
+                    [preps.stft2meldb(n_stft=self.train_dataset.n_stft, n_mels = self.train_dataset.num_mel, 
+                                      sample_rate=self.train_dataset.sample_rate)]
                     )
         self.attach_extractor()
         self.wrap_model()
@@ -83,25 +63,10 @@ class ICBHI_Contrast_Trainer(ContrastTrainer):
         self.scheduler = BaseScheduler(self.configs, self.optimizer, self.model, exp_id=self.logger.name, parallel=self.model_configs.data_parallel)
         self.evaluator = ICBHI_Metrics(num_classes=4, normal_class_label=0)
         
+        
     def build_dataset(self):
         self.train_dataset = RespiDatasetSTFT(split='train', **self.data_configs.train)
         self.val_dataset = RespiDatasetSTFT(split='val', **self.data_configs.val)
-    
-    def build_dataloader(self):
-        if self.configs.data.train_dataloader.sampler is not None:
-            train_sampler = getattr(dataman, self.configs.data.train_dataloader.sampler.name)(
-                                    self.train_dataset, **self.configs.data.train_dataloader.sampler.params)
-        else:
-            train_sampler = None
-        
-        if train_sampler is not None:
-            for _key in ['shuffle', 'batch_size', 'drop_last', 'sampler']:
-                try:
-                    self.configs.data.train_dataloader.params.pop(_key)
-                except KeyError:
-                    pass
-        self.train_loader = DataLoader(self.train_dataset, batch_sampler=train_sampler, **self.configs.data.train_dataloader.params)
-        self.val_loader = DataLoader(self.val_dataset, **self.configs.data.val_dataloader.params)
     
     def train_epoch(self, epoch):
         train_stats = train_mixcon_epoch(model=self.model, device=self.device, train_loader=self.train_loader, 
@@ -124,7 +89,10 @@ def main(configs):
         trainer = ICBHI_Basic_Trainer(configs)
     else:
         raise ValueError("Method is not on the available list of [basic, contrastive]")
-    trainer.train()
+    if configs.fold is None:
+        trainer.train()
+    else:
+        trainer.train_kfold(configs.fold)
     # results = trainer.test(return_stats=True)
     # print(print_stats(results))
 
@@ -134,9 +102,13 @@ def parse_configs():
     # and override settings by manually giving the arguments
     # Currently, overriding only the top-level arguments are available
     parser.add_argument("--mixup", action='store_true')
+    parser.add_argument("--fold", default=None, type=int)
+    parser.add_argument("--seed", default=None, type=int)
     args = parser.get_args()
     return args
 
 if __name__ == "__main__":
     configs = parse_configs()
+    from utils.misc import seed_everything
+    seed_everything(configs.seed)
     main(configs)

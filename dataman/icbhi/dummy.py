@@ -46,8 +46,8 @@ class RespiDatasetSTFT(Dataset):
 
         
         
-        self.fm = torchaudio.transforms.FrequencyMasking(int(0.2*self.n_stft))
-        self.tm = torchaudio.transforms.TimeMasking(int(0.2*self.fixed_length))
+        self.fm = torchaudio.transforms.FrequencyMasking(int(0.1*self.n_stft))
+        self.tm = torchaudio.transforms.TimeMasking(int(0.1*self.fixed_length))
         self.transforms = torchvision.transforms.Compose([
             torchvision.transforms.RandomCrop((self.n_stft, self.fixed_length))
             ])

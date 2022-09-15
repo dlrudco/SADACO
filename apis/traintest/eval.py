@@ -52,7 +52,7 @@ def test_basic_epoch(
             loss = criterion(**batch_info).mean()
             if torch.isnan(loss):
                 breakpoint()
-            if criterion.reduction == 'mean' :
+            if criterion.reduction in ['mean', 'none'] :
                 test_loss += loss.item() * output.shape[0]
             else:
                 test_loss += loss.item()

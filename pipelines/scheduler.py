@@ -110,6 +110,7 @@ class BaseScheduler():
             if is_best:
                 # print("\nSave new best model\n")
                 self.best_score = valid_stats[self.metric]
+                self.best_all_stats = {**valid_stats}
                 shutil.copyfile(filename, os.path.join(self.configs.output_dir, self.exp_id, 'checkpoint_best.pth'))
         
         self.epoch += 1

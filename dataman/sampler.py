@@ -12,13 +12,9 @@ class BalancedBatchSampler(BatchSampler):
     """
 
     def __init__(self, dataset, n_classes, n_samples):
-        loader = DataLoader(dataset, num_workers=32)
         self.labels_list = []
-        for batch_info in tqdm(loader):
-            if isinstance(batch_info, list):
-                taglist = ['input', 'label1', 'label2', 'lam', 'phase']
-                batch_info = {k : v for k,v in zip(taglist, batch_info[:len(taglist)])}
-            self.labels_list.append(torch.argmax(batch_info['label1'].squeeze(), axis=-1))
+        for label in dataset.labels:
+            self.labels_list.append(torch.argmax(torch.tensor(label).squeeze(), axis=-1))
         self.labels = torch.LongTensor(self.labels_list)
         self.labels_set = list(set(self.labels.numpy()))
         self.label_to_indices = {label: np.where(self.labels.numpy() == label)[0]

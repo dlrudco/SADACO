@@ -63,7 +63,7 @@ def train_basic_epoch(
                     print(f'NaN mag!!! after model')
                 batch_info.update({'output':output})
                 loss = criterion(**batch_info)
-            if criterion.reduction == 'mean':
+            if criterion.reduction in ['mean', 'none']:
                 scaler.scale(loss).backward()
             else:
                 scaler.scale(loss).backward()

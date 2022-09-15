@@ -1,7 +1,6 @@
 from re import L
 import torch
 from dataman.loader import _build_dataloader
-
 import apis.losses as LF
 
 def build_optimizer(model, train_configs, trainables = None):
