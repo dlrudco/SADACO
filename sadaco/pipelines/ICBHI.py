@@ -1,13 +1,13 @@
 from turtle import update
-from apis.traintest import BaseTrainer,  train_basic_epoch, test_basic_epoch
-from apis.contrastive import ContrastTrainer, train_mixcon_epoch
-from apis.traintest import preprocessings as preps
-from utils.stats import ICBHI_Metrics, print_stats
-from utils.config_parser import ArgsParser
-from pipelines.build_modules import build_criterion
-from pipelines.scheduler import BaseScheduler
+from sadaco.apis.traintest import BaseTrainer,  train_basic_epoch, test_basic_epoch
+from sadaco.apis.contrastive import ContrastTrainer, train_mixcon_epoch
+from sadaco.apis.traintest import preprocessings as preps
+from sadaco.utils.stats import ICBHI_Metrics, print_stats
+from sadaco.utils.config_parser import ArgsParser
+from build_modules import build_criterion
+from scheduler import BaseScheduler
 
-from dataman.icbhi.dummy import RespiDatasetSTFT
+from sadaco.dataman.icbhi.dummy import RespiDatasetSTFT
 
 import torch
 # torch.autograd.set_detect_anomaly(True)
@@ -23,6 +23,7 @@ class ICBHI_Basic_Trainer(BaseTrainer):
                                               sample_rate=self.train_dataset.sample_rate)]
                             )
         self.evaluator = ICBHI_Metrics(num_classes=4, normal_class_label=0)
+        breakpoint()
         
     def build_dataset(self):
         self.train_dataset = RespiDatasetSTFT(split='train', **self.data_configs.train)
@@ -109,6 +110,6 @@ def parse_configs():
 
 if __name__ == "__main__":
     configs = parse_configs()
-    from utils.misc import seed_everything
+    from sadaco.utils.misc import seed_everything
     seed_everything(configs.seed)
     main(configs)

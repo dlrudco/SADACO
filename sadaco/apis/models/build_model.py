@@ -1,7 +1,7 @@
-from apis.models._ast import ASTModel
-from apis.models.resnet import ResidualNet
+from sadaco.apis.models._ast import ASTModel
+from sadaco.apis.models.resnet import ResidualNet
 # from apis.models.vgg import VGG
-from apis.models.custom import custom_model
+from sadaco.apis.models.custom import custom_model
 from .cnn_moe import *
 from .vgg import VGGish
 

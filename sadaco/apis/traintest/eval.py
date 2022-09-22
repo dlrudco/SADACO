@@ -7,7 +7,7 @@ import torch.nn as nn
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
-from utils.stats import ICBHI_Metrics, print_stats
+from sadaco.utils.stats import ICBHI_Metrics, print_stats
 from torch.cuda.amp import autocast,GradScaler
 
 def move_device(data : DefaultDict, device : torch.device):

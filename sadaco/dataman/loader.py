@@ -1,10 +1,10 @@
 import torch
-from dataman import sampler
+from . import sampler as ss
 from torch.utils.data import DataLoader
 
 def _build_dataloader(dataset, train_configs, data_configs, split):
     if 'sampler' in train_configs.data.dataloader.params.__dict__.keys() and split =='train':
-        sampler = getattr(sampler, train_configs.data.sampler.name)(dataset, **train_configs.data.sampler.params)
+        sampler = getattr(ss, train_configs.data.sampler.name)(dataset, **train_configs.data.sampler.params)
         assert sampler.batch_size == train_configs.data.dataloader.batch_size, 'sampler parameters should be set to match dataloader.batch_size!'
     else:
         sampler = None

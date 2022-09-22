@@ -4,19 +4,19 @@ from tqdm import tqdm
 
 import torch
 
-from utils.config_parser import parse_config_obj
+from sadaco.utils.config_parser import parse_config_obj
 import torch
 
-from apis import models
-from utils.stats import print_stats
+from sadaco.apis import models
+from sadaco.utils.stats import print_stats
 from torch.utils.data import DataLoader
-from pipelines.scheduler import BaseScheduler
-import dataman
+from sadaco.pipelines.scheduler import BaseScheduler
+import sadaco.dataman as dataman
 
     
-from dataman.loader import _build_dataloader
+from sadaco.dataman.loader import _build_dataloader
 
-import apis.losses as LF
+import sadaco.apis.losses as LF
 
 class BaseTrainer():
     def __init__(self, train_configs):
@@ -57,6 +57,7 @@ class BaseTrainer():
                                                **self.configs.train.criterion.params)
         self.scheduler = BaseScheduler(self.configs, self.optimizer, self.model, exp_id=self.logger.name, parallel=self.model_configs.data_parallel)
         self.preproc = None
+        self._progress = -1
     
     def build_dataset(self):
         raise NotImplementedError
@@ -142,18 +143,21 @@ class BaseTrainer():
         
     def train(self):    
         for epoch in tqdm(range(self.configs.train.max_epochs)):
+            self._progress = epoch
             train_stats = self.train_epoch(epoch)
             valid_stats = self.validate_epoch(epoch)
             if self.scheduler is not None:
                 self.scheduler.step(train_stats, valid_stats)
                 valid_stats.update({f'Best/{k}' : v for k,v in self.scheduler.best_all_stats.items()})
             self.logger.log({**train_stats, **valid_stats})
+        return 0
     
     def train_kfold(self, k):
         self.log_configs['K-Fold'] = k
         for i in tqdm(range(k)):
             self.prepare_kfold(i, k)
             for epoch in tqdm(range(self.configs.train.max_epochs), leave=False):
+                self._progress = epoch
                 train_stats = self.train_epoch(epoch)
                 valid_stats = self.validate_epoch(epoch)
                 if self.scheduler is not None:
@@ -163,6 +167,7 @@ class BaseTrainer():
             self.reset_trainer()
         self.build_dataset()
         self.build_dataloader()
+        return 0
         
     def prepare_kfold(self, i, k):
         import random
@@ -212,6 +217,7 @@ class BaseTrainer():
         print(print_stats(valid_stats))
         if return_stats:
             return valid_stats
+        return 0
     
     def test(self, **kwargs):
         self.validate(**kwargs)

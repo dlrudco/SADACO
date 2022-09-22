@@ -1,4 +1,4 @@
-from utils.config_parser import parse_config_obj
+from sadaco.utils.config_parser import parse_config_obj
 import torch
 import torch.nn as nn
 

@@ -10,7 +10,7 @@ from tqdm import tqdm
 
 from torch.cuda.amp import autocast,GradScaler
 
-from utils.stats import print_stats
+from sadaco.utils.stats import print_stats
 
 def move_device(data : DefaultDict, device : torch.device):
     return {k: d.to(device) for k,d in data.items() if hasattr(d, 'to')}
