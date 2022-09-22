@@ -4,6 +4,7 @@
 </h1> 
 
 Welcome to SADACO repository! Where spooky chest sounds are brought to life.
+
 !!! Web Server for deploying sadaco service is available at [SADACO-WEB](https://github.com/dlrudco/SADACO_WEB) !!!
 
 We currently provide basic train-test-explain pipelines for [ICBHI](https://bhichallenge.med.auth.gr/ICBHI_2017_Challenge), [Fraiwan](https://data.mendeley.com/datasets/jwyy9np4gv/3), [PASCAL-Heartsound](http://www.peterjbentley.com/heartchallenge/) and bunch of other NN APIs.
@@ -13,12 +14,30 @@ We currently provide basic train-test-explain pipelines for [ICBHI](https://bhic
 
 **** Detailed READMEs and Documentations are also coming ****
 
+## Installation
 
 RUN
 <pre><code>python setup.py develop</code></pre>
 or
 <pre><code>python -m pip install -e .</code></pre>
 ------
+
+## Getting Started
+
+*Currently, we provide the training and validating code for only the ICBHI dataset.*
+First move on to the pipelines folder and,
+RUN
+<pre><code>python ICBHI.py --conf-file configs/train_basic.yml</code></pre>
+
+This will start running ResNet50 training on ICBHI official split dataset with Banlanced Batch Sampler.
+
+You can also try different settings by running 
+<pre><code>python ICBHI.py --conf-file configs/train_contrastive.yml</code></pre>
+
+or changing values in the yaml files, creating new configuration that suits your intention.
+
+------
+
 
 ## Contributors ✨
 
