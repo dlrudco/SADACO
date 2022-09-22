@@ -3,10 +3,6 @@ description: Documentation of our sadaco repository
 
 theme: null
 
-domain: dlrudco.github.io       # if you want to force HTTPS, specify the domain without the http at the start, e.g. example.com
-url: https://dlrudco.github.io  # the base hostname and protocol for your site, e.g. http://example.com
-baseurl: /docs/      # place folder name if the site is served in a subfolder
-
 # debug:
 #   compress: true
 #   dist: false
