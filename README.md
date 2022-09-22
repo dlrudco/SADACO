@@ -4,6 +4,7 @@
 </h1> 
 
 Welcome to SADACO repository! Where spooky chest sounds are brought to life.
+!!! Web Server for deploying sadaco service is available at [SADACO-WEB](https://github.com/dlrudco/SADACO_WEB) !!!
 
 We currently provide basic train-test-explain pipelines for [ICBHI](https://bhichallenge.med.auth.gr/ICBHI_2017_Challenge), [Fraiwan](https://data.mendeley.com/datasets/jwyy9np4gv/3), [PASCAL-Heartsound](http://www.peterjbentley.com/heartchallenge/) and bunch of other NN APIs.
 
@@ -15,7 +16,8 @@ We currently provide basic train-test-explain pipelines for [ICBHI](https://bhic
 
 RUN
 <pre><code>python setup.py develop</code></pre>
-
+or
+<pre><code>python -m pip install -e .</code></pre>
 ------
 
 ## Contributors ✨
