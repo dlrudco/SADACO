@@ -12,17 +12,18 @@ We currently provide basic train-test-explain pipelines for [ICBHI](https://bhic
 
 **** We are still under development process. Let us know if there's any question or suggestion. We'll try to make it happen :) ****
 
-**** Detailed READMEs and Documentations are also coming ****
+**** READMEs and Documentations are also getting in shape ****
 
-## Installation
-
+# Installation
 RUN
 <pre><code>python setup.py develop</code></pre>
 or
 <pre><code>python -m pip install -e .</code></pre>
-------
 
-## Getting Started
+We are now on a development phase. So we recommend installing in a development mode so changes on the source codes can be immediately reflected to the package.
+
+
+# Getting Started
 
 *Currently, we provide the training and validating code for only the ICBHI dataset.*
 First move on to the pipelines folder and,
