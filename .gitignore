@@ -1,13 +1,12 @@
 *.npy
 *.pth
 *.pyc
-*.txt
 *.json
 .vscode/*
 *wandb*
 *.log
 sadaco.egg-info/*
-demo/demo5_interactive/*
-demo/demo6_CNN-MoE/*
-demo/demo7_UNO/*
+sadaco/demo/demo5_interactive/*
+sadaco/demo/demo6_CNN-MoE/*
+sadaco/demo/demo7_UNO/*
 sadaco/pipelines/configs/*
