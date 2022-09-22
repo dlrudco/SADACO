@@ -1,0 +1,4 @@
+model_name: !!str cnn_moe
+from_checkpoint:
+num_classes: 4 
+num_experts: 10
