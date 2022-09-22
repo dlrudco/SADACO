@@ -10,4 +10,4 @@ class GradcamExplainer(BaseExplainer):
         super().__init__(model, layers)
         
     def forward(self, inputs):
-        
+        pass

@@ -4,8 +4,8 @@ from sadaco.apis.contrastive import ContrastTrainer, train_mixcon_epoch
 from sadaco.apis.traintest import preprocessings as preps
 from sadaco.utils.stats import ICBHI_Metrics, print_stats
 from sadaco.utils.config_parser import ArgsParser
-from build_modules import build_criterion
-from scheduler import BaseScheduler
+from sadaco.pipelines.build_modules import build_criterion
+from sadaco.pipelines.scheduler import BaseScheduler
 
 from sadaco.dataman.icbhi.dummy import RespiDatasetSTFT
 

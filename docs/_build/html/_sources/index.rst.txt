@@ -12,7 +12,8 @@ Welcome to SADACO's documentation!
 
    SADACO/index
    SADACO_WEB/index
-   
+   source/index
+
 Indices and tables
 ==================
 
