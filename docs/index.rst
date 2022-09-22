@@ -10,8 +10,8 @@ Welcome to SADACO's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-
-
+   SADACO/index
+   SADACO_WEB/index
 Indices and tables
 ==================
 
