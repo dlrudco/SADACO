@@ -1,0 +1,49 @@
+model_name : custom
+layers :
+  conv1 :
+    name : Conv2d
+    params:
+      in_channels: 3
+      out_channels : 10
+      kernel_size : !!python/tuple [3,3]
+      padding : 1
+  relu1 :
+    name : ReLU
+    params:
+      inplace: !!bool False
+  conv2 :
+    name : Conv2d
+    params:
+      in_channels: 10
+      out_channels : 10
+      kernel_size : !!python/tuple [3,3]
+      padding : 1
+  relu2 :
+    name : ReLU
+    params:
+      inplace: !!bool False
+  conv3 :
+    name : Conv2d
+    params:
+      in_channels: 10
+      out_channels : 10
+      kernel_size : !!python/tuple [3,3]
+      padding : 1
+  relu3 :
+    name : ReLU
+    params:
+      inplace: !!bool False
+  pool :
+    name : AdaptiveAvgPool2d
+    params :
+      output_size : !!python/tuple [10, 10]
+  flatten :
+    name : Flatten
+    params :
+      start_dim : 1
+      end_dim : -1
+  fc :
+    name : Linear
+    params:
+      in_features : 1000
+      out_features : 10

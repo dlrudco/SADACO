@@ -1,0 +1,35 @@
+title: SADACO document v0.2
+description: Documentation of our sadaco repository
+
+theme: null
+
+domain: dlrudco.github.io       # if you want to force HTTPS, specify the domain without the http at the start, e.g. example.com
+url: https://dlrudco.github.io  # the base hostname and protocol for your site, e.g. http://example.com
+baseurl: /docs/      # place folder name if the site is served in a subfolder
+
+# debug:
+#   compress: true
+#   dist: false
+#   shortcodes: true
+
+readme_index:
+  with_frontmatter: true
+
+plugins:
+  - jemoji
+  - jekyll-avatar
+  - jekyll-mentions
+
+exclude:
+  - Makefile
+  - CNAME
+  - LICENSE
+  - update.sh
+  - Gemfile
+  - Gemfile.lock
+  - requirements.txt
+  - node_modules
+  - package.json
+  - package-lock.json
+  - webpack.config.js
+  - jekyll-rtd-theme.gemspec

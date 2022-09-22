@@ -1,0 +1,10 @@
+name : ResidualNet
+params:
+  network_type : 'Sound'
+  depth : 50
+  num_classes : 4
+  att_type : null
+  in_channel : 1
+  pretrained : !!bool True
+model_checkpoint : '/data/kclee/IDX/sadaco/demo/demo_materials/demo_ckp.pth'
+

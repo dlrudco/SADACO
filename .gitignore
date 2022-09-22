@@ -1,6 +1,4 @@
 *.npy
-*.yml
-*.yaml
 *.pth
 *.pyc
 *.txt
@@ -12,3 +10,4 @@ sadaco.egg-info/*
 demo/demo5_interactive/*
 demo/demo6_CNN-MoE/*
 demo/demo7_UNO/*
+sadaco/pipelines/configs/*

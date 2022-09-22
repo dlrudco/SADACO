@@ -1,0 +1,6 @@
+learning_rate : 0.01
+explainer:
+  gradcam:
+    layer_name: ['layer4.2.conv3', 'layer3.2.conv3', 'layer2.2.conv3', 'layer1.2.conv3', 'layer4.1.conv3', 'layer3.1.conv3']
+  ig:
+    ig_steps : 20
