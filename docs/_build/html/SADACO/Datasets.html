@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Datasets &mdash; SADACO v0.1 documentation</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API documentation" href="modules/index.html" />
+    <link rel="prev" title="SADACO" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> SADACO
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">SADACO</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Datasets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#icbhi-2017-challenge-dataset-link">ICBHI 2017 Challenge dataset [Link]</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dataset-specification">Dataset Specification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#preparation">Preparation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#fraiwan-dataset-link">Fraiwan dataset [<span class="xref myst">Link</span>]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pascal-heartsound-dataset-link">PASCAL Heartsound dataset [<span class="xref myst">Link</span>]</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/index.html">API documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../SADACO_WEB/index.html">SADACO_WEB</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SADACO</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">SADACO</a> &raquo;</li>
+      <li>Datasets</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/SADACO/Datasets.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="datasets">
+<h1>Datasets<a class="headerlink" href="#datasets" title="Permalink to this headline"></a></h1>
+<p>Our sadaco framework currently supports the datasets below. Here, we provide information on how to download and prepare each dataset.</p>
+<div class="section" id="icbhi-2017-challenge-dataset-link">
+<h2>ICBHI 2017 Challenge dataset [<a class="reference external" href="https://bhichallenge.med.auth.gr/ICBHI_2017_Challenge">Link</a>]<a class="headerlink" href="#icbhi-2017-challenge-dataset-link" title="Permalink to this headline"></a></h2>
+<p>ICBHI dataset is an audio dataset containing audio samples, collected independently by two research teams in two different countries, over several years. Most of the database consists of audio samples recorded by the School of Health Sciences, University of Aveiro (ESSUA) research team at the Respiratory Research and Rehabilitation Laboratory (Lab3R), ESSUA and at Hospital Infante D. Pedro, Aveiro, Portugal. The second research team, from the Aristotle University of Thessaloniki (AUTH) and the University of Coimbra (UC), acquired respiratory sounds at the Papanikolaou General Hospital, Thessaloniki and at the General Hospital of Imathia (Health Unit of Naousa), Greece.</p>
+<div class="section" id="dataset-specification">
+<h3>Dataset Specification<a class="headerlink" href="#dataset-specification" title="Permalink to this headline"></a></h3>
+<div class="section" id="classes">
+<h4>Classes<a class="headerlink" href="#classes" title="Permalink to this headline"></a></h4>
+<ul class="simple">
+<li><p>Normal : Healthy breathing sound without any other symptoms.</p></li>
+<li><p>Crackle : Crackle sound is a series of short, explosive sounds. They can also sound like bubbling, rattling, or clicking. You’re more likely to have them when you breathe in, but they can happen when you breathe out, too. <br><br>You can have fine crackles, which are shorter and higher in pitch, or coarse crackles, which are lower. Either can be a sign that there’s fluid in your air sacs. <br><br>They can be caused by:</p>
+<ul>
+<li><p>Pneumonia</p></li>
+<li><p>Heart disease</p></li>
+<li><p>Pulmonary fibrosis</p></li>
+<li><p>Cystic fibrosis</p></li>
+<li><p>COPD</p></li>
+<li><p>Lung infections, like bronchitis</p></li>
+<li><p>Asbestosis, a lung disease caused by breathing in asbestos</p></li>
+<li><p>Pericarditis, an infection of the sac that covers your heart</p></li>
+</ul>
+</li>
+<li><p>Wheeze : This high-pitched whistling noise can happen when you’re breathing in or out. It’s usually a sign that something is making your airways narrow or keeping air from flowing through them. <br><br> Two of the most common causes of wheezing are lung diseases called chronic obstructive pulmonary disease (COPD) and asthma. But many other issues can make you wheeze, too, including:</p>
+<ul>
+<li><p>Allergies</p></li>
+<li><p>Bronchitis or bronchiolitis</p></li>
+<li><p>Emphysema</p></li>
+<li><p>Epiglottitis (swelling of the top flap of your windpipe)</p></li>
+<li><p>Gastroesophageal reflux disease (GERD)</p></li>
+<li><p>Heart failure</p></li>
+<li><p>Lung cancer</p></li>
+<li><p>Sleep apnea</p></li>
+<li><p>Pneumonia</p></li>
+<li><p>Respiratory syncytial virus (RSV)</p></li>
+<li><p>Vocal cord problems</p></li>
+<li><p>An object stuck in your voice box or windpipe</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="b-data-count-and-duration-b">
+<h4><b>Data Count and Duration</b><a class="headerlink" href="#b-data-count-and-duration-b" title="Permalink to this headline"></a></h4>
+<p>The database consists of a total of 5.5 hours of recordings containing 6898 respiratory cycles, of which 1864 contain crackles, 886 contain wheezes, and 506 contain both crackles and wheezes, in 920 annotated audio samples from 126 subjects.</p>
+</div>
+</div>
+<div class="section" id="preparation">
+<h3>Preparation<a class="headerlink" href="#preparation" title="Permalink to this headline"></a></h3>
+<div class="section" id="b-download-b">
+<h4><b>Download</b><a class="headerlink" href="#b-download-b" title="Permalink to this headline"></a></h4>
+<ol class="arabic simple">
+<li><p>First download the data from the official download <a class="reference external" href="https://bhichallenge.med.auth.gr/sites/default/files/ICBHI_final_database/ICBHI_final_database.zip">link</a></p></li>
+<li><p>Unzip the file under desired <span style="color:purple"><b>$DATA_PATH</b></span>.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> File Hierarchy:
+ $DATA_PATH
+ └
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="section" id="fraiwan-dataset-link">
+<h2>Fraiwan dataset [<span class="xref myst">Link</span>]<a class="headerlink" href="#fraiwan-dataset-link" title="Permalink to this headline"></a></h2>
+</div>
+<div class="section" id="pascal-heartsound-dataset-link">
+<h2>PASCAL Heartsound dataset [<span class="xref myst">Link</span>]<a class="headerlink" href="#pascal-heartsound-dataset-link" title="Permalink to this headline"></a></h2>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="SADACO" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="modules/index.html" class="btn btn-neutral float-right" title="API documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Kyungchae Lee.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
