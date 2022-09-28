@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sadaco.utils package &mdash; SADACO 0.1 documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> SADACO
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">sadaco.utils package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-sadaco.utils.config_parser">sadaco.utils.config_parser module</a></li>
+<li><a class="reference internal" href="#module-sadaco.utils.misc">sadaco.utils.misc module</a></li>
+<li><a class="reference internal" href="#module-sadaco.utils.stats">sadaco.utils.stats module</a></li>
+<li><a class="reference internal" href="#module-sadaco.utils.web_utils">sadaco.utils.web_utils module</a></li>
+<li><a class="reference internal" href="#module-sadaco.utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SADACO</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>sadaco.utils package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/sadaco.utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="sadaco-utils-package">
+<h1>sadaco.utils package<a class="headerlink" href="#sadaco-utils-package" title="Permalink to this headline"></a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
+</div>
+<div class="section" id="module-sadaco.utils.config_parser">
+<span id="sadaco-utils-config-parser-module"></span><h2>sadaco.utils.config_parser module<a class="headerlink" href="#module-sadaco.utils.config_parser" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt id="sadaco.utils.config_parser.join">
+<code class="sig-prename descclassname">sadaco.utils.config_parser.</code><code class="sig-name descname">join</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">loader</span></em>, <em class="sig-param"><span class="n">node</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/utils/config_parser.html#join"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.utils.config_parser.join" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="sadaco.utils.config_parser.parse_config_dict">
+<code class="sig-prename descclassname">sadaco.utils.config_parser.</code><code class="sig-name descname">parse_config_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">yml_path</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">arg_type</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'data'</span></em><span class="sig-paren">)</span> &#x2192; Dict<a class="reference internal" href="_modules/sadaco/utils/config_parser.html#parse_config_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.utils.config_parser.parse_config_dict" title="Permalink to this definition"></a></dt>
+<dd><p>Take a yaml file and return the corresponding arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>arg_type</strong> (<em>str</em>) – The type of arguments to return. One of “data”, “frontend”, “model”, “train”. (default: “data”)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><em>Dict</em> – The corresponding arguments in dictionary form.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="sadaco.utils.config_parser.parse_config_obj">
+<code class="sig-prename descclassname">sadaco.utils.config_parser.</code><code class="sig-name descname">parse_config_obj</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">yml_path</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/utils/config_parser.html#parse_config_obj"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.utils.config_parser.parse_config_obj" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="sadaco.utils.config_parser.ArgsParser">
+<em class="property">class </em><code class="sig-prename descclassname">sadaco.utils.config_parser.</code><code class="sig-name descname">ArgsParser</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">argv</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/utils/config_parser.html#ArgsParser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.utils.config_parser.ArgsParser" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="sadaco.utils.config_parser.ArgsParser.add_argument">
+<code class="sig-name descname">add_argument</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">opts</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwopts</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/utils/config_parser.html#ArgsParser.add_argument"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.utils.config_parser.ArgsParser.add_argument" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.utils.config_parser.ArgsParser.get_args">
+<code class="sig-name descname">get_args</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/utils/config_parser.html#ArgsParser.get_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.utils.config_parser.ArgsParser.get_args" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-sadaco.utils.misc">
+<span id="sadaco-utils-misc-module"></span><h2>sadaco.utils.misc module<a class="headerlink" href="#module-sadaco.utils.misc" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt id="sadaco.utils.misc.seed_everything">
+<code class="sig-prename descclassname">sadaco.utils.misc.</code><code class="sig-name descname">seed_everything</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">seed</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/sadaco/utils/misc.html#seed_everything"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.utils.misc.seed_everything" title="Permalink to this definition"></a></dt>
+<dd><p>Seed everything for reproducibility.</p>
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">`os`</code></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">`random`</code></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">`numpy`</code></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">`torch`</code></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="sadaco.utils.misc.min_max_scale">
+<code class="sig-prename descclassname">sadaco.utils.misc.</code><code class="sig-name descname">min_max_scale</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">samples</span></em>, <em class="sig-param"><span class="n">min</span></em>, <em class="sig-param"><span class="n">max</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/utils/misc.html#min_max_scale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.utils.misc.min_max_scale" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-sadaco.utils.stats">
+<span id="sadaco-utils-stats-module"></span><h2>sadaco.utils.stats module<a class="headerlink" href="#module-sadaco.utils.stats" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt id="sadaco.utils.stats.ICBHI_Metrics">
+<em class="property">class </em><code class="sig-prename descclassname">sadaco.utils.stats.</code><code class="sig-name descname">ICBHI_Metrics</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_classes</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">4</span></em>, <em class="sig-param"><span class="n">normal_class_label</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">mixup</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">mini_batch</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/utils/stats.html#ICBHI_Metrics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.utils.stats.ICBHI_Metrics" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="sadaco.utils.stats.ICBHI_Metrics.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_classes</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">4</span></em>, <em class="sig-param"><span class="n">normal_class_label</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">mixup</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">mini_batch</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/sadaco/utils/stats.html#ICBHI_Metrics.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.utils.stats.ICBHI_Metrics.__init__" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluation metrics for ICBHI challenge.</p>
+<dl>
+<dt>Definitions:</dt><dd><p>Sensitivity: The ability of the classifier to identify audio with the disease correctly.
+Specificity: The ability of the classifier to identify audio without the disease correctly.
+ICBHI Score: The average of sensitivity and specificity.</p>
+</dd>
+<dt>Confusion Matrix:</dt><dd><p>Task 1: Anomaly Cycle Classification</p>
+<blockquote>
+<div><blockquote>
+<div><blockquote>
+<div><p>(True)          C,  W, B, N      </p>
+</div></blockquote>
+<p>C   Cc, Wc, Bc, Nc  W   Cw, Ww, Bw, Nw  </p>
+</div></blockquote>
+<dl class="simple">
+<dt>(y_pred)    B   Cb, Wb, Bb, Nb  </dt><dd><p>N   Cn, Wn, Bn, Nn  </p>
+</dd>
+</dl>
+<p>(Total-True)    Ct, Wt, Bt, Nt</p>
+</div></blockquote>
+<p>Task 2: Respiratory Disease Detection</p>
+<blockquote>
+<div><blockquote>
+<div><p>(True)          C,  NC, H        </p>
+</div></blockquote>
+<dl class="simple">
+<dt>(y_pred)        C   Cc, NCc, Hc     </dt><dd><p>NC  Cnc, NCnc, Hnc  H   Ch, NCh, Hh     </p>
+</dd>
+</dl>
+<p>(Total-True)        Ct, NCt, Ht</p>
+</div></blockquote>
+</dd>
+<dt>Label:</dt><dd><p>TASK1_1 = {“Normal”: 0, “Wheezes”: 1, “Crackles”: 2, “Both”: 3} TASK1_2 = {“Normal”: 0, “Abnormal”: 1} TASK2_1 = {“Healthy”: 0, “Chronic”: 1, “NonChronic”: 2} TASK2_2 = {“Healthy”: 0, “Unhealthy”: 1}</p>
+</dd>
+<dt>Equations:</dt><dd><p>Sensitivity Task1-1: (Cc + Ww + Bb) / (Ct + Wt + Bt) Sensitivity Task1-2: (Ccwb + Wcwb + Bcwb) / (Ct + Wt + Bt) Specificity Task1: Nn / Nt</p>
+<p>Sensitivity Task2-1: (Cc + NCnc) / (Ct + NCt) Sensitivity Task2-2: (Ccnc + NCcnc) / (Ct + NCt) Specificity Task2: Hh / Ht</p>
+<p>Score: (Sensitivity + Specificity) / 2 Accuracy: (TP + TN) / (TP + TN + FP + FN)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.utils.stats.ICBHI_Metrics.update_lists">
+<code class="sig-name descname">update_lists</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">logits</span><span class="p">:</span> <span class="n">torch.Tensor</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">y_true</span><span class="p">:</span> <span class="n">torch.Tensor</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">y_pred</span><span class="p">:</span> <span class="n">torch.Tensor</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/sadaco/utils/stats.html#ICBHI_Metrics.update_lists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.utils.stats.ICBHI_Metrics.update_lists" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.utils.stats.ICBHI_Metrics.update_mixup_stats">
+<code class="sig-name descname">update_mixup_stats</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">logits</span><span class="p">:</span> <span class="n">torch.Tensor</span></em>, <em class="sig-param"><span class="n">y_true_a</span><span class="p">:</span> <span class="n">torch.Tensor</span></em>, <em class="sig-param"><span class="n">y_true_b</span><span class="p">:</span> <span class="n">torch.Tensor</span></em>, <em class="sig-param"><span class="n">lam</span><span class="p">:</span> <span class="n">torch.Tensor</span></em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/sadaco/utils/stats.html#ICBHI_Metrics.update_mixup_stats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.utils.stats.ICBHI_Metrics.update_mixup_stats" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.utils.stats.ICBHI_Metrics.get_stats">
+<code class="sig-name descname">get_stats</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>float<span class="p">, </span>float<span class="p">, </span>float<span class="p">, </span>float<span class="p">]</span><a class="reference internal" href="_modules/sadaco/utils/stats.html#ICBHI_Metrics.get_stats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.utils.stats.ICBHI_Metrics.get_stats" title="Permalink to this definition"></a></dt>
+<dd><p>Compute the sensitivity, specificity, score and balanced accuracy based on ICBHI challenge definition through confusion matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><em>acc</em> – The accuracy.
+se: The sensitivity.
+sp: The specificity.
+sc: The score.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.utils.stats.ICBHI_Metrics.get_mixup_stats">
+<code class="sig-name descname">get_mixup_stats</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/sadaco/utils/stats.html#ICBHI_Metrics.get_mixup_stats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.utils.stats.ICBHI_Metrics.get_mixup_stats" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.utils.stats.ICBHI_Metrics.get_precision_recall_fbeta">
+<code class="sig-name descname">get_precision_recall_fbeta</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">average</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'macro'</span></em>, <em class="sig-param"><span class="n">fbeta</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>Union<span class="p">[</span>float<span class="p">, </span>numpy.array<span class="p">]</span><span class="p">, </span>Union<span class="p">[</span>float<span class="p">, </span>numpy.array<span class="p">]</span><span class="p">, </span>Union<span class="p">[</span>float<span class="p">, </span>numpy.array<span class="p">]</span><span class="p">, </span>numpy.array<span class="p">]</span><a class="reference internal" href="_modules/sadaco/utils/stats.html#ICBHI_Metrics.get_precision_recall_fbeta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.utils.stats.ICBHI_Metrics.get_precision_recall_fbeta" title="Permalink to this definition"></a></dt>
+<dd><p>Compute the precision, recall and fbeta score.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><cite>shape = (num_classes,)</cite>
+precision: The precision score.
+recall: The recall score.
+f-beta: The f-beta score.
+support: The number of samples in each class.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.utils.stats.ICBHI_Metrics.reset_metrics">
+<code class="sig-name descname">reset_metrics</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/sadaco/utils/stats.html#ICBHI_Metrics.reset_metrics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.utils.stats.ICBHI_Metrics.reset_metrics" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="sadaco.utils.stats.print_stats">
+<code class="sig-prename descclassname">sadaco.utils.stats.</code><code class="sig-name descname">print_stats</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">stats</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>Tuple<span class="p">, </span>DefaultDict<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">names</span><span class="p">:</span> <span class="n">Tuple</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/utils/stats.html#print_stats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.utils.stats.print_stats" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-sadaco.utils.web_utils">
+<span id="sadaco-utils-web-utils-module"></span><h2>sadaco.utils.web_utils module<a class="headerlink" href="#module-sadaco.utils.web_utils" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt id="sadaco.utils.web_utils.get_configs">
+<code class="sig-prename descclassname">sadaco.utils.web_utils.</code><code class="sig-name descname">get_configs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/utils/web_utils.html#get_configs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.utils.web_utils.get_configs" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="sadaco.utils.web_utils.load_config">
+<code class="sig-prename descclassname">sadaco.utils.web_utils.</code><code class="sig-name descname">load_config</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/utils/web_utils.html#load_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.utils.web_utils.load_config" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-sadaco.utils">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-sadaco.utils" title="Permalink to this headline"></a></h2>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Kyungchae Lee, Ying Hui Tan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

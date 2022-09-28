@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sadaco.utils.stats &mdash; SADACO 0.1 documentation</title><link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> SADACO
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../SADACO/index.html">SADACO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../SADACO_WEB/index.html">SADACO_WEB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sadaco.html">sadaco package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SADACO</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>sadaco.utils.stats</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for sadaco.utils.stats</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">DefaultDict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">precision_recall_fscore_support</span>
+
+
+<div class="viewcode-block" id="ICBHI_Metrics"><a class="viewcode-back" href="../../../sadaco.utils.html#sadaco.utils.stats.ICBHI_Metrics">[docs]</a><span class="k">class</span> <span class="nc">ICBHI_Metrics</span><span class="p">:</span>
+<div class="viewcode-block" id="ICBHI_Metrics.__init__"><a class="viewcode-back" href="../../../sadaco.utils.html#sadaco.utils.stats.ICBHI_Metrics.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">num_classes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="n">normal_class_label</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">mixup</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">mini_batch</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Evaluation metrics for ICBHI challenge.</span>
+
+<span class="sd">        Definitions:</span>
+<span class="sd">            Sensitivity: The ability of the classifier to identify audio with the disease correctly.</span>
+<span class="sd">            Specificity: The ability of the classifier to identify audio without the disease correctly.</span>
+<span class="sd">            ICBHI Score: The average of sensitivity and specificity.</span>
+
+<span class="sd">        Confusion Matrix:</span>
+<span class="sd">            Task 1: Anomaly Cycle Classification</span>
+
+<span class="sd">                                (True)          \</span>
+<span class="sd">                                C,  W, B, N      \</span>
+<span class="sd">                            C   Cc, Wc, Bc, Nc  \</span>
+<span class="sd">                            W   Cw, Ww, Bw, Nw  \</span>
+<span class="sd">                (y_pred)    B   Cb, Wb, Bb, Nb  \</span>
+<span class="sd">                            N   Cn, Wn, Bn, Nn  \</span>
+<span class="sd">                (Total-True)    Ct, Wt, Bt, Nt</span>
+
+<span class="sd">            Task 2: Respiratory Disease Detection</span>
+
+<span class="sd">                                    (True)          \</span>
+<span class="sd">                                    C,  NC, H        \</span>
+<span class="sd">                (y_pred)        C   Cc, NCc, Hc     \</span>
+<span class="sd">                                NC  Cnc, NCnc, Hnc  \</span>
+<span class="sd">                                H   Ch, NCh, Hh     \</span>
+<span class="sd">                (Total-True)        Ct, NCt, Ht</span>
+
+<span class="sd">        Label:</span>
+<span class="sd">            TASK1_1 = {&quot;Normal&quot;: 0, &quot;Wheezes&quot;: 1, &quot;Crackles&quot;: 2, &quot;Both&quot;: 3} \</span>
+<span class="sd">            TASK1_2 = {&quot;Normal&quot;: 0, &quot;Abnormal&quot;: 1} \</span>
+<span class="sd">            TASK2_1 = {&quot;Healthy&quot;: 0, &quot;Chronic&quot;: 1, &quot;NonChronic&quot;: 2} \</span>
+<span class="sd">            TASK2_2 = {&quot;Healthy&quot;: 0, &quot;Unhealthy&quot;: 1}</span>
+
+<span class="sd">        Equations:</span>
+<span class="sd">            Sensitivity Task1-1: (Cc + Ww + Bb) / (Ct + Wt + Bt) \</span>
+<span class="sd">            Sensitivity Task1-2: (Ccwb + Wcwb + Bcwb) / (Ct + Wt + Bt) \</span>
+<span class="sd">            Specificity Task1: Nn / Nt </span>
+
+<span class="sd">            Sensitivity Task2-1: (Cc + NCnc) / (Ct + NCt) \</span>
+<span class="sd">            Sensitivity Task2-2: (Ccnc + NCcnc) / (Ct + NCt) \</span>
+<span class="sd">            Specificity Task2: Hh / Ht </span>
+
+<span class="sd">            Score: (Sensitivity + Specificity) / 2 \</span>
+<span class="sd">            Accuracy: (TP + TN) / (TP + TN + FP + FN) </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_classes</span> <span class="o">=</span> <span class="n">num_classes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">normal_class_label</span> <span class="o">=</span> <span class="n">normal_class_label</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mixup</span> <span class="o">=</span> <span class="n">mixup</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mini_batch</span> <span class="o">=</span> <span class="n">mini_batch</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init_attr</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ICBHI_Metrics.update_lists"><a class="viewcode-back" href="../../../sadaco.utils.html#sadaco.utils.stats.ICBHI_Metrics.update_lists">[docs]</a>    <span class="k">def</span> <span class="nf">update_lists</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">logits</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">y_true</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">y_pred</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mini_batch</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">y_true</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_true</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">y_pred</span> <span class="o">=</span> <span class="n">logits</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">y_true</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_true</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">y_pred_prob</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_pred_prob</span><span class="p">,</span> <span class="n">logits</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span>
+            <span class="p">)</span></div>
+
+<div class="viewcode-block" id="ICBHI_Metrics.update_mixup_stats"><a class="viewcode-back" href="../../../sadaco.utils.html#sadaco.utils.stats.ICBHI_Metrics.update_mixup_stats">[docs]</a>    <span class="k">def</span> <span class="nf">update_mixup_stats</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">logits</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">y_true_a</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">y_true_b</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">lam</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">y_pred</span> <span class="o">=</span> <span class="n">logits</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">total</span> <span class="o">+=</span> <span class="n">y_pred</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">correct_hit</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">lam</span> <span class="o">*</span> <span class="n">y_pred</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">y_true_a</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+            <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">lam</span><span class="p">)</span> <span class="o">*</span> <span class="n">y_pred</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">y_true_b</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">correct</span> <span class="o">+=</span> <span class="n">correct_hit</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ICBHI_Metrics.get_stats"><a class="viewcode-back" href="../../../sadaco.utils.html#sadaco.utils.stats.ICBHI_Metrics.get_stats">[docs]</a>    <span class="k">def</span> <span class="nf">get_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the sensitivity, specificity, score and balanced accuracy based on ICBHI challenge definition through confusion matrix.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            acc: The accuracy.</span>
+<span class="sd">            se: The sensitivity.</span>
+<span class="sd">            sp: The specificity.</span>
+<span class="sd">            sc: The score.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_compute_confusion_matrix</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_compute_icbhi_scores</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">acc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="o">.</span><span class="n">diag</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">precision</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">recall</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">f1score</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_precision_recall_fbeta</span><span class="p">()</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;Accuracy&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="p">,</span> <span class="s1">&#39;Sensitivity&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">se</span><span class="p">,</span> <span class="s1">&#39;Specificity&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">sp</span><span class="p">,</span> <span class="s1">&#39;Score&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">sc</span><span class="p">,</span>
+                <span class="s1">&#39;Precision&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">precision</span><span class="p">,</span> <span class="s1">&#39;Recall&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">recall</span><span class="p">,</span> <span class="s1">&#39;F1-Score&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">f1score</span><span class="p">}</span></div>
+
+<div class="viewcode-block" id="ICBHI_Metrics.get_mixup_stats"><a class="viewcode-back" href="../../../sadaco.utils.html#sadaco.utils.stats.ICBHI_Metrics.get_mixup_stats">[docs]</a>    <span class="k">def</span> <span class="nf">get_mixup_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">acc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">correct</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">total</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">acc</span></div>
+
+<div class="viewcode-block" id="ICBHI_Metrics.get_precision_recall_fbeta"><a class="viewcode-back" href="../../../sadaco.utils.html#sadaco.utils.stats.ICBHI_Metrics.get_precision_recall_fbeta">[docs]</a>    <span class="k">def</span> <span class="nf">get_precision_recall_fbeta</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">average</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;macro&quot;</span><span class="p">,</span> <span class="n">fbeta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span>
+        <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span>
+    <span class="p">]:</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the precision, recall and fbeta score.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            `shape = (num_classes,)`</span>
+<span class="sd">            precision: The precision score.</span>
+<span class="sd">            recall: The recall score.</span>
+<span class="sd">            f-beta: The f-beta score.</span>
+<span class="sd">            support: The number of samples in each class.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">average</span> <span class="ow">in</span> <span class="p">[</span>
+            <span class="s2">&quot;macro&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;micro&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;weighted&quot;</span><span class="p">,</span>
+        <span class="p">],</span> <span class="s2">&quot;average must be macro, micro or weighted&quot;</span>
+        <span class="k">return</span> <span class="n">precision_recall_fscore_support</span><span class="p">(</span>
+            <span class="n">y_true</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">y_true</span><span class="p">,</span>
+            <span class="n">y_pred</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">y_pred</span><span class="p">,</span>
+            <span class="n">average</span><span class="o">=</span><span class="n">average</span><span class="p">,</span>
+            <span class="n">beta</span><span class="o">=</span><span class="n">fbeta</span><span class="p">,</span>
+            <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="ICBHI_Metrics.reset_metrics"><a class="viewcode-back" href="../../../sadaco.utils.html#sadaco.utils.stats.ICBHI_Metrics.reset_metrics">[docs]</a>    <span class="k">def</span> <span class="nf">reset_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init_attr</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">_init_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mixup</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">correct</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">y_true</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">y_pred_prob</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">acc</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="k">def</span> <span class="nf">_compute_confusion_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">confusion_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_classes</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_true</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_pred</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">confusion_matrix</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_classes</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_classes</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">confusion_matrix</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span>
+                <span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="p">,</span>
+                    <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">num_classes</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_classes</span>
+                        <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="p">),</span>
+                        <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">,</span>
+                    <span class="p">),</span>
+                <span class="p">),</span>
+                <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">confusion_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">num_classes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_classes</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+    <span class="k">def</span> <span class="nf">_compute_icbhi_scores</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_compute_sp</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_compute_se</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_compute_sc</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_compute_sp</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sp</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">normal_class_label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">normal_class_label</span><span class="p">]</span>
+            <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">normal_class_label</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_compute_se</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">se</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="o">.</span><span class="n">diag</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+            <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">normal_class_label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">normal_class_label</span><span class="p">]</span>
+        <span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">normal_class_label</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_compute_sc</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sc</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sp</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">se</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span></div>
+
+<div class="viewcode-block" id="print_stats"><a class="viewcode-back" href="../../../sadaco.utils.html#sadaco.utils.stats.print_stats">[docs]</a><span class="k">def</span> <span class="nf">print_stats</span><span class="p">(</span><span class="n">stats</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">,</span> <span class="n">DefaultDict</span><span class="p">],</span> <span class="n">names</span> <span class="p">:</span> <span class="n">Tuple</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">stat_str</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1"> : </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">stats</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
+    <span class="k">elif</span> <span class="n">names</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Metric </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">stats</span><span class="p">)))</span>
+        <span class="n">stat_str</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1"> : </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">names</span><span class="p">,</span><span class="n">stats</span><span class="p">)])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+        <span class="n">stat_str</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1"> : </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">names</span><span class="p">,</span><span class="n">stats</span><span class="p">)])</span>
+    <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">stat_str</span></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">cm</span> <span class="o">=</span> <span class="n">ICBHI_Metrics</span><span class="p">(</span><span class="n">num_classes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">normal_class_label</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">[</span><span class="mf">0.0540</span><span class="p">,</span> <span class="mf">0.0671</span><span class="p">,</span> <span class="mf">0.2014</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1081</span><span class="p">],</span>  <span class="c1"># 2</span>
+            <span class="p">[</span><span class="mf">0.0487</span><span class="p">,</span> <span class="mf">0.0771</span><span class="p">,</span> <span class="mf">0.0015</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1226</span><span class="p">],</span>  <span class="c1"># 1</span>
+            <span class="p">[</span><span class="mf">0.0500</span><span class="p">,</span> <span class="mf">0.0776</span><span class="p">,</span> <span class="mf">0.0108</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1131</span><span class="p">],</span>  <span class="c1"># 1</span>
+            <span class="p">[</span><span class="mf">0.0531</span><span class="p">,</span> <span class="mf">0.0627</span><span class="p">,</span> <span class="mf">0.0017</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1051</span><span class="p">],</span>  <span class="c1"># 1</span>
+            <span class="p">[</span><span class="mf">0.0522</span><span class="p">,</span> <span class="mf">0.0733</span><span class="p">,</span> <span class="mf">0.0051</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1096</span><span class="p">],</span>  <span class="c1"># 1</span>
+            <span class="p">[</span><span class="mf">0.0454</span><span class="p">,</span> <span class="mf">0.0782</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.0077</span><span class="p">,</span> <span class="mf">0.1375</span><span class="p">],</span>  <span class="c1"># 3</span>
+            <span class="p">[</span><span class="mf">0.0513</span><span class="p">,</span> <span class="mf">0.0673</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.0002</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1134</span><span class="p">],</span>  <span class="c1"># 1</span>
+            <span class="p">[</span><span class="mf">0.0325</span><span class="p">,</span> <span class="mf">0.0547</span><span class="p">,</span> <span class="mf">0.0047</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.0967</span><span class="p">],</span>  <span class="c1"># 1</span>
+            <span class="p">[</span><span class="mf">0.0475</span><span class="p">,</span> <span class="mf">0.0639</span><span class="p">,</span> <span class="mf">0.0017</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1037</span><span class="p">],</span>  <span class="c1"># 1</span>
+            <span class="p">[</span><span class="mf">0.1489</span><span class="p">,</span> <span class="mf">0.0728</span><span class="p">,</span> <span class="mf">0.0022</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1135</span><span class="p">],</span>  <span class="c1"># 0</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">y_true</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">cm</span><span class="o">.</span><span class="n">update_lists</span><span class="p">(</span><span class="n">logits</span><span class="o">=</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_true</span><span class="o">=</span><span class="n">y_true</span><span class="p">)</span>
+    <span class="n">cm</span><span class="o">.</span><span class="n">get_stats</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">cm</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">round</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">se</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="mi">4</span><span class="p">)</span> <span class="o">==</span> <span class="mf">0.5000</span><span class="p">,</span> <span class="s2">&quot;3/6 = 0.5000&quot;</span>
+    <span class="k">assert</span> <span class="nb">round</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">sp</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="mi">4</span><span class="p">)</span> <span class="o">==</span> <span class="mf">0.2500</span><span class="p">,</span> <span class="s2">&quot;1/4 = 0.2500&quot;</span>
+    <span class="k">assert</span> <span class="nb">round</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">sc</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="mi">4</span><span class="p">)</span> <span class="o">==</span> <span class="mf">0.3750</span><span class="p">,</span> <span class="s2">&quot;se + sp / 2 = 0.3750&quot;</span>
+    <span class="k">assert</span> <span class="nb">round</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">acc</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="mi">4</span><span class="p">)</span> <span class="o">==</span> <span class="mf">0.4000</span><span class="p">,</span> <span class="s2">&quot;4/10 = 0.4000&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Confusion Matrix: </span><span class="se">\n</span><span class="si">{</span><span class="n">cm</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;==================== Test Passed ====================&quot;</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Kyungchae Lee, Ying Hui Tan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

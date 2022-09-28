@@ -25,6 +25,33 @@ def train_basic_epoch(
     grad_thres = None,
     update_interval = 1
 ) -> Optional[Union[DefaultDict, np.ndarray]]:
+    """_summary_
+
+    :param model: _description_
+    :type model: nn.Module
+    :param device: _description_
+    :type device: torch.device
+    :param train_loader: _description_
+    :type train_loader: DataLoader
+    :param optimizer: _description_
+    :type optimizer: torch.optim
+    :param criterion: _description_
+    :type criterion: Callable
+    :param epoch: _description_
+    :type epoch: int
+    :param return_stats: _description_, defaults to False
+    :type return_stats: bool, optional
+    :param verbose: _description_, defaults to False
+    :type verbose: bool, optional
+    :param preprocessing: _description_, defaults to None
+    :type preprocessing: Callable, optional
+    :param grad_thres: _description_, defaults to None
+    :type grad_thres: _type_, optional
+    :param update_interval: _description_, defaults to 1
+    :type update_interval: int, optional
+    :return: _description_
+    :rtype: Optional[Union[DefaultDict, np.ndarray]]
+    """    
     model.train().to(device)
 
     train_loss = 0
