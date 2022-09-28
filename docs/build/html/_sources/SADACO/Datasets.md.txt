@@ -34,11 +34,11 @@ ICBHI dataset is an audio dataset containing audio samples, collected independen
    - Vocal cord problems
    - An object stuck in your voice box or windpipe
 
-#### <b>Data Count and Duration</b>
+#### Data Count and Duration
 The database consists of a total of 5.5 hours of recordings containing 6898 respiratory cycles, of which 1864 contain crackles, 886 contain wheezes, and 506 contain both crackles and wheezes, in 920 annotated audio samples from 126 subjects.
 
 ### Preparation
-#### <b>Download</b>
+#### Download
  1. First download the data from the official download [link](https://bhichallenge.med.auth.gr/sites/default/files/ICBHI_final_database/ICBHI_final_database.zip)
  2. Unzip the file under desired <span style="color:purple"><b>$DATA_PATH</b></span>.
   ```
@@ -46,8 +46,8 @@ The database consists of a total of 5.5 hours of recordings containing 6898 resp
    $DATA_PATH
    └
   ```
- 3. 
 
+ 3.
 
 ## Fraiwan dataset [[Link](https://data.mendeley.com/datasets/jwyy9np4gv/2)]
 Fraiwan dataset is collected by Jordan University of Science and Technology Faculty of Computer and Information Technology, King Abdullah University Hospital. These data contain actual lung sound recordings from 112 Middle Eastern people suffering from a variety of pulmonary health issues. The data complement, augment, and balance the limited publicly available comparable datasets. Furthermore, the data can be used to train health professionals' auscultatory skills.
@@ -75,7 +75,6 @@ There are seven different classes in Fraiwan dataset:
 This dataset includes respiratory sounds from 112 subjects, 35 of whom are healthy and the rest are not, with just one recording per person and three types of filters applied to each recording. In other words, for each subject, we have three filtered recordings. Hence, we have `112 * 3`, 336 recordings in total. For example, the file named `BP60_heart failure,Crep,P L L,83,F.wav` is a Bell filtered crepitation sound captured from the posterior left lower zone of the chest of an 83-year-old female with heart failure problem.
 
 These volunteers ranged in age from 21 to 90 years old, with 43 females and 69 males. Each recording lasts 5 to 30 seconds, which is enough time to cover at least one breathing cycle. The maximum duration is limited by the recording capabilities of the electronics stethoscope. There were no minimum duration requirements imposed on the physician examining the subjects at the annotation stage. 
-
 
 ## PASCAL Heartsound dataset [[Link]()]
 
