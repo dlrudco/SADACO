@@ -23,7 +23,6 @@ class ICBHI_Basic_Trainer(BaseTrainer):
                                               sample_rate=self.train_dataset.sample_rate)]
                             )
         self.evaluator = ICBHI_Metrics(num_classes=4, normal_class_label=0)
-        breakpoint()
         
     def build_dataset(self):
         self.train_dataset = RespiDatasetSTFT(split='train', **self.data_configs.train)
