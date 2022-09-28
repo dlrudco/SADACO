@@ -43,7 +43,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../sadaco.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="sadaco.apis.html">sadaco.apis package</a><ul class="current">
 <li class="toctree-l4 current"><a class="reference internal" href="sadaco.apis.html#subpackages">Subpackages</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sadaco.apis.html#module-sadaco.apis">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sadaco.apis.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../sadaco.dataman.html">sadaco.dataman package</a></li>
@@ -51,7 +51,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../sadaco.utils.html">sadaco.utils package</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../sadaco.html#module-sadaco">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sadaco.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -87,80 +87,17 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
 </div>
-<div class="section" id="module-sadaco.apis.contrastive.train_byol">
-<span id="sadaco-apis-contrastive-train-byol-module"></span><h2>sadaco.apis.contrastive.train_byol module<a class="headerlink" href="#module-sadaco.apis.contrastive.train_byol" title="Permalink to this headline"></a></h2>
+<div class="section" id="sadaco-apis-contrastive-train-byol-module">
+<h2>sadaco.apis.contrastive.train_byol module<a class="headerlink" href="#sadaco-apis-contrastive-train-byol-module" title="Permalink to this headline"></a></h2>
 </div>
-<div class="section" id="module-sadaco.apis.contrastive.train_supcon">
-<span id="sadaco-apis-contrastive-train-supcon-module"></span><h2>sadaco.apis.contrastive.train_supcon module<a class="headerlink" href="#module-sadaco.apis.contrastive.train_supcon" title="Permalink to this headline"></a></h2>
-<dl class="py function">
-<dt id="sadaco.apis.contrastive.train_supcon.move_device">
-<code class="sig-prename descclassname">sadaco.apis.contrastive.train_supcon.</code><code class="sig-name descname">move_device</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">DefaultDict</span></em>, <em class="sig-param"><span class="n">device</span><span class="p">:</span> <span class="n">torch.device</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/contrastive/train_supcon.html#move_device"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.contrastive.train_supcon.move_device" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt id="sadaco.apis.contrastive.train_supcon.train_mixcon_epoch">
-<code class="sig-prename descclassname">sadaco.apis.contrastive.train_supcon.</code><code class="sig-name descname">train_mixcon_epoch</code><span class="sig-paren">(</span><em class="sig-param">model: torch.nn.modules.module.Module, device: torch.device, train_loader: torch.utils.data.dataloader.DataLoader, optimizer: &lt;module 'torch.optim' from '/home/ncl/anaconda3/envs/kclee_idx/lib/python3.8/site-packages/torch/optim/__init__.py'&gt;, base_criterion: Callable, contrast_criterion: Callable, epoch: int, weights: List[int] = [1, 1], return_stats: bool = True, verbose: bool = False, preprocessing: Callable = None, grad_thres=None, update_interval=1</em><span class="sig-paren">)</span> &#x2192; Optional<span class="p">[</span>Union<span class="p">[</span>DefaultDict<span class="p">, </span>numpy.ndarray<span class="p">]</span><span class="p">]</span><a class="reference internal" href="../_modules/sadaco/apis/contrastive/train_supcon.html#train_mixcon_epoch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.contrastive.train_supcon.train_mixcon_epoch" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
+<div class="section" id="sadaco-apis-contrastive-train-supcon-module">
+<h2>sadaco.apis.contrastive.train_supcon module<a class="headerlink" href="#sadaco-apis-contrastive-train-supcon-module" title="Permalink to this headline"></a></h2>
 </div>
-<div class="section" id="module-sadaco.apis.contrastive.trainer_contrastive">
-<span id="sadaco-apis-contrastive-trainer-contrastive-module"></span><h2>sadaco.apis.contrastive.trainer_contrastive module<a class="headerlink" href="#module-sadaco.apis.contrastive.trainer_contrastive" title="Permalink to this headline"></a></h2>
-<dl class="py class">
-<dt id="sadaco.apis.contrastive.trainer_contrastive.NormLayer">
-<em class="property">class </em><code class="sig-prename descclassname">sadaco.apis.contrastive.trainer_contrastive.</code><code class="sig-name descname">NormLayer</code><a class="reference internal" href="../_modules/sadaco/apis/contrastive/trainer_contrastive.html#NormLayer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.contrastive.trainer_contrastive.NormLayer" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
-<dl class="py method">
-<dt id="sadaco.apis.contrastive.trainer_contrastive.NormLayer.forward">
-<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/contrastive/trainer_contrastive.html#NormLayer.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.contrastive.trainer_contrastive.NormLayer.forward" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="sadaco.apis.contrastive.trainer_contrastive.NormLayer.training">
-<code class="sig-name descname">training</code><em class="property">: bool</em><a class="headerlink" href="#sadaco.apis.contrastive.trainer_contrastive.NormLayer.training" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="sadaco.apis.contrastive.trainer_contrastive.ContrastiveWrapper">
-<em class="property">class </em><code class="sig-prename descclassname">sadaco.apis.contrastive.trainer_contrastive.</code><code class="sig-name descname">ContrastiveWrapper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span></em>, <em class="sig-param"><span class="n">use_mapper</span></em>, <em class="sig-param"><span class="n">mapper_classify</span></em>, <em class="sig-param"><span class="n">keepdims</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/contrastive/trainer_contrastive.html#ContrastiveWrapper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.contrastive.trainer_contrastive.ContrastiveWrapper" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
-<dl class="py method">
-<dt id="sadaco.apis.contrastive.trainer_contrastive.ContrastiveWrapper.to">
-<code class="sig-name descname">to</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">device</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/contrastive/trainer_contrastive.html#ContrastiveWrapper.to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.contrastive.trainer_contrastive.ContrastiveWrapper.to" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="sadaco.apis.contrastive.trainer_contrastive.ContrastiveWrapper.forward">
-<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/contrastive/trainer_contrastive.html#ContrastiveWrapper.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.contrastive.trainer_contrastive.ContrastiveWrapper.forward" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="sadaco.apis.contrastive.trainer_contrastive.ContrastiveWrapper.training">
-<code class="sig-name descname">training</code><em class="property">: bool</em><a class="headerlink" href="#sadaco.apis.contrastive.trainer_contrastive.ContrastiveWrapper.training" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="sadaco.apis.contrastive.trainer_contrastive.ContrastTrainer">
-<em class="property">class </em><code class="sig-prename descclassname">sadaco.apis.contrastive.trainer_contrastive.</code><code class="sig-name descname">ContrastTrainer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">train_configs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/contrastive/trainer_contrastive.html#ContrastTrainer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.contrastive.trainer_contrastive.ContrastTrainer" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="sadaco.apis.traintest.html#sadaco.apis.traintest.trainer_base.BaseTrainer" title="sadaco.apis.traintest.trainer_base.BaseTrainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">sadaco.apis.traintest.trainer_base.BaseTrainer</span></code></a></p>
-<dl class="py method">
-<dt id="sadaco.apis.contrastive.trainer_contrastive.ContrastTrainer.attach_extractor">
-<code class="sig-name descname">attach_extractor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/contrastive/trainer_contrastive.html#ContrastTrainer.attach_extractor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.contrastive.trainer_contrastive.ContrastTrainer.attach_extractor" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="sadaco.apis.contrastive.trainer_contrastive.ContrastTrainer.wrap_model">
-<code class="sig-name descname">wrap_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/contrastive/trainer_contrastive.html#ContrastTrainer.wrap_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.contrastive.trainer_contrastive.ContrastTrainer.wrap_model" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<div class="section" id="sadaco-apis-contrastive-trainer-contrastive-module">
+<h2>sadaco.apis.contrastive.trainer_contrastive module<a class="headerlink" href="#sadaco-apis-contrastive-trainer-contrastive-module" title="Permalink to this headline"></a></h2>
 </div>
-<div class="section" id="module-sadaco.apis.contrastive">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-sadaco.apis.contrastive" title="Permalink to this headline"></a></h2>
+<div class="section" id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline"></a></h2>
 </div>
 </div>
 

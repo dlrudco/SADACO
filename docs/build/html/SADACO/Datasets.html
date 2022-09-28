@@ -15,7 +15,9 @@
         <script src="../_static/language_data.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" /> 
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SADACO_WEB" href="../SADACO_WEB/index.html" />
+    <link rel="prev" title="SADACO" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -33,34 +35,28 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">Datasets</a><ul>
-<li><a class="reference internal" href="#icbhi-2017-challenge-dataset-link">ICBHI 2017 Challenge dataset [Link]</a><ul>
-<li><a class="reference internal" href="#dataset-specification">Dataset Specification</a><ul>
-<li><a class="reference internal" href="#classes">Classes</a></li>
-<li><a class="reference internal" href="#b-data-count-and-duration-b"><b>Data Count and Duration</b></a></li>
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">SADACO</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Datasets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#icbhi-2017-challenge-dataset-link">ICBHI 2017 Challenge dataset [Link]</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dataset-specification">Dataset Specification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#preparation">Preparation</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#preparation">Preparation</a><ul>
-<li><a class="reference internal" href="#b-download-b"><b>Download</b></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fraiwan-dataset-link">Fraiwan dataset [Link]</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Dataset Specification</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a class="reference internal" href="#fraiwan-dataset-link">Fraiwan dataset [Link]</a><ul>
-<li><a class="reference internal" href="#id1">Dataset Specification</a><ul>
-<li><a class="reference internal" href="#id2">Classes</a></li>
-<li><a class="reference internal" href="#data-count-and-duration">Data Count and Duration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pascal-heartsound-dataset-link">PASCAL Heartsound dataset [<span class="xref myst">Link</span>]</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#pascal-heartsound-dataset-link">PASCAL Heartsound dataset [<span class="xref myst">Link</span>]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SADACO_WEB/index.html">SADACO_WEB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sadaco.html">sadaco package</a></li>
 </ul>
-</li>
-</ul>
-</div>
+
         </div>
       </div>
     </nav>
@@ -75,6 +71,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">SADACO</a> &raquo;</li>
       <li>Datasets</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/SADACO/Datasets.md.txt" rel="nofollow"> View page source</a>
@@ -127,15 +124,15 @@
 </li>
 </ul>
 </div>
-<div class="section" id="b-data-count-and-duration-b">
-<h4><b>Data Count and Duration</b><a class="headerlink" href="#b-data-count-and-duration-b" title="Permalink to this headline"></a></h4>
+<div class="section" id="data-count-and-duration">
+<h4>Data Count and Duration<a class="headerlink" href="#data-count-and-duration" title="Permalink to this headline"></a></h4>
 <p>The database consists of a total of 5.5 hours of recordings containing 6898 respiratory cycles, of which 1864 contain crackles, 886 contain wheezes, and 506 contain both crackles and wheezes, in 920 annotated audio samples from 126 subjects.</p>
 </div>
 </div>
 <div class="section" id="preparation">
 <h3>Preparation<a class="headerlink" href="#preparation" title="Permalink to this headline"></a></h3>
-<div class="section" id="b-download-b">
-<h4><b>Download</b><a class="headerlink" href="#b-download-b" title="Permalink to this headline"></a></h4>
+<div class="section" id="download">
+<h4>Download<a class="headerlink" href="#download" title="Permalink to this headline"></a></h4>
 <ol class="arabic simple">
 <li><p>First download the data from the official download <a class="reference external" href="https://bhichallenge.med.auth.gr/sites/default/files/ICBHI_final_database/ICBHI_final_database.zip">link</a></p></li>
 <li><p>Unzip the file under desired <span style="color:purple"><b>$DATA_PATH</b></span>.</p></li>
@@ -196,8 +193,8 @@
 </tbody>
 </table>
 </div>
-<div class="section" id="data-count-and-duration">
-<h4>Data Count and Duration<a class="headerlink" href="#data-count-and-duration" title="Permalink to this headline"></a></h4>
+<div class="section" id="id3">
+<h4>Data Count and Duration<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h4>
 <p>This dataset includes respiratory sounds from 112 subjects, 35 of whom are healthy and the rest are not, with just one recording per person and three types of filters applied to each recording. In other words, for each subject, we have three filtered recordings. Hence, we have <code class="docutils literal notranslate"><span class="pre">112</span> <span class="pre">*</span> <span class="pre">3</span></code>, 336 recordings in total. For example, the file named <code class="docutils literal notranslate"><span class="pre">BP60_heart</span> <span class="pre">failure,Crep,P</span> <span class="pre">L</span> <span class="pre">L,83,F.wav</span></code> is a Bell filtered crepitation sound captured from the posterior left lower zone of the chest of an 83-year-old female with heart failure problem.</p>
 <p>These volunteers ranged in age from 21 to 90 years old, with 43 females and 69 males. Each recording lasts 5 to 30 seconds, which is enough time to cover at least one breathing cycle. The maximum duration is limited by the recording capabilities of the electronics stethoscope. There were no minimum duration requirements imposed on the physician examining the subjects at the annotation stage.</p>
 </div>
@@ -211,7 +208,10 @@
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="SADACO" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../SADACO_WEB/index.html" class="btn btn-neutral float-right" title="SADACO_WEB" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
