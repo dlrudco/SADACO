@@ -31,7 +31,7 @@ to_import = list(sys.modules.keys())
 import torch
 import torchvision
 import torchaudio
-torchaudio.set_audio_backend("sox")
+torchaudio.set_audio_backend("sox_io")
 # try:
 #     import torch  # noqa
 # except ImportError:
