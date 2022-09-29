@@ -27,32 +27,36 @@ author = 'Kyungchae Lee, Ying Hui Tan'
 # The full version, including alpha/beta/rc tags
 release = '0.1'
 
-try:
-    import torch  # noqa
-except ImportError:
-    for m in [
-        "torch", "torchvision", "torch.nn", "torch.nn.parallel", "torch.distributed", "torch.multiprocessing", "torch.autograd",
-        "torch.autograd.function", "torch.nn.modules", "torch.nn.modules.utils", "torch.utils", "torch.utils.data", "torch.onnx",
-        "torch.cuda", "torch.utils.data.sampler", "torch.cuda.amp",'torch.nn', 'torch.nn.functional', 'torchsummary', 'torch.optim', 
-        'torch.optim.lr_scheduler', "torchvision", "torchvision.ops", 'torchvision.transforms', 'torchvision.transforms.functional', 
-    ]:
-        sys.modules[m] = mock.Mock(name=m)
-    sys.modules['torch'].__version__ = "1.8"  # fake version
-    HAS_TORCH = False
+to_import = list(sys.modules.keys())
+import torch
+# try:
+#     import torch  # noqa
+# except ImportError:
+#     for m in [
+#         "torch", "torchvision", "torch.nn", "torch.nn.parallel", "torch.distributed", "torch.multiprocessing", "torch.autograd",
+#         "torch.autograd.function", "torch.nn.modules", "torch.nn.modules.utils", "torch.utils", "torch.utils.data", "torch.onnx",
+#         "torch.cuda", "torch.utils.data.sampler", "torch.cuda.amp",'torch.nn', 'torch.nn.functional', 'torchsummary', 'torch.optim', 
+#         'torch.optim.lr_scheduler', "torchvision", "torchvision.ops", 'torchvision.transforms', 'torchvision.transforms.functional', 
+#     ]:
+#         sys.modules[m] = mock.Mock(name=m)
+#     sys.modules['torch'].__version__ = "1.8"  # fake version
+#     HAS_TORCH = False
 
-try:
-    import torchaudio
-except ImportError:
-    for m in [
-        'torchaudio'
-    ]:
-        sys.modules[m] = mock.Mock(name=m)
-    sys.modules['torchaudio'].__version__ = "1.7"  # fake version
-    HAS_TORCHAUDIO = False
+# try:
+#     import torchaudio
+# except ImportError:
+#     for m in [
+#         'torchaudio'
+#     ]:
+#         sys.modules[m] = mock.Mock(name=m)
+#     sys.modules['torchaudio'].__version__ = "1.7"  # fake version
+#     HAS_TORCHAUDIO = False
 
+# current = list(sys.modules.keys())
+# "tqdm", 'timm', 'timm.models', 'timm.models.layers', 'sklearn', 'sklearn.metrics','cProfile',
+#      'matplotlib', 'matplotlib.pyplot', 'torch2trt', 'resampy', 'PIL', 'torchsummary'
 for m in [
-    "tqdm", "wget", "numpy", 'timm', 'timm.models', 'timm.models.layers','munch', 'sklearn', 'sklearn.metrics','cProfile',
-    'librosa', 'matplotlib', 'matplotlib.pyplot', 'torch2trt', 'cv2', 'resampy', 'soundfile', 'PIL'
+    "tqdm", 'timm', 'timm.models', 'timm.models.layers', 'torchsummary', 'torch2trt'
 ]:
     sys.modules[m] = mock.Mock(name=m)
 

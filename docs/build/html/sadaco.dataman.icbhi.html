@@ -1,0 +1,343 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>sadaco.dataman.icbhi package &mdash; SADACO 0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="sadaco.pipelines package" href="sadaco.pipelines.html" />
+    <link rel="prev" title="sadaco.dataman package" href="sadaco.dataman.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> SADACO
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="SADACO/index.html">SADACO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SADACO_WEB/index.html">SADACO_WEB</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="sadaco.html">sadaco package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="sadaco.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="sadaco.apis.html">sadaco.apis package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="sadaco.dataman.html">sadaco.dataman package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="sadaco.dataman.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sadaco.dataman.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sadaco.dataman.html#module-sadaco.dataman.base">sadaco.dataman.base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sadaco.dataman.html#module-sadaco.dataman.build_dataset">sadaco.dataman.build_dataset module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sadaco.dataman.html#module-sadaco.dataman.loader">sadaco.dataman.loader module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sadaco.dataman.html#module-sadaco.dataman.sampler">sadaco.dataman.sampler module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sadaco.dataman.html#module-sadaco.dataman">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sadaco.pipelines.html">sadaco.pipelines package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sadaco.utils.html">sadaco.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sadaco.html#module-sadaco">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SADACO</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="sadaco.html">sadaco package</a> &raquo;</li>
+        
+          <li><a href="sadaco.dataman.html">sadaco.dataman package</a> &raquo;</li>
+        
+      <li>sadaco.dataman.icbhi package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/sadaco.dataman.icbhi.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="sadaco-dataman-icbhi-package">
+<h1>sadaco.dataman.icbhi package<a class="headerlink" href="#sadaco-dataman-icbhi-package" title="Permalink to this headline">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-sadaco.dataman.icbhi.demo">
+<span id="sadaco-dataman-icbhi-demo-module"></span><h2>sadaco.dataman.icbhi.demo module<a class="headerlink" href="#module-sadaco.dataman.icbhi.demo" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="sadaco.dataman.icbhi.demo.min_max_scale">
+<code class="sig-prename descclassname">sadaco.dataman.icbhi.demo.</code><code class="sig-name descname">min_max_scale</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">samples</span></em>, <em class="sig-param"><span class="n">min</span></em>, <em class="sig-param"><span class="n">max</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/dataman/icbhi/demo.html#min_max_scale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.dataman.icbhi.demo.min_max_scale" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="sadaco.dataman.icbhi.demo.load_input">
+<code class="sig-prename descclassname">sadaco.dataman.icbhi.demo.</code><code class="sig-name descname">load_input</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/dataman/icbhi/demo.html#load_input"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.dataman.icbhi.demo.load_input" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="sadaco.dataman.icbhi.demo.demo_helper">
+<em class="property">class </em><code class="sig-prename descclassname">sadaco.dataman.icbhi.demo.</code><code class="sig-name descname">demo_helper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">master_cfg</span></em>, <em class="sig-param"><span class="n">model_cfg</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/dataman/icbhi/demo.html#demo_helper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.dataman.icbhi.demo.demo_helper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="sadaco.dataman.icbhi.demo.demo_helper.do_inference">
+<code class="sig-name descname">do_inference</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_path</span></em>, <em class="sig-param"><span class="n">return_raw</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/dataman/icbhi/demo.html#demo_helper.do_inference"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.dataman.icbhi.demo.demo_helper.do_inference" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.dataman.icbhi.demo.demo_helper.do_explanation">
+<code class="sig-name descname">do_explanation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_path</span></em>, <em class="sig-param"><span class="n">method</span></em>, <em class="sig-param"><span class="n">cls</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/dataman/icbhi/demo.html#demo_helper.do_explanation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.dataman.icbhi.demo.demo_helper.do_explanation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-sadaco.dataman.icbhi.dummy">
+<span id="sadaco-dataman-icbhi-dummy-module"></span><h2>sadaco.dataman.icbhi.dummy module<a class="headerlink" href="#module-sadaco.dataman.icbhi.dummy" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="sadaco.dataman.icbhi.dummy.RespiDatasetSTFT">
+<em class="property">class </em><code class="sig-prename descclassname">sadaco.dataman.icbhi.dummy.</code><code class="sig-name descname">RespiDatasetSTFT</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwds</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/dataman/icbhi/dummy.html#RespiDatasetSTFT"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.dataman.icbhi.dummy.RespiDatasetSTFT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.utils.data.dataset.Dataset</span></code></p>
+<dl class="py method">
+<dt id="sadaco.dataman.icbhi.dummy.RespiDatasetSTFT.__getitem__">
+<code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/dataman/icbhi/dummy.html#RespiDatasetSTFT.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.dataman.icbhi.dummy.RespiDatasetSTFT.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns: image, audio, nframes
+where image is a FloatTensor of size (3, H, W)
+audio is a FloatTensor of size (N_freq, N_frames) for spectrogram, or (N_frames) for waveform
+nframes is an integer</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.dataman.icbhi.dummy.RespiDatasetSTFT.initialize">
+<code class="sig-name descname">initialize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">paths</span></em>, <em class="sig-param"><span class="n">multi_label</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/dataman/icbhi/dummy.html#RespiDatasetSTFT.initialize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.dataman.icbhi.dummy.RespiDatasetSTFT.initialize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.dataman.icbhi.dummy.RespiDatasetSTFT.to_multi_hot">
+<code class="sig-name descname">to_multi_hot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ann</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/dataman/icbhi/dummy.html#RespiDatasetSTFT.to_multi_hot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.dataman.icbhi.dummy.RespiDatasetSTFT.to_multi_hot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.dataman.icbhi.dummy.RespiDatasetSTFT.to_one_hot">
+<code class="sig-name descname">to_one_hot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ann</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/dataman/icbhi/dummy.html#RespiDatasetSTFT.to_one_hot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.dataman.icbhi.dummy.RespiDatasetSTFT.to_one_hot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.dataman.icbhi.dummy.RespiDatasetSTFT.to_int">
+<code class="sig-name descname">to_int</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ann</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/dataman/icbhi/dummy.html#RespiDatasetSTFT.to_int"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.dataman.icbhi.dummy.RespiDatasetSTFT.to_int" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.dataman.icbhi.dummy.RespiDatasetSTFT.recover">
+<code class="sig-name descname">recover</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mag</span></em>, <em class="sig-param"><span class="n">phase</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/dataman/icbhi/dummy.html#RespiDatasetSTFT.recover"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.dataman.icbhi.dummy.RespiDatasetSTFT.recover" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-sadaco.dataman.icbhi.icbhi">
+<span id="sadaco-dataman-icbhi-icbhi-module"></span><h2>sadaco.dataman.icbhi.icbhi module<a class="headerlink" href="#module-sadaco.dataman.icbhi.icbhi" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="sadaco.dataman.icbhi.icbhi.icbhi_dataset">
+<em class="property">class </em><code class="sig-prename descclassname">sadaco.dataman.icbhi.icbhi.</code><code class="sig-name descname">icbhi_dataset</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwds</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/dataman/icbhi/icbhi.html#icbhi_dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.dataman.icbhi.icbhi.icbhi_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dataman.base.base_dataset</span></code></p>
+<dl class="py method">
+<dt id="sadaco.dataman.icbhi.icbhi.icbhi_dataset.to_multi_hot">
+<code class="sig-name descname">to_multi_hot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ann</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/dataman/icbhi/icbhi.html#icbhi_dataset.to_multi_hot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.dataman.icbhi.icbhi.icbhi_dataset.to_multi_hot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.dataman.icbhi.icbhi.icbhi_dataset.to_one_hot">
+<code class="sig-name descname">to_one_hot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ann</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/dataman/icbhi/icbhi.html#icbhi_dataset.to_one_hot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.dataman.icbhi.icbhi.icbhi_dataset.to_one_hot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.dataman.icbhi.icbhi.icbhi_dataset.to_int">
+<code class="sig-name descname">to_int</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ann</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/dataman/icbhi/icbhi.html#icbhi_dataset.to_int"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.dataman.icbhi.icbhi.icbhi_dataset.to_int" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.dataman.icbhi.icbhi.icbhi_dataset.initialize">
+<code class="sig-name descname">initialize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">paths</span></em>, <em class="sig-param"><span class="n">multi_label</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/dataman/icbhi/icbhi.html#icbhi_dataset.initialize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.dataman.icbhi.icbhi.icbhi_dataset.initialize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-sadaco.dataman.icbhi">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-sadaco.dataman.icbhi" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="sadaco.pipelines.html" class="btn btn-neutral float-right" title="sadaco.pipelines package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="sadaco.dataman.html" class="btn btn-neutral float-left" title="sadaco.dataman package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Kyungchae Lee, Ying Hui Tan.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

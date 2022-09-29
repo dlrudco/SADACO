@@ -1,6 +1,14 @@
 sadaco.dataman package
 ======================
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   sadaco.dataman.icbhi
+
 Submodules
 ----------
 
