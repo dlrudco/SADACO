@@ -29,7 +29,6 @@ release = '0.1'
 
 to_import = list(sys.modules.keys())
 import torch
-import torchaudio
 import torchvision
 # try:
 #     import torch  # noqa
