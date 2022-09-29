@@ -8,10 +8,10 @@ version: 2
 # Set the version of Python and other tools you might need
 build:
   os: ubuntu-20.04
+  apt_packages:
+    - libsndfile1-dev
   tools:
     python: "3.7"
-    apt_packages:
-    - libsndfile1-dev
     # You can also specify other tool versions:
     # nodejs: "16"
     # rust: "1.55"
