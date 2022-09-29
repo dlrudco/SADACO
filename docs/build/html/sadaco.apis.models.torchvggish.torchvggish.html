@@ -1,0 +1,530 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>sadaco.apis.models.torchvggish.torchvggish package &mdash; SADACO 0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="sadaco.apis.traintest package" href="sadaco.apis.traintest.html" />
+    <link rel="prev" title="sadaco.apis.models.torchvggish package" href="sadaco.apis.models.torchvggish.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> SADACO
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="SADACO/index.html">SADACO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SADACO_WEB/index.html">SADACO_WEB</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="sadaco.html">sadaco package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="sadaco.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="sadaco.apis.html">sadaco.apis package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="sadaco.apis.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sadaco.apis.html#module-sadaco.apis">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sadaco.dataman.html">sadaco.dataman package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sadaco.pipelines.html">sadaco.pipelines package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sadaco.utils.html">sadaco.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sadaco.html#module-sadaco">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SADACO</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="sadaco.html">sadaco package</a> &raquo;</li>
+        
+          <li><a href="sadaco.apis.html">sadaco.apis package</a> &raquo;</li>
+        
+          <li><a href="sadaco.apis.models.html">sadaco.apis.models package</a> &raquo;</li>
+        
+          <li><a href="sadaco.apis.models.torchvggish.html">sadaco.apis.models.torchvggish package</a> &raquo;</li>
+        
+      <li>sadaco.apis.models.torchvggish.torchvggish package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/sadaco.apis.models.torchvggish.torchvggish.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="sadaco-apis-models-torchvggish-torchvggish-package">
+<h1>sadaco.apis.models.torchvggish.torchvggish package<a class="headerlink" href="#sadaco-apis-models-torchvggish-torchvggish-package" title="Permalink to this headline">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-sadaco.apis.models.torchvggish.torchvggish.mel_features">
+<span id="sadaco-apis-models-torchvggish-torchvggish-mel-features-module"></span><h2>sadaco.apis.models.torchvggish.torchvggish.mel_features module<a class="headerlink" href="#module-sadaco.apis.models.torchvggish.torchvggish.mel_features" title="Permalink to this headline">¶</a></h2>
+<p>Defines routines to compute mel spectrogram features from audio waveform.</p>
+<dl class="py function">
+<dt id="sadaco.apis.models.torchvggish.torchvggish.mel_features.frame">
+<code class="sig-prename descclassname">sadaco.apis.models.torchvggish.torchvggish.mel_features.</code><code class="sig-name descname">frame</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">window_length</span></em>, <em class="sig-param"><span class="n">hop_length</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/apis/models/torchvggish/torchvggish/mel_features.html#frame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.models.torchvggish.torchvggish.mel_features.frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert array into a sequence of successive possibly overlapping frames.</p>
+<p>An n-dimensional array of shape (num_samples, …) is converted into an
+(n+1)-D array of shape (num_frames, window_length, …), where each frame
+starts hop_length points after the preceding one.</p>
+<p>This is accomplished using stride_tricks, so the original data is not
+copied.  However, there is no zero-padding, so any incomplete frames at the
+end are not included.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – np.array of dimension N &gt;= 1.</p></li>
+<li><p><strong>window_length</strong> – Number of samples in each frame.</p></li>
+<li><p><strong>hop_length</strong> – Advance (in samples) between each window.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(N+1)-D np.array with as many rows as there are complete frames that can be
+extracted.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="sadaco.apis.models.torchvggish.torchvggish.mel_features.periodic_hann">
+<code class="sig-prename descclassname">sadaco.apis.models.torchvggish.torchvggish.mel_features.</code><code class="sig-name descname">periodic_hann</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">window_length</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/apis/models/torchvggish/torchvggish/mel_features.html#periodic_hann"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.models.torchvggish.torchvggish.mel_features.periodic_hann" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate a “periodic” Hann window.</p>
+<p>The classic Hann window is defined as a raised cosine that starts and
+ends on zero, and where every value appears twice, except the middle
+point for an odd-length window.  Matlab calls this a “symmetric” window
+and np.hanning() returns it.  However, for Fourier analysis, this
+actually represents just over one cycle of a period N-1 cosine, and
+thus is not compactly expressed on a length-N Fourier basis.  Instead,
+it’s better to use a raised cosine that ends just before the final
+zero value - i.e. a complete cycle of a period-N cosine.  Matlab
+calls this a “periodic” window. This routine calculates it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>window_length</strong> – The number of points in the returned window.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A 1D np.array containing the periodic hann window.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="sadaco.apis.models.torchvggish.torchvggish.mel_features.stft_magnitude">
+<code class="sig-prename descclassname">sadaco.apis.models.torchvggish.torchvggish.mel_features.</code><code class="sig-name descname">stft_magnitude</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span></em>, <em class="sig-param"><span class="n">fft_length</span></em>, <em class="sig-param"><span class="n">hop_length</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">window_length</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/apis/models/torchvggish/torchvggish/mel_features.html#stft_magnitude"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.models.torchvggish.torchvggish.mel_features.stft_magnitude" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the short-time Fourier transform magnitude.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>signal</strong> – 1D np.array of the input time-domain signal.</p></li>
+<li><p><strong>fft_length</strong> – Size of the FFT to apply.</p></li>
+<li><p><strong>hop_length</strong> – Advance (in samples) between each frame passed to FFT.</p></li>
+<li><p><strong>window_length</strong> – Length of each block of samples to pass to FFT.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>2D np.array where each row contains the magnitudes of the fft_length/2+1
+unique values of the FFT for the corresponding frame of input samples.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="sadaco.apis.models.torchvggish.torchvggish.mel_features.hertz_to_mel">
+<code class="sig-prename descclassname">sadaco.apis.models.torchvggish.torchvggish.mel_features.</code><code class="sig-name descname">hertz_to_mel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">frequencies_hertz</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/apis/models/torchvggish/torchvggish/mel_features.html#hertz_to_mel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.models.torchvggish.torchvggish.mel_features.hertz_to_mel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert frequencies to mel scale using HTK formula.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>frequencies_hertz</strong> – Scalar or np.array of frequencies in hertz.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Object of same size as frequencies_hertz containing corresponding values
+on the mel scale.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="sadaco.apis.models.torchvggish.torchvggish.mel_features.spectrogram_to_mel_matrix">
+<code class="sig-prename descclassname">sadaco.apis.models.torchvggish.torchvggish.mel_features.</code><code class="sig-name descname">spectrogram_to_mel_matrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_mel_bins</span><span class="o">=</span><span class="default_value">20</span></em>, <em class="sig-param"><span class="n">num_spectrogram_bins</span><span class="o">=</span><span class="default_value">129</span></em>, <em class="sig-param"><span class="n">audio_sample_rate</span><span class="o">=</span><span class="default_value">8000</span></em>, <em class="sig-param"><span class="n">lower_edge_hertz</span><span class="o">=</span><span class="default_value">125.0</span></em>, <em class="sig-param"><span class="n">upper_edge_hertz</span><span class="o">=</span><span class="default_value">3800.0</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/apis/models/torchvggish/torchvggish/mel_features.html#spectrogram_to_mel_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.models.torchvggish.torchvggish.mel_features.spectrogram_to_mel_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a matrix that can post-multiply spectrogram rows to make mel.</p>
+<p>Returns a np.array matrix A that can be used to post-multiply a matrix S of
+spectrogram values (STFT magnitudes) arranged as frames x bins to generate a
+“mel spectrogram” M of frames x num_mel_bins.  M = S A.</p>
+<p>The classic HTK algorithm exploits the complementarity of adjacent mel bands
+to multiply each FFT bin by only one mel weight, then add it, with positive
+and negative signs, to the two adjacent mel bands to which that bin
+contributes.  Here, by expressing this operation as a matrix multiply, we go
+from num_fft multiplies per frame (plus around 2*num_fft adds) to around
+num_fft^2 multiplies and adds.  However, because these are all presumably
+accomplished in a single call to np.dot(), it’s not clear which approach is
+faster in Python.  The matrix multiplication has the attraction of being more
+general and flexible, and much easier to read.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_mel_bins</strong> – How many bands in the resulting mel spectrum.  This is
+the number of columns in the output matrix.</p></li>
+<li><p><strong>num_spectrogram_bins</strong> – How many bins there are in the source spectrogram
+data, which is understood to be fft_size/2 + 1, i.e. the spectrogram
+only contains the nonredundant FFT bins.</p></li>
+<li><p><strong>audio_sample_rate</strong> – Samples per second of the audio at the input to the
+spectrogram. We need this to figure out the actual frequencies for
+each spectrogram bin, which dictates how they are mapped into mel.</p></li>
+<li><p><strong>lower_edge_hertz</strong> – Lower bound on the frequencies to be included in the mel
+spectrum.  This corresponds to the lower edge of the lowest triangular
+band.</p></li>
+<li><p><strong>upper_edge_hertz</strong> – The desired top edge of the highest frequency band.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An np.array with shape (num_spectrogram_bins, num_mel_bins).</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – if frequency edges are incorrectly ordered or out of range.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="sadaco.apis.models.torchvggish.torchvggish.mel_features.log_mel_spectrogram">
+<code class="sig-prename descclassname">sadaco.apis.models.torchvggish.torchvggish.mel_features.</code><code class="sig-name descname">log_mel_spectrogram</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">audio_sample_rate</span><span class="o">=</span><span class="default_value">8000</span></em>, <em class="sig-param"><span class="n">log_offset</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">window_length_secs</span><span class="o">=</span><span class="default_value">0.025</span></em>, <em class="sig-param"><span class="n">hop_length_secs</span><span class="o">=</span><span class="default_value">0.01</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/apis/models/torchvggish/torchvggish/mel_features.html#log_mel_spectrogram"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.models.torchvggish.torchvggish.mel_features.log_mel_spectrogram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert waveform to a log magnitude mel-frequency spectrogram.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – 1D np.array of waveform data.</p></li>
+<li><p><strong>audio_sample_rate</strong> – The sampling rate of data.</p></li>
+<li><p><strong>log_offset</strong> – Add this to values when taking log to avoid -Infs.</p></li>
+<li><p><strong>window_length_secs</strong> – Duration of each window to analyze.</p></li>
+<li><p><strong>hop_length_secs</strong> – Advance between successive analysis windows.</p></li>
+<li><p><strong>**kwargs</strong> – Additional arguments to pass to spectrogram_to_mel_matrix.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>2D np.array of (num_frames, num_mel_bins) consisting of log mel filterbank
+magnitudes for successive frames.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-sadaco.apis.models.torchvggish.torchvggish.vggish">
+<span id="sadaco-apis-models-torchvggish-torchvggish-vggish-module"></span><h2>sadaco.apis.models.torchvggish.torchvggish.vggish module<a class="headerlink" href="#module-sadaco.apis.models.torchvggish.torchvggish.vggish" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="sadaco.apis.models.torchvggish.torchvggish.vggish.VGG">
+<em class="property">class </em><code class="sig-prename descclassname">sadaco.apis.models.torchvggish.torchvggish.vggish.</code><code class="sig-name descname">VGG</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">features</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/apis/models/torchvggish/torchvggish/vggish.html#VGG"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.models.torchvggish.torchvggish.vggish.VGG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<dl class="py method">
+<dt id="sadaco.apis.models.torchvggish.torchvggish.vggish.VGG.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/apis/models/torchvggish/torchvggish/vggish.html#VGG.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.models.torchvggish.torchvggish.vggish.VGG.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="sadaco.apis.models.torchvggish.torchvggish.vggish.VGG.training">
+<code class="sig-name descname">training</code><em class="property">: bool</em><a class="headerlink" href="#sadaco.apis.models.torchvggish.torchvggish.vggish.VGG.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="sadaco.apis.models.torchvggish.torchvggish.vggish.Postprocessor">
+<em class="property">class </em><code class="sig-prename descclassname">sadaco.apis.models.torchvggish.torchvggish.vggish.</code><code class="sig-name descname">Postprocessor</code><a class="reference internal" href="_modules/sadaco/apis/models/torchvggish/torchvggish/vggish.html#Postprocessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.models.torchvggish.torchvggish.vggish.Postprocessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<p>Post-processes VGGish embeddings. Returns a torch.Tensor instead of a
+numpy array in order to preserve the gradient.</p>
+<p>“The initial release of AudioSet included 128-D VGGish embeddings for each
+segment of AudioSet. These released embeddings were produced by applying
+a PCA transformation (technically, a whitening transform is included as well)
+and 8-bit quantization to the raw embedding output from VGGish, in order to
+stay compatible with the YouTube-8M project which provides visual embeddings
+in the same format for a large set of YouTube videos. This class implements
+the same PCA (with whitening) and quantization transformations.”</p>
+<dl class="py method">
+<dt id="sadaco.apis.models.torchvggish.torchvggish.vggish.Postprocessor.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/apis/models/torchvggish/torchvggish/vggish.html#Postprocessor.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.models.torchvggish.torchvggish.vggish.Postprocessor.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a postprocessor.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.apis.models.torchvggish.torchvggish.vggish.Postprocessor.postprocess">
+<code class="sig-name descname">postprocess</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">embeddings_batch</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/apis/models/torchvggish/torchvggish/vggish.html#Postprocessor.postprocess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.models.torchvggish.torchvggish.vggish.Postprocessor.postprocess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies tensor postprocessing to a batch of embeddings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>embeddings_batch</strong> – An tensor of shape [batch_size, embedding_size]
+containing output from the embedding layer of VGGish.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tensor of the same shape as the input, containing the PCA-transformed,
+quantized, and clipped version of the input.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.apis.models.torchvggish.torchvggish.vggish.Postprocessor.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/apis/models/torchvggish/torchvggish/vggish.html#Postprocessor.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.models.torchvggish.torchvggish.vggish.Postprocessor.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="sadaco.apis.models.torchvggish.torchvggish.vggish.Postprocessor.training">
+<code class="sig-name descname">training</code><em class="property">: bool</em><a class="headerlink" href="#sadaco.apis.models.torchvggish.torchvggish.vggish.Postprocessor.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="sadaco.apis.models.torchvggish.torchvggish.vggish.make_layers">
+<code class="sig-prename descclassname">sadaco.apis.models.torchvggish.torchvggish.vggish.</code><code class="sig-name descname">make_layers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/apis/models/torchvggish/torchvggish/vggish.html#make_layers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.models.torchvggish.torchvggish.vggish.make_layers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="sadaco.apis.models.torchvggish.torchvggish.vggish.VGGish">
+<em class="property">class </em><code class="sig-prename descclassname">sadaco.apis.models.torchvggish.torchvggish.vggish.</code><code class="sig-name descname">VGGish</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">urls</span></em>, <em class="sig-param"><span class="n">device</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">pretrained</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">preprocess</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">postprocess</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">progress</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/apis/models/torchvggish/torchvggish/vggish.html#VGGish"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.models.torchvggish.torchvggish.vggish.VGGish" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sadaco.apis.models.torchvggish.torchvggish.vggish.VGG" title="sadaco.apis.models.torchvggish.torchvggish.vggish.VGG"><code class="xref py py-class docutils literal notranslate"><span class="pre">sadaco.apis.models.torchvggish.torchvggish.vggish.VGG</span></code></a></p>
+<dl class="py method">
+<dt id="sadaco.apis.models.torchvggish.torchvggish.vggish.VGGish.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">fs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/apis/models/torchvggish/torchvggish/vggish.html#VGGish.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.models.torchvggish.torchvggish.vggish.VGGish.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="sadaco.apis.models.torchvggish.torchvggish.vggish.VGGish.training">
+<code class="sig-name descname">training</code><em class="property">: bool</em><a class="headerlink" href="#sadaco.apis.models.torchvggish.torchvggish.vggish.VGGish.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-sadaco.apis.models.torchvggish.torchvggish.vggish_input">
+<span id="sadaco-apis-models-torchvggish-torchvggish-vggish-input-module"></span><h2>sadaco.apis.models.torchvggish.torchvggish.vggish_input module<a class="headerlink" href="#module-sadaco.apis.models.torchvggish.torchvggish.vggish_input" title="Permalink to this headline">¶</a></h2>
+<p>Compute input examples for VGGish from audio waveform.</p>
+<dl class="py function">
+<dt id="sadaco.apis.models.torchvggish.torchvggish.vggish_input.waveform_to_examples">
+<code class="sig-prename descclassname">sadaco.apis.models.torchvggish.torchvggish.vggish_input.</code><code class="sig-name descname">waveform_to_examples</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">sample_rate</span></em>, <em class="sig-param"><span class="n">return_tensor</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/apis/models/torchvggish/torchvggish/vggish_input.html#waveform_to_examples"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.models.torchvggish.torchvggish.vggish_input.waveform_to_examples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts audio waveform into an array of examples for VGGish.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – np.array of either one dimension (mono) or two dimensions
+(multi-channel, with the outer dimension representing channels).
+Each sample is generally expected to lie in the range [-1.0, +1.0],
+although this is not required.</p></li>
+<li><p><strong>sample_rate</strong> – Sample rate of data.</p></li>
+<li><p><strong>return_tensor</strong> – Return data as a Pytorch tensor ready for VGGish</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>3-D np.array of shape [num_examples, num_frames, num_bands] which represents
+a sequence of examples, each of which contains a patch of log mel
+spectrogram, covering num_frames frames of audio and num_bands mel frequency
+bands, where the frame length is vggish_params.STFT_HOP_LENGTH_SECONDS.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="sadaco.apis.models.torchvggish.torchvggish.vggish_input.wavfile_to_examples">
+<code class="sig-prename descclassname">sadaco.apis.models.torchvggish.torchvggish.vggish_input.</code><code class="sig-name descname">wavfile_to_examples</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">wav_file</span></em>, <em class="sig-param"><span class="n">return_tensor</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sadaco/apis/models/torchvggish/torchvggish/vggish_input.html#wavfile_to_examples"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.models.torchvggish.torchvggish.vggish_input.wavfile_to_examples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convenience wrapper around waveform_to_examples() for a common WAV format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wav_file</strong> – String path to a file, or a file-like object. The file</p></li>
+<li><p><strong>assumed to contain WAV audio data with signed 16-bit PCM samples.</strong> (<em>is</em>) – </p></li>
+<li><p><strong>torch</strong> – Return data as a Pytorch tensor ready for VGGish</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>See waveform_to_examples.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-sadaco.apis.models.torchvggish.torchvggish.vggish_params">
+<span id="sadaco-apis-models-torchvggish-torchvggish-vggish-params-module"></span><h2>sadaco.apis.models.torchvggish.torchvggish.vggish_params module<a class="headerlink" href="#module-sadaco.apis.models.torchvggish.torchvggish.vggish_params" title="Permalink to this headline">¶</a></h2>
+<p>Global parameters for the VGGish model.</p>
+<p>See vggish_slim.py for more information.</p>
+</section>
+<section id="module-sadaco.apis.models.torchvggish.torchvggish">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-sadaco.apis.models.torchvggish.torchvggish" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="sadaco.apis.traintest.html" class="btn btn-neutral float-right" title="sadaco.apis.traintest package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="sadaco.apis.models.torchvggish.html" class="btn btn-neutral float-left" title="sadaco.apis.models.torchvggish package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Kyungchae Lee, Ying Hui Tan.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

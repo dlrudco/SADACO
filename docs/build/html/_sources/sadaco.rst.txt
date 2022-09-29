@@ -7,7 +7,7 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   apis/sadaco.apis
+   sadaco.apis
    sadaco.dataman
    sadaco.pipelines
    sadaco.utils

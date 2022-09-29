@@ -1,8 +1,25 @@
+--extra-index-url https://download.pytorch.org/whl/cu113
+librosa
+soundfile
+resampy
+wget
+bluepy
 docutils==0.16
-# https://github.com/sphinx-doc/sphinx/commit/7acd3ada3f38076af7b2b5c9f3b60bb9c2587a3d
 sphinx==3.2.0
 recommonmark==0.6.0
-sphinx_rtd_theme
+sphinx_rtd_theme==1.0.0
 myst-parser
 Jinja2<3.1
+munch==2.5.0
+opencv-python==4.5.4.60
+tqdm
+Pillow==8.1.2
+sklearn
+matplotlib
+librosa
+wandb
+pandas
+torch==1.11.0+cu113
+torchvision==0.12.0+cu113
+torchaudio==0.11.0
 .

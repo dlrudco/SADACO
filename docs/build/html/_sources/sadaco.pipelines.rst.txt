@@ -7,7 +7,12 @@ Submodules
 sadaco.pipelines.ICBHI module
 -----------------------------
 
-.. automodule:: sadaco.pipelines.ICBHI
+.. autoclass:: sadaco.pipelines.ICBHI::ICBHI_Basic_Trainer
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. autoclass:: sadaco.pipelines.ICBHI::ICBHI_Contrast_Trainer
    :members:
    :undoc-members:
    :show-inheritance:

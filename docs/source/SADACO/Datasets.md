@@ -1,5 +1,5 @@
 ---
-sort: 1
+sort: 2
 ---
 
 # Datasets
@@ -10,29 +10,29 @@ ICBHI dataset is an audio dataset containing audio samples, collected independen
 
 ### Dataset Specification
 #### Classes
- - Normal : Healthy breathing sound without any other symptoms.
- - Crackle : Crackle sound is a series of short, explosive sounds. They can also sound like bubbling, rattling, or clicking. You’re more likely to have them when you breathe in, but they can happen when you breathe out, too. <br><br>You can have fine crackles, which are shorter and higher in pitch, or coarse crackles, which are lower. Either can be a sign that there’s fluid in your air sacs. <br><br>They can be caused by:
-   - Pneumonia
-   - Heart disease
-   - Pulmonary fibrosis
-   - Cystic fibrosis
-   - COPD
-   - Lung infections, like bronchitis
-   - Asbestosis, a lung disease caused by breathing in asbestos
-   - Pericarditis, an infection of the sac that covers your heart
- - Wheeze : This high-pitched whistling noise can happen when you’re breathing in or out. It’s usually a sign that something is making your airways narrow or keeping air from flowing through them. <br><br> Two of the most common causes of wheezing are lung diseases called chronic obstructive pulmonary disease (COPD) and asthma. But many other issues can make you wheeze, too, including:
-   - Allergies
-   - Bronchitis or bronchiolitis
-   - Emphysema
-   - Epiglottitis (swelling of the top flap of your windpipe)
-   - Gastroesophageal reflux disease (GERD)
-   - Heart failure
-   - Lung cancer
-   - Sleep apnea
-   - Pneumonia
-   - Respiratory syncytial virus (RSV)
-   - Vocal cord problems
-   - An object stuck in your voice box or windpipe
+ * Normal : Healthy breathing sound without any other symptoms.
+ * Crackle : Crackle sound is a series of short, explosive sounds. They can also sound like bubbling, rattling, or clicking. You’re more likely to have them when you breathe in, but they can happen when you breathe out, too. <br><br>You can have fine crackles, which are shorter and higher in pitch, or coarse crackles, which are lower. Either can be a sign that there’s fluid in your air sacs. <br><br>They can be caused by:
+   * Pneumonia
+   * Heart disease
+   * Pulmonary fibrosis
+   * Cystic fibrosis
+   * COPD
+   * Lung infections, like bronchitis
+   * Asbestosis, a lung disease caused by breathing in asbestos
+   * Pericarditis, an infection of the sac that covers your heart
+ * Wheeze : This high-pitched whistling noise can happen when you’re breathing in or out. It’s usually a sign that something is making your airways narrow or keeping air from flowing through them. <br><br> Two of the most common causes of wheezing are lung diseases called chronic obstructive pulmonary disease (COPD) and asthma. But many other issues can make you wheeze, too, including:
+   * Allergies
+   * Bronchitis or bronchiolitis
+   * Emphysema
+   * Epiglottitis (swelling of the top flap of your windpipe)
+   * Gastroesophageal reflux disease (GERD)
+   * Heart failure
+   * Lung cancer
+   * Sleep apnea
+   * Pneumonia
+   * Respiratory syncytial virus (RSV)
+   * Vocal cord problems
+   * An object stuck in your voice box or windpipe
 
 #### Data Count and Duration
 The database consists of a total of 5.5 hours of recordings containing 6898 respiratory cycles, of which 1864 contain crackles, 886 contain wheezes, and 506 contain both crackles and wheezes, in 920 annotated audio samples from 126 subjects.
@@ -54,9 +54,9 @@ Fraiwan dataset is collected by Jordan University of Science and Technology Facu
 
 ### Dataset Specification
 There are **three** types of filters encoded in Fraiwan:
-- Bell mode filtration (B): Amplifies sounds in the frequency range 20-100Hz, but emphasizes the low frequency sounds in the range 20-200Hz. 
-- Diaphragm mode filtration (D): Amplifies sounds in the frequency range 20-200Hz, but emphasizes the high frequency sounds in the range 100-500Hz.
-- Extended mode filtration (E): Amplifies sounds in the frequency range 20-1000Hz, but emphasizes the frequency sounds in the range 50-500Hz.
+* Bell mode filtration (B): Amplifies sounds in the frequency range 20-100Hz, but emphasizes the low frequency sounds in the range 20-200Hz. 
+* Diaphragm mode filtration (D): Amplifies sounds in the frequency range 20-200Hz, but emphasizes the high frequency sounds in the range 100-500Hz.
+* Extended mode filtration (E): Amplifies sounds in the frequency range 20-1000Hz, but emphasizes the frequency sounds in the range 50-500Hz.
  
 #### Classes
 There are seven different classes in Fraiwan dataset:

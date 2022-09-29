@@ -1,30 +1,69 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sadaco.apis.explain.hookman &mdash; SADACO 0.1 documentation</title><link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
-    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  
+  <title>sadaco.apis.explain.hookman &mdash; SADACO 0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
         <script src="../../../../_static/jquery.js"></script>
         <script src="../../../../_static/underscore.js"></script>
         <script src="../../../../_static/doctools.js"></script>
         <script src="../../../../_static/language_data.js"></script>
-    <script src="../../../../_static/js/theme.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav"> 
+<body class="wy-body-for-nav">
+
+   
   <div class="wy-grid-for-nav">
+    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
+          
+
+          
             <a href="../../../../index.html" class="icon icon-home"> SADACO
+          
+
+          
           </a>
+
+          
+            
+            
+          
+
+          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -32,52 +71,102 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../SADACO/index.html">SADACO</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../SADACO_WEB/index.html">SADACO_WEB</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../sadaco.html">sadaco package</a></li>
 </ul>
 
+            
+          
         </div>
+        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../index.html">SADACO</a>
+        
       </nav>
 
+
       <div class="wy-nav-content">
+        
         <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
+    
       <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
           <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
       <li>sadaco.apis.explain.hookman</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
+        
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-             
+            
   <h1>Source code for sadaco.apis.explain.hookman</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">pyexpat</span> <span class="kn">import</span> <span class="n">features</span>
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 <span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
 
-<div class="viewcode-block" id="get_last_conv_name"><a class="viewcode-back" href="../../../../apis/sadaco.apis.explain.html#sadaco.apis.explain.hookman.get_last_conv_name">[docs]</a><span class="k">def</span> <span class="nf">get_last_conv_name</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
+<div class="viewcode-block" id="get_last_conv_name"><a class="viewcode-back" href="../../../../sadaco.apis.explain.html#sadaco.apis.explain.hookman.get_last_conv_name">[docs]</a><span class="k">def</span> <span class="nf">get_last_conv_name</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
     <span class="n">layer_name</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">named_modules</span><span class="p">():</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">):</span>
             <span class="n">layer_name</span> <span class="o">=</span> <span class="n">name</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">layer_name</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="FGHandler"><a class="viewcode-back" href="../../../../apis/sadaco.apis.explain.html#sadaco.apis.explain.hookman.FGHandler">[docs]</a><span class="k">class</span> <span class="nc">FGHandler</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="FGHandler"><a class="viewcode-back" href="../../../../sadaco.apis.explain.html#sadaco.apis.explain.hookman.FGHandler">[docs]</a><span class="k">class</span> <span class="nc">FGHandler</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">net</span><span class="p">,</span> <span class="n">layer_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">net</span> <span class="o">=</span> <span class="n">net</span>
         <span class="k">if</span> <span class="n">layer_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -129,36 +218,36 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">handlers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">register_forward_hook</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_features_hook</span><span class="p">(</span><span class="n">name</span><span class="p">)))</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">handlers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">register_full_backward_hook</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_grads_hook</span><span class="p">(</span><span class="n">name</span><span class="p">)))</span>
             
-<div class="viewcode-block" id="FGHandler.remove_handlers"><a class="viewcode-back" href="../../../../apis/sadaco.apis.explain.html#sadaco.apis.explain.hookman.FGHandler.remove_handlers">[docs]</a>    <span class="k">def</span> <span class="nf">remove_handlers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FGHandler.remove_handlers"><a class="viewcode-back" href="../../../../sadaco.apis.explain.html#sadaco.apis.explain.hookman.FGHandler.remove_handlers">[docs]</a>    <span class="k">def</span> <span class="nf">remove_handlers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">handle</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">handlers</span><span class="p">:</span>
             <span class="n">handle</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span></div>
             
-<div class="viewcode-block" id="FGHandler.forward"><a class="viewcode-back" href="../../../../apis/sadaco.apis.explain.html#sadaco.apis.explain.hookman.FGHandler.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+<div class="viewcode-block" id="FGHandler.forward"><a class="viewcode-back" href="../../../../sadaco.apis.explain.html#sadaco.apis.explain.hookman.FGHandler.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span></div>
         
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
 
-<div class="viewcode-block" id="FGHandler.get_features"><a class="viewcode-back" href="../../../../apis/sadaco.apis.explain.html#sadaco.apis.explain.hookman.FGHandler.get_features">[docs]</a>    <span class="k">def</span> <span class="nf">get_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="FGHandler.get_features"><a class="viewcode-back" href="../../../../sadaco.apis.explain.html#sadaco.apis.explain.hookman.FGHandler.get_features">[docs]</a>    <span class="k">def</span> <span class="nf">get_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="n">feats</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">feature</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
         <span class="k">if</span> <span class="n">feats</span> <span class="o">==</span> <span class="p">[]:</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">feats</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="FGHandler.get_grads"><a class="viewcode-back" href="../../../../apis/sadaco.apis.explain.html#sadaco.apis.explain.hookman.FGHandler.get_grads">[docs]</a>    <span class="k">def</span> <span class="nf">get_grads</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="FGHandler.get_grads"><a class="viewcode-back" href="../../../../sadaco.apis.explain.html#sadaco.apis.explain.hookman.FGHandler.get_grads">[docs]</a>    <span class="k">def</span> <span class="nf">get_grads</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="n">grads</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">gradient</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">gradient</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
         <span class="k">if</span> <span class="n">grads</span> <span class="o">==</span> <span class="p">[]:</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">grads</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
     
-<div class="viewcode-block" id="FGHandler.reset_all"><a class="viewcode-back" href="../../../../apis/sadaco.apis.explain.html#sadaco.apis.explain.hookman.FGHandler.reset_all">[docs]</a>    <span class="k">def</span> <span class="nf">reset_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FGHandler.reset_all"><a class="viewcode-back" href="../../../../sadaco.apis.explain.html#sadaco.apis.explain.hookman.FGHandler.reset_all">[docs]</a>    <span class="k">def</span> <span class="nf">reset_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_name</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">feature</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">gradient</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span></div>
             
-<div class="viewcode-block" id="FGHandler.get_all_features"><a class="viewcode-back" href="../../../../apis/sadaco.apis.explain.html#sadaco.apis.explain.hookman.FGHandler.get_all_features">[docs]</a>    <span class="k">def</span> <span class="nf">get_all_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c_reduce</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">hw_reduce</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="FGHandler.get_all_features"><a class="viewcode-back" href="../../../../sadaco.apis.explain.html#sadaco.apis.explain.hookman.FGHandler.get_all_features">[docs]</a>    <span class="k">def</span> <span class="nf">get_all_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c_reduce</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">hw_reduce</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="c1">#&lt;&lt;CAUTION&gt;&gt; </span>
         <span class="c1"># Assuming only BCHW for now! </span>
         <span class="c1"># any other shape of feat&amp;grad will produce weird results</span>
@@ -205,7 +294,7 @@
         
         <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">features_list</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="FGHandler.get_all_grads"><a class="viewcode-back" href="../../../../apis/sadaco.apis.explain.html#sadaco.apis.explain.hookman.FGHandler.get_all_grads">[docs]</a>    <span class="k">def</span> <span class="nf">get_all_grads</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c_reduce</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">hw_reduce</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="FGHandler.get_all_grads"><a class="viewcode-back" href="../../../../sadaco.apis.explain.html#sadaco.apis.explain.hookman.FGHandler.get_all_grads">[docs]</a>    <span class="k">def</span> <span class="nf">get_all_grads</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c_reduce</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">hw_reduce</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="c1">#&lt;&lt;CAUTION&gt;&gt; </span>
         <span class="c1"># Assuming only BCHW for now! </span>
         <span class="c1"># any other shape of feat&amp;grad will produce weird results</span>
@@ -249,44 +338,60 @@
         
         <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">grads_list</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
     
-<div class="viewcode-block" id="FGHandler.to"><a class="viewcode-back" href="../../../../apis/sadaco.apis.explain.html#sadaco.apis.explain.hookman.FGHandler.to">[docs]</a>    <span class="k">def</span> <span class="nf">to</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="p">):</span>
+<div class="viewcode-block" id="FGHandler.to"><a class="viewcode-back" href="../../../../sadaco.apis.explain.html#sadaco.apis.explain.hookman.FGHandler.to">[docs]</a>    <span class="k">def</span> <span class="nf">to</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
     
-<div class="viewcode-block" id="FGHandler.train"><a class="viewcode-back" href="../../../../apis/sadaco.apis.explain.html#sadaco.apis.explain.hookman.FGHandler.train">[docs]</a>    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="FGHandler.train"><a class="viewcode-back" href="../../../../sadaco.apis.explain.html#sadaco.apis.explain.hookman.FGHandler.train">[docs]</a>    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
     
-<div class="viewcode-block" id="FGHandler.eval"><a class="viewcode-back" href="../../../../apis/sadaco.apis.explain.html#sadaco.apis.explain.hookman.FGHandler.eval">[docs]</a>    <span class="k">def</span> <span class="nf">eval</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FGHandler.eval"><a class="viewcode-back" href="../../../../sadaco.apis.explain.html#sadaco.apis.explain.hookman.FGHandler.eval">[docs]</a>    <span class="k">def</span> <span class="nf">eval</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span></div></div>
 </pre></div>
 
            </div>
+           
           </div>
           <footer>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Kyungchae Lee, Ying Hui Tan.</p>
-  </div>
+    <p>
+        &#169; Copyright 2022, Kyungchae Lee, Ying Hui Tan.
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
         </div>
       </div>
+
     </section>
+
   </div>
-  <script>
+  
+
+  <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>
