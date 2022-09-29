@@ -28,10 +28,13 @@ author = 'Kyungchae Lee, Ying Hui Tan'
 release = '0.1'
 
 to_import = list(sys.modules.keys())
+import subprocess
+proc = subprocess.Popen('apt-get install -y libsndfile1-dev', shell=True, stdin=None, stdout=open(os.devnull,"wb"), stderr=subprocess.STDOUT, executable="/bin/bash")
+proc.wait()
 import torch
 import torchvision
 import torchaudio
-torchaudio.set_audio_backend("sox_io")
+# torchaudio.set_audio_backend("sox_io")
 # try:
 #     import torch  # noqa
 # except ImportError:
@@ -60,7 +63,6 @@ torchaudio.set_audio_backend("sox_io")
 #      'matplotlib', 'matplotlib.pyplot', 'torch2trt', 'resampy', 'PIL', 'torchsummary'
 for m in [
     "tqdm", 'timm', 'timm.models', 'timm.models.layers', 'torchsummary', 'torch2trt',
-    'librosa', 'librosa.display'
 ]:
     sys.modules[m] = mock.Mock(name=m)
 
