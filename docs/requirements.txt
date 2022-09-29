@@ -3,6 +3,7 @@ librosa
 soundfile
 resampy
 wget
+bluepy
 docutils==0.19
 sphinx==3.2.0
 recommonmark==0.6.0
