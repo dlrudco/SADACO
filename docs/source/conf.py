@@ -29,6 +29,8 @@ release = '0.1'
 
 to_import = list(sys.modules.keys())
 import torch
+import torchaudio
+import torchvision
 # try:
 #     import torch  # noqa
 # except ImportError:
@@ -60,7 +62,7 @@ for m in [
 ]:
     sys.modules[m] = mock.Mock(name=m)
 
-import sadaco 
+import sadaco
 # -- General configuration ---------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be
