@@ -43,7 +43,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../sadaco.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="sadaco.apis.html">sadaco.apis package</a><ul class="current">
 <li class="toctree-l4 current"><a class="reference internal" href="sadaco.apis.html#subpackages">Subpackages</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sadaco.apis.html#module-contents">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sadaco.apis.html#module-sadaco.apis">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../sadaco.dataman.html">sadaco.dataman package</a></li>
@@ -51,7 +51,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../sadaco.utils.html">sadaco.utils package</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../sadaco.html#module-contents">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sadaco.html#module-sadaco">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -87,26 +87,230 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
 </div>
-<div class="section" id="sadaco-apis-traintest-common-module">
-<h2>sadaco.apis.traintest.common module<a class="headerlink" href="#sadaco-apis-traintest-common-module" title="Permalink to this headline"></a></h2>
+<div class="section" id="module-sadaco.apis.traintest.common">
+<span id="sadaco-apis-traintest-common-module"></span><h2>sadaco.apis.traintest.common module<a class="headerlink" href="#module-sadaco.apis.traintest.common" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt id="sadaco.apis.traintest.common.load_input">
+<code class="sig-prename descclassname">sadaco.apis.traintest.common.</code><code class="sig-name descname">load_input</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_path</span></em>, <em class="sig-param"><span class="n">mode</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">n_mels</span><span class="o">=</span><span class="default_value">128</span></em>, <em class="sig-param"><span class="n">n_fft</span><span class="o">=</span><span class="default_value">70</span></em>, <em class="sig-param"><span class="n">hop_length</span><span class="o">=</span><span class="default_value">25</span></em>, <em class="sig-param"><span class="n">sample_rate</span><span class="o">=</span><span class="default_value">16000</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/common.html#load_input"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.common.load_input" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 </div>
-<div class="section" id="sadaco-apis-traintest-demo-module">
-<h2>sadaco.apis.traintest.demo module<a class="headerlink" href="#sadaco-apis-traintest-demo-module" title="Permalink to this headline"></a></h2>
+<div class="section" id="module-sadaco.apis.traintest.demo">
+<span id="sadaco-apis-traintest-demo-module"></span><h2>sadaco.apis.traintest.demo module<a class="headerlink" href="#module-sadaco.apis.traintest.demo" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt id="sadaco.apis.traintest.demo.demo_helper">
+<em class="property">class </em><code class="sig-prename descclassname">sadaco.apis.traintest.demo.</code><code class="sig-name descname">demo_helper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">master_cfg</span></em>, <em class="sig-param"><span class="n">model_cfg</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/demo.html#demo_helper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.demo.demo_helper" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="sadaco.apis.traintest.demo.demo_helper.do_inference">
+<code class="sig-name descname">do_inference</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_path</span></em>, <em class="sig-param"><span class="n">return_raw</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/demo.html#demo_helper.do_inference"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.demo.demo_helper.do_inference" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.apis.traintest.demo.demo_helper.do_explanation">
+<code class="sig-name descname">do_explanation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_path</span></em>, <em class="sig-param"><span class="n">method</span></em>, <em class="sig-param"><span class="n">cls</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/demo.html#demo_helper.do_explanation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.demo.demo_helper.do_explanation" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="sadaco-apis-traintest-eval-module">
-<h2>sadaco.apis.traintest.eval module<a class="headerlink" href="#sadaco-apis-traintest-eval-module" title="Permalink to this headline"></a></h2>
+<div class="section" id="module-sadaco.apis.traintest.eval">
+<span id="sadaco-apis-traintest-eval-module"></span><h2>sadaco.apis.traintest.eval module<a class="headerlink" href="#module-sadaco.apis.traintest.eval" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt id="sadaco.apis.traintest.eval.move_device">
+<code class="sig-prename descclassname">sadaco.apis.traintest.eval.</code><code class="sig-name descname">move_device</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">DefaultDict</span></em>, <em class="sig-param"><span class="n">device</span><span class="p">:</span> <span class="n">torch.device</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/eval.html#move_device"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.eval.move_device" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="sadaco.apis.traintest.eval.test_basic_epoch">
+<code class="sig-prename descclassname">sadaco.apis.traintest.eval.</code><code class="sig-name descname">test_basic_epoch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span><span class="p">:</span> <span class="n">torch.nn.modules.module.Module</span></em>, <em class="sig-param"><span class="n">device</span><span class="p">:</span> <span class="n">torch.device</span></em>, <em class="sig-param"><span class="n">test_loader</span><span class="p">:</span> <span class="n">torch.utils.data.dataloader.DataLoader</span></em>, <em class="sig-param"><span class="n">metrics</span><span class="p">:</span> <span class="n"><a class="reference internal" href="../sadaco.utils.html#sadaco.utils.stats.ICBHI_Metrics" title="sadaco.utils.stats.ICBHI_Metrics">sadaco.utils.stats.ICBHI_Metrics</a></span></em>, <em class="sig-param"><span class="n">criterion</span><span class="p">:</span> <span class="n">Callable<span class="p">[</span><span class="p">[</span>torch.Tensor<span class="p">, </span>torch.Tensor<span class="p">]</span><span class="p">, </span>torch.Tensor<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">epoch</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">preprocessing</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Optional<span class="p">[</span>Union<span class="p">[</span>DefaultDict<span class="p">, </span>numpy.ndarray<span class="p">]</span><span class="p">]</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/eval.html#test_basic_epoch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.eval.test_basic_epoch" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 </div>
-<div class="section" id="sadaco-apis-traintest-preprocessings-module">
-<h2>sadaco.apis.traintest.preprocessings module<a class="headerlink" href="#sadaco-apis-traintest-preprocessings-module" title="Permalink to this headline"></a></h2>
+<div class="section" id="module-sadaco.apis.traintest.preprocessings">
+<span id="sadaco-apis-traintest-preprocessings-module"></span><h2>sadaco.apis.traintest.preprocessings module<a class="headerlink" href="#module-sadaco.apis.traintest.preprocessings" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt id="sadaco.apis.traintest.preprocessings.Preprocessor">
+<em class="property">class </em><code class="sig-prename descclassname">sadaco.apis.traintest.preprocessings.</code><code class="sig-name descname">Preprocessor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">preproc_modules</span><span class="p">:</span> <span class="n">List</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/preprocessings.html#Preprocessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.preprocessings.Preprocessor" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="sadaco.apis.traintest.preprocessings.Preprocessor.add_module">
+<code class="sig-name descname">add_module</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">module</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/preprocessings.html#Preprocessor.add_module"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.preprocessings.Preprocessor.add_module" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.apis.traintest.preprocessings.Preprocessor.to">
+<code class="sig-name descname">to</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">device</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/preprocessings.html#Preprocessor.to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.preprocessings.Preprocessor.to" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="sadaco.apis.traintest.preprocessings.stft2meldb">
+<em class="property">class </em><code class="sig-prename descclassname">sadaco.apis.traintest.preprocessings.</code><code class="sig-name descname">stft2meldb</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_stft</span></em>, <em class="sig-param"><span class="n">n_mels</span><span class="o">=</span><span class="default_value">128</span></em>, <em class="sig-param"><span class="n">sample_rate</span><span class="o">=</span><span class="default_value">16000</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/preprocessings.html#stft2meldb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.preprocessings.stft2meldb" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="sadaco.apis.traintest.preprocessings.stft2meldb.to">
+<code class="sig-name descname">to</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">device</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/preprocessings.html#stft2meldb.to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.preprocessings.stft2meldb.to" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="sadaco.apis.traintest.preprocessings.normalize">
+<em class="property">class </em><code class="sig-prename descclassname">sadaco.apis.traintest.preprocessings.</code><code class="sig-name descname">normalize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mean</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">std</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/preprocessings.html#normalize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.preprocessings.normalize" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="sadaco.apis.traintest.preprocessings.normalize.to">
+<code class="sig-name descname">to</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">device</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/preprocessings.html#normalize.to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.preprocessings.normalize.to" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="sadaco-apis-traintest-train-module">
-<h2>sadaco.apis.traintest.train module<a class="headerlink" href="#sadaco-apis-traintest-train-module" title="Permalink to this headline"></a></h2>
+<div class="section" id="module-sadaco.apis.traintest.train">
+<span id="sadaco-apis-traintest-train-module"></span><h2>sadaco.apis.traintest.train module<a class="headerlink" href="#module-sadaco.apis.traintest.train" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt id="sadaco.apis.traintest.train.move_device">
+<code class="sig-prename descclassname">sadaco.apis.traintest.train.</code><code class="sig-name descname">move_device</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">DefaultDict</span></em>, <em class="sig-param"><span class="n">device</span><span class="p">:</span> <span class="n">torch.device</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/train.html#move_device"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.train.move_device" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="sadaco.apis.traintest.train.train_basic_epoch">
+<code class="sig-prename descclassname">sadaco.apis.traintest.train.</code><code class="sig-name descname">train_basic_epoch</code><span class="sig-paren">(</span><em class="sig-param">model: torch.nn.modules.module.Module</em>, <em class="sig-param">device: torch.device</em>, <em class="sig-param">train_loader: torch.utils.data.dataloader.DataLoader</em>, <em class="sig-param">optimizer: &lt;module 'torch.optim' from '/home/ncl/anaconda3/envs/kclee_idx/lib/python3.8/site-packages/torch/optim/__init__.py'&gt;</em>, <em class="sig-param">criterion: Callable</em>, <em class="sig-param">epoch: int</em>, <em class="sig-param">return_stats: bool = False</em>, <em class="sig-param">verbose: bool = False</em>, <em class="sig-param">preprocessing: Callable = None</em>, <em class="sig-param">grad_thres=None</em>, <em class="sig-param">update_interval=1</em><span class="sig-paren">)</span> &#x2192; Optional<span class="p">[</span>Union<span class="p">[</span>DefaultDict<span class="p">, </span>numpy.ndarray<span class="p">]</span><span class="p">]</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/train.html#train_basic_epoch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.train.train_basic_epoch" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>nn.Module</em>) – _description_</p></li>
+<li><p><strong>device</strong> (<em>torch.device</em>) – _description_</p></li>
+<li><p><strong>train_loader</strong> (<em>DataLoader</em>) – _description_</p></li>
+<li><p><strong>optimizer</strong> (<em>torch.optim</em>) – _description_</p></li>
+<li><p><strong>criterion</strong> (<em>Callable</em>) – _description_</p></li>
+<li><p><strong>epoch</strong> (<em>int</em>) – _description_</p></li>
+<li><p><strong>return_stats</strong> (<em>bool</em><em>, </em><em>optional</em>) – _description_, defaults to False</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – _description_, defaults to False</p></li>
+<li><p><strong>preprocessing</strong> (<em>Callable</em><em>, </em><em>optional</em>) – _description_, defaults to None</p></li>
+<li><p><strong>grad_thres</strong> (<em>_type_</em><em>, </em><em>optional</em>) – _description_, defaults to None</p></li>
+<li><p><strong>update_interval</strong> (<em>int</em><em>, </em><em>optional</em>) – _description_, defaults to 1</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Optional[Union[DefaultDict, np.ndarray]]</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
-<div class="section" id="sadaco-apis-traintest-trainer-base-module">
-<h2>sadaco.apis.traintest.trainer_base module<a class="headerlink" href="#sadaco-apis-traintest-trainer-base-module" title="Permalink to this headline"></a></h2>
+<div class="section" id="module-sadaco.apis.traintest.trainer_base">
+<span id="sadaco-apis-traintest-trainer-base-module"></span><h2>sadaco.apis.traintest.trainer_base module<a class="headerlink" href="#module-sadaco.apis.traintest.trainer_base" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt id="sadaco.apis.traintest.trainer_base.BaseTrainer">
+<em class="property">class </em><code class="sig-prename descclassname">sadaco.apis.traintest.trainer_base.</code><code class="sig-name descname">BaseTrainer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">train_configs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/trainer_base.html#BaseTrainer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.trainer_base.BaseTrainer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="sadaco.apis.traintest.trainer_base.BaseTrainer.build_dataset">
+<code class="sig-name descname">build_dataset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/trainer_base.html#BaseTrainer.build_dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.trainer_base.BaseTrainer.build_dataset" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.apis.traintest.trainer_base.BaseTrainer.build_dataloader">
+<code class="sig-name descname">build_dataloader</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/trainer_base.html#BaseTrainer.build_dataloader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.trainer_base.BaseTrainer.build_dataloader" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.apis.traintest.trainer_base.BaseTrainer.build_model">
+<code class="sig-name descname">build_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/trainer_base.html#BaseTrainer.build_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.trainer_base.BaseTrainer.build_model" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.apis.traintest.trainer_base.BaseTrainer.parallel">
+<code class="sig-name descname">parallel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/trainer_base.html#BaseTrainer.parallel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.trainer_base.BaseTrainer.parallel" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.apis.traintest.trainer_base.BaseTrainer.build_optimizer">
+<code class="sig-name descname">build_optimizer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">trainables</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/trainer_base.html#BaseTrainer.build_optimizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.trainer_base.BaseTrainer.build_optimizer" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.apis.traintest.trainer_base.BaseTrainer.build_logger">
+<code class="sig-name descname">build_logger</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">use_wandb</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/trainer_base.html#BaseTrainer.build_logger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.trainer_base.BaseTrainer.build_logger" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.apis.traintest.trainer_base.BaseTrainer.reset_trainer">
+<code class="sig-name descname">reset_trainer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/trainer_base.html#BaseTrainer.reset_trainer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.trainer_base.BaseTrainer.reset_trainer" title="Permalink to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>TODO<span class="classifier">Currently calls __init__ again</span></dt><dd><p>which might cause unexpected behavior
+find a way to aviod this.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.apis.traintest.trainer_base.BaseTrainer.resume">
+<code class="sig-name descname">resume</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/trainer_base.html#BaseTrainer.resume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.trainer_base.BaseTrainer.resume" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.apis.traintest.trainer_base.BaseTrainer.train">
+<code class="sig-name descname">train</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/trainer_base.html#BaseTrainer.train"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.trainer_base.BaseTrainer.train" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.apis.traintest.trainer_base.BaseTrainer.train_kfold">
+<code class="sig-name descname">train_kfold</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">k</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/trainer_base.html#BaseTrainer.train_kfold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.trainer_base.BaseTrainer.train_kfold" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.apis.traintest.trainer_base.BaseTrainer.prepare_kfold">
+<code class="sig-name descname">prepare_kfold</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">i</span></em>, <em class="sig-param"><span class="n">k</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/trainer_base.html#BaseTrainer.prepare_kfold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.trainer_base.BaseTrainer.prepare_kfold" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.apis.traintest.trainer_base.BaseTrainer.validate">
+<code class="sig-name descname">validate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">return_stats</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/trainer_base.html#BaseTrainer.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.trainer_base.BaseTrainer.validate" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.apis.traintest.trainer_base.BaseTrainer.test">
+<code class="sig-name descname">test</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/trainer_base.html#BaseTrainer.test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.trainer_base.BaseTrainer.test" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.apis.traintest.trainer_base.BaseTrainer.train_epoch">
+<code class="sig-name descname">train_epoch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/trainer_base.html#BaseTrainer.train_epoch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.trainer_base.BaseTrainer.train_epoch" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sadaco.apis.traintest.trainer_base.BaseTrainer.validate_epoch">
+<code class="sig-name descname">validate_epoch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/trainer_base.html#BaseTrainer.validate_epoch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.trainer_base.BaseTrainer.validate_epoch" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="sadaco.apis.traintest.trainer_base.build_optimizer">
+<code class="sig-prename descclassname">sadaco.apis.traintest.trainer_base.</code><code class="sig-name descname">build_optimizer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span></em>, <em class="sig-param"><span class="n">train_configs</span></em>, <em class="sig-param"><span class="n">trainables</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/trainer_base.html#build_optimizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.trainer_base.build_optimizer" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="sadaco.apis.traintest.trainer_base.build_dataloader">
+<code class="sig-prename descclassname">sadaco.apis.traintest.trainer_base.</code><code class="sig-name descname">build_dataloader</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataset</span></em>, <em class="sig-param"><span class="n">train_configs</span></em>, <em class="sig-param"><span class="n">data_configs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/trainer_base.html#build_dataloader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.trainer_base.build_dataloader" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="sadaco.apis.traintest.trainer_base.build_criterion">
+<code class="sig-prename descclassname">sadaco.apis.traintest.trainer_base.</code><code class="sig-name descname">build_criterion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">mixup</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/traintest/trainer_base.html#build_criterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.traintest.trainer_base.build_criterion" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 </div>
-<div class="section" id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline"></a></h2>
+<div class="section" id="module-sadaco.apis.traintest">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-sadaco.apis.traintest" title="Permalink to this headline"></a></h2>
 </div>
 </div>
 

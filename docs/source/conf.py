@@ -16,6 +16,7 @@
 import sphinx_rtd_theme
 import os
 import sys
+from unittest import mock
 sys.path.insert(0, os.path.abspath('../../sadaco/'))
 # -- Project information -----------------------------------------------------
 
@@ -26,7 +27,34 @@ author = 'Kyungchae Lee, Ying Hui Tan'
 # The full version, including alpha/beta/rc tags
 release = '0.1'
 
+try:
+    import torch  # noqa
+except ImportError:
+    for m in [
+        "torch", "torchvision", "torch.nn", "torch.nn.parallel", "torch.distributed", "torch.multiprocessing", "torch.autograd",
+        "torch.autograd.function", "torch.nn.modules", "torch.nn.modules.utils", "torch.utils", "torch.utils.data", "torch.onnx",
+        "torchvision", "torchvision.ops", "torch.cuda", "torch.utils.data.sampler", "torch.cuda.amp"
+    ]:
+        sys.modules[m] = mock.Mock(name=m)
+    sys.modules['torch'].__version__ = "1.7"  # fake version
+    HAS_TORCH = False
 
+try:
+    import torchaudio
+except ImportError:
+    for m in [
+        'torchaudio'
+    ]:
+        sys.modules[m] = mock.Mock(name=m)
+    sys.modules['torch'].__version__ = "1.7"  # fake version
+    HAS_TORCHAUDIO = False
+
+for m in [
+    "tqdm", "wget", "numpy", 'timm', 'munch', 'sklearn', 'sklearn.metrics'
+]:
+    sys.modules[m] = mock.Mock(name=m)
+
+import sadaco 
 # -- General configuration ---------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be

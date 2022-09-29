@@ -1,5 +1,5 @@
-from . import apis
-from . import dataman
-from . import pipelines
-from . import demo
-from . import utils
+import apis
+import dataman
+import pipelines
+import demo
+import utils
