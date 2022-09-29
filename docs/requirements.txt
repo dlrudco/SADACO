@@ -15,9 +15,10 @@ matplotlib
 librosa
 wandb
 pandas
+sox
 torch==1.11.0+cu113
 torchvision==0.12.0+cu113
-librosa
+torchaudio==0.11.0
 resampy
 wget
 .
