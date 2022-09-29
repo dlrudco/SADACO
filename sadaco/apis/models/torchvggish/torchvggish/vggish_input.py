@@ -17,6 +17,7 @@
 
 # Modification: Return torch tensors rather than numpy arrays
 import torch
+import torchaudio
 
 import numpy as np
 import resampy
@@ -24,7 +25,6 @@ import resampy
 from . import mel_features
 from . import vggish_params
 
-import soundfile as sf
 
 
 def waveform_to_examples(data, sample_rate, return_tensor=True):
@@ -92,7 +92,7 @@ def wavfile_to_examples(wav_file, return_tensor=True):
   Returns:
     See waveform_to_examples.
   """
-    wav_data, sr = sf.read(wav_file, dtype='int16')
+    wav_data, sr = torchaudio.load(wav_file)
     assert wav_data.dtype == np.int16, 'Bad sample type: %r' % wav_data.dtype
     samples = wav_data / 32768.0  # Convert to [-1.0, +1.0]
     return waveform_to_examples(samples, sr, return_tensor)

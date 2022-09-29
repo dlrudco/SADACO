@@ -59,7 +59,7 @@ torchaudio.set_audio_backend("sox_io")
 # "tqdm", 'timm', 'timm.models', 'timm.models.layers', 'sklearn', 'sklearn.metrics','cProfile',
 #      'matplotlib', 'matplotlib.pyplot', 'torch2trt', 'resampy', 'PIL', 'torchsummary'
 for m in [
-    "tqdm", 'timm', 'timm.models', 'timm.models.layers', 'torchsummary', 'torch2trt', 'soundfile'
+    "tqdm", 'timm', 'timm.models', 'timm.models.layers', 'torchsummary', 'torch2trt'
 ]:
     sys.modules[m] = mock.Mock(name=m)
 
