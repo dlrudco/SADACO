@@ -13,7 +13,7 @@ class ICBHI_Metrics:
         mixup: bool = False,
         mini_batch: bool = False,
     ) -> None:
-        r"""Evaluation metrics for ICBHI challenge.
+        """Evaluation metrics for ICBHI challenge.
 
         Definitions:
             Sensitivity: The ability of the classifier to identify audio with the disease correctly.
@@ -57,7 +57,16 @@ class ICBHI_Metrics:
 
             Score: (Sensitivity + Specificity) / 2 \
             Accuracy: (TP + TN) / (TP + TN + FP + FN) 
-        """
+
+        :param num_classes: Number of classes to evaluate, defaults to 4
+        :type num_classes: int, optional
+        :param normal_class_label: class label that will be considered 'Normal', defaults to None
+        :type normal_class_label: int, optional
+        :param mixup: Indicate whether the mixup operation is applied, defaults to False
+        :type mixup: bool, optional
+        :param mini_batch: batch to be evaluated, defaults to False
+        :type mini_batch: bool, optional
+        """        
         self.num_classes = num_classes
         self.normal_class_label = normal_class_label
         self.mixup = mixup
