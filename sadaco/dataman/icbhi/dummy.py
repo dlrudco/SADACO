@@ -7,7 +7,6 @@ from torchvision.transforms.functional import InterpolationMode
 import random
 from tqdm import tqdm
 import torch
-import librosa
 import torchaudio
 
 torch.set_default_tensor_type(torch.FloatTensor)
