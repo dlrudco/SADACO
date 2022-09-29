@@ -89,97 +89,9 @@
 </div>
 <div class="section" id="module-sadaco.apis.losses.BasicLoss">
 <span id="sadaco-apis-losses-basicloss-module"></span><h2>sadaco.apis.losses.BasicLoss module<a class="headerlink" href="#module-sadaco.apis.losses.BasicLoss" title="Permalink to this headline"></a></h2>
-<dl class="py class">
-<dt id="sadaco.apis.losses.BasicLoss.CELoss">
-<em class="property">class </em><code class="sig-prename descclassname">sadaco.apis.losses.BasicLoss.</code><code class="sig-name descname">CELoss</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mode</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>str<span class="p">, </span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">'onehot'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/losses/BasicLoss.html#CELoss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.losses.BasicLoss.CELoss" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.loss.CrossEntropyLoss</span></code></p>
-<dl class="py method">
-<dt id="sadaco.apis.losses.BasicLoss.CELoss.forward">
-<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output</span></em>, <em class="sig-param"><span class="n">label</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/losses/BasicLoss.html#CELoss.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.losses.BasicLoss.CELoss.forward" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="sadaco.apis.losses.BasicLoss.CELoss.ignore_index">
-<code class="sig-name descname">ignore_index</code><em class="property">: int</em><a class="headerlink" href="#sadaco.apis.losses.BasicLoss.CELoss.ignore_index" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="sadaco.apis.losses.BasicLoss.CELoss.label_smoothing">
-<code class="sig-name descname">label_smoothing</code><em class="property">: float</em><a class="headerlink" href="#sadaco.apis.losses.BasicLoss.CELoss.label_smoothing" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="sadaco.apis.losses.BasicLoss.BCEWithLogitsLoss">
-<em class="property">class </em><code class="sig-prename descclassname">sadaco.apis.losses.BasicLoss.</code><code class="sig-name descname">BCEWithLogitsLoss</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mode</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>str<span class="p">, </span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">'multihot'</span></em>, <em class="sig-param"><span class="n">max</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/losses/BasicLoss.html#BCEWithLogitsLoss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.losses.BasicLoss.BCEWithLogitsLoss" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.loss.BCEWithLogitsLoss</span></code></p>
-<dl class="py method">
-<dt id="sadaco.apis.losses.BasicLoss.BCEWithLogitsLoss.forward">
-<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input</span><span class="p">:</span> <span class="n">torch.Tensor</span></em>, <em class="sig-param"><span class="n">label</span><span class="p">:</span> <span class="n">torch.Tensor</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span> &#x2192; torch.Tensor<a class="reference internal" href="../_modules/sadaco/apis/losses/BasicLoss.html#BCEWithLogitsLoss.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.losses.BasicLoss.BCEWithLogitsLoss.forward" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="sadaco.apis.losses.BasicLoss.BCEWithLogitsLoss.reduction">
-<code class="sig-name descname">reduction</code><em class="property">: str</em><a class="headerlink" href="#sadaco.apis.losses.BasicLoss.BCEWithLogitsLoss.reduction" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="sadaco.apis.losses.BasicLoss.Normalized_MSELoss">
-<em class="property">class </em><code class="sig-prename descclassname">sadaco.apis.losses.BasicLoss.</code><code class="sig-name descname">Normalized_MSELoss</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/losses/BasicLoss.html#Normalized_MSELoss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.losses.BasicLoss.Normalized_MSELoss" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.loss.MSELoss</span></code></p>
-<p>A modified version of the MSELoss for non-constrastive self-supervised learning in BYOL, which is between the normalized predictions and target projections.</p>
-<dl class="py attribute">
-<dt id="sadaco.apis.losses.BasicLoss.Normalized_MSELoss.reduction">
-<code class="sig-name descname">reduction</code><em class="property">: str</em><a class="headerlink" href="#sadaco.apis.losses.BasicLoss.Normalized_MSELoss.reduction" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="sadaco.apis.losses.BasicLoss.Normalized_MSELoss.forward">
-<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">predictions</span><span class="p">:</span> <span class="n">torch.Tensor</span></em>, <em class="sig-param"><span class="n">target_projections</span><span class="p">:</span> <span class="n">torch.Tensor</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span> &#x2192; torch.Tensor<a class="reference internal" href="../_modules/sadaco/apis/losses/BasicLoss.html#Normalized_MSELoss.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.losses.BasicLoss.Normalized_MSELoss.forward" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
 </div>
 <div class="section" id="module-sadaco.apis.losses.ContrastiveLoss">
 <span id="sadaco-apis-losses-contrastiveloss-module"></span><h2>sadaco.apis.losses.ContrastiveLoss module<a class="headerlink" href="#module-sadaco.apis.losses.ContrastiveLoss" title="Permalink to this headline"></a></h2>
-<dl class="py class">
-<dt id="sadaco.apis.losses.ContrastiveLoss.SupervisedContrastiveLoss">
-<em class="property">class </em><code class="sig-prename descclassname">sadaco.apis.losses.ContrastiveLoss.</code><code class="sig-name descname">SupervisedContrastiveLoss</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">temperature</span><span class="o">=</span><span class="default_value">0.07</span></em>, <em class="sig-param"><span class="n">contrast_mode</span><span class="o">=</span><span class="default_value">'all'</span></em>, <em class="sig-param"><span class="n">base_temperature</span><span class="o">=</span><span class="default_value">0.07</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/losses/ContrastiveLoss.html#SupervisedContrastiveLoss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.losses.ContrastiveLoss.SupervisedContrastiveLoss" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
-<p>This SupConLoss is almost identical to the code of original repository
-<a class="reference external" href="https://github.com/HobbitLong/SupContrast">https://github.com/HobbitLong/SupContrast</a></p>
-<dl class="py method">
-<dt id="sadaco.apis.losses.ContrastiveLoss.SupervisedContrastiveLoss.forward">
-<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">features</span></em>, <em class="sig-param"><span class="n">label</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">mask</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">breaker</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sadaco/apis/losses/ContrastiveLoss.html#SupervisedContrastiveLoss.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.apis.losses.ContrastiveLoss.SupervisedContrastiveLoss.forward" title="Permalink to this definition"></a></dt>
-<dd><p>Compute loss for model. If both <cite>labels</cite> and <cite>mask</cite> are None,
-it degenerates to SimCLR unsupervised loss:
-<a class="reference external" href="https://arxiv.org/pdf/2002.05709.pdf">https://arxiv.org/pdf/2002.05709.pdf</a></p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>features</strong> – hidden vector of shape [bsz, n_views, …].</p></li>
-<li><p><strong>labels</strong> – ground truth of shape [bsz].</p></li>
-<li><p><strong>mask</strong> – contrastive mask of shape [bsz, bsz], mask_{i,j}=1 if sample j
-has the same class as sample i. Can be asymmetric.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A loss scalar.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="sadaco.apis.losses.ContrastiveLoss.SupervisedContrastiveLoss.training">
-<code class="sig-name descname">training</code><em class="property">: bool</em><a class="headerlink" href="#sadaco.apis.losses.ContrastiveLoss.SupervisedContrastiveLoss.training" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
 </div>
 <div class="section" id="module-sadaco.apis.losses.CustomLoss">
 <span id="sadaco-apis-losses-customloss-module"></span><h2>sadaco.apis.losses.CustomLoss module<a class="headerlink" href="#module-sadaco.apis.losses.CustomLoss" title="Permalink to this headline"></a></h2>

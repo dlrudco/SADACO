@@ -183,47 +183,40 @@ ICBHI Score: The average of sensitivity and specificity.</p>
 </dd>
 <dt>Confusion Matrix:</dt><dd><p>Task 1: Anomaly Cycle Classification</p>
 <blockquote>
-<div><blockquote>
-<div><blockquote>
-<div><p>(True)          C,  W, B, N      </p>
-</div></blockquote>
-<p>C   Cc, Wc, Bc, Nc  W   Cw, Ww, Bw, Nw  </p>
-</div></blockquote>
-<dl class="simple">
-<dt>(y_pred)    B   Cb, Wb, Bb, Nb  </dt><dd><p>N   Cn, Wn, Bn, Nn  </p>
-</dd>
-</dl>
-<p>(Total-True)    Ct, Wt, Bt, Nt</p>
+<div><p>(True)                                          C,  W, B, N                                  C   Cc, Wc, Bc, Nc                              W   Cw, Ww, Bw, Nw                  (y_pred)    B   Cb, Wb, Bb, Nb                              N   Cn, Wn, Bn, Nn                  (Total-True)    Ct, Wt, Bt, Nt</p>
 </div></blockquote>
 <p>Task 2: Respiratory Disease Detection</p>
 <blockquote>
-<div><blockquote>
-<div><p>(True)          C,  NC, H        </p>
+<div><p>(True)                                              C,  NC, H                        (y_pred)        C   Cc, NCc, Hc                                     NC  Cnc, NCnc, Hnc                                  H   Ch, NCh, Hh                     (Total-True)        Ct, NCt, Ht</p>
 </div></blockquote>
-<dl class="simple">
-<dt>(y_pred)        C   Cc, NCc, Hc     </dt><dd><p>NC  Cnc, NCnc, Hnc  H   Ch, NCh, Hh     </p>
+</dd>
+<dt>Label:</dt><dd><p>TASK1_1 = {“Normal”: 0, “Wheezes”: 1, “Crackles”: 2, “Both”: 3}             TASK1_2 = {“Normal”: 0, “Abnormal”: 1}             TASK2_1 = {“Healthy”: 0, “Chronic”: 1, “NonChronic”: 2}             TASK2_2 = {“Healthy”: 0, “Unhealthy”: 1}</p>
+</dd>
+<dt>Equations:</dt><dd><p>Sensitivity Task1-1: (Cc + Ww + Bb) / (Ct + Wt + Bt)             Sensitivity Task1-2: (Ccwb + Wcwb + Bcwb) / (Ct + Wt + Bt)             Specificity Task1: Nn / Nt</p>
+<p>Sensitivity Task2-1: (Cc + NCnc) / (Ct + NCt)             Sensitivity Task2-2: (Ccnc + NCcnc) / (Ct + NCt)             Specificity Task2: Hh / Ht</p>
+<p>Score: (Sensitivity + Specificity) / 2             Accuracy: (TP + TN) / (TP + TN + FP + FN)</p>
 </dd>
 </dl>
-<p>(Total-True)        Ct, NCt, Ht</p>
-</div></blockquote>
-</dd>
-<dt>Label:</dt><dd><p>TASK1_1 = {“Normal”: 0, “Wheezes”: 1, “Crackles”: 2, “Both”: 3} TASK1_2 = {“Normal”: 0, “Abnormal”: 1} TASK2_1 = {“Healthy”: 0, “Chronic”: 1, “NonChronic”: 2} TASK2_2 = {“Healthy”: 0, “Unhealthy”: 1}</p>
-</dd>
-<dt>Equations:</dt><dd><p>Sensitivity Task1-1: (Cc + Ww + Bb) / (Ct + Wt + Bt) Sensitivity Task1-2: (Ccwb + Wcwb + Bcwb) / (Ct + Wt + Bt) Specificity Task1: Nn / Nt</p>
-<p>Sensitivity Task2-1: (Cc + NCnc) / (Ct + NCt) Sensitivity Task2-2: (Ccnc + NCcnc) / (Ct + NCt) Specificity Task2: Hh / Ht</p>
-<p>Score: (Sensitivity + Specificity) / 2 Accuracy: (TP + TN) / (TP + TN + FP + FN)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_classes</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of classes to evaluate, defaults to 4</p></li>
+<li><p><strong>normal_class_label</strong> (<em>int</em><em>, </em><em>optional</em>) – class label that will be considered ‘Normal’, defaults to None</p></li>
+<li><p><strong>mixup</strong> (<em>bool</em><em>, </em><em>optional</em>) – Indicate whether the mixup operation is applied, defaults to False</p></li>
+<li><p><strong>mini_batch</strong> (<em>bool</em><em>, </em><em>optional</em>) – batch to be evaluated, defaults to False</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="sadaco.utils.stats.ICBHI_Metrics.update_lists">
-<code class="sig-name descname">update_lists</code><span class="sig-paren">(</span><em class="sig-param">logits: &lt;Mock name='torch.Tensor' id='139834046064240'&gt; = None</em>, <em class="sig-param">y_true: &lt;Mock name='torch.Tensor' id='139834046064240'&gt; = None</em>, <em class="sig-param">y_pred: &lt;Mock name='torch.Tensor' id='139834046064240'&gt; = None</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/sadaco/utils/stats.html#ICBHI_Metrics.update_lists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.utils.stats.ICBHI_Metrics.update_lists" title="Permalink to this definition"></a></dt>
+<code class="sig-name descname">update_lists</code><span class="sig-paren">(</span><em class="sig-param">logits: &lt;Mock name='torch.Tensor' id='139931683126288'&gt; = None</em>, <em class="sig-param">y_true: &lt;Mock name='torch.Tensor' id='139931683126288'&gt; = None</em>, <em class="sig-param">y_pred: &lt;Mock name='torch.Tensor' id='139931683126288'&gt; = None</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/sadaco/utils/stats.html#ICBHI_Metrics.update_lists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.utils.stats.ICBHI_Metrics.update_lists" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="sadaco.utils.stats.ICBHI_Metrics.update_mixup_stats">
-<code class="sig-name descname">update_mixup_stats</code><span class="sig-paren">(</span><em class="sig-param">logits: &lt;Mock name='torch.Tensor' id='139834046064240'&gt;</em>, <em class="sig-param">y_true_a: &lt;Mock name='torch.Tensor' id='139834046064240'&gt;</em>, <em class="sig-param">y_true_b: &lt;Mock name='torch.Tensor' id='139834046064240'&gt;</em>, <em class="sig-param">lam: &lt;Mock name='torch.Tensor' id='139834046064240'&gt;</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/sadaco/utils/stats.html#ICBHI_Metrics.update_mixup_stats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.utils.stats.ICBHI_Metrics.update_mixup_stats" title="Permalink to this definition"></a></dt>
+<code class="sig-name descname">update_mixup_stats</code><span class="sig-paren">(</span><em class="sig-param">logits: &lt;Mock name='torch.Tensor' id='139931683126288'&gt;</em>, <em class="sig-param">y_true_a: &lt;Mock name='torch.Tensor' id='139931683126288'&gt;</em>, <em class="sig-param">y_true_b: &lt;Mock name='torch.Tensor' id='139931683126288'&gt;</em>, <em class="sig-param">lam: &lt;Mock name='torch.Tensor' id='139931683126288'&gt;</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/sadaco/utils/stats.html#ICBHI_Metrics.update_mixup_stats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.utils.stats.ICBHI_Metrics.update_mixup_stats" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -247,7 +240,7 @@ sc: The score.</p>
 
 <dl class="py method">
 <dt id="sadaco.utils.stats.ICBHI_Metrics.get_precision_recall_fbeta">
-<code class="sig-name descname">get_precision_recall_fbeta</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">average</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'macro'</span></em>, <em class="sig-param"><span class="n">fbeta</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em><span class="sig-paren">)</span> &#x2192; Tuple[Union[float, &lt;Mock name=’numpy.array’ id=’139834046064384’&gt;], Union[float, &lt;Mock name=’numpy.array’ id=’139834046064384’&gt;], Union[float, &lt;Mock name=’numpy.array’ id=’139834046064384’&gt;], &lt;Mock name=’numpy.array’ id=’139834046064384’&gt;]<a class="reference internal" href="_modules/sadaco/utils/stats.html#ICBHI_Metrics.get_precision_recall_fbeta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.utils.stats.ICBHI_Metrics.get_precision_recall_fbeta" title="Permalink to this definition"></a></dt>
+<code class="sig-name descname">get_precision_recall_fbeta</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">average</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'macro'</span></em>, <em class="sig-param"><span class="n">fbeta</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em><span class="sig-paren">)</span> &#x2192; Tuple[Union[float, &lt;Mock name=’numpy.array’ id=’139931683126432’&gt;], Union[float, &lt;Mock name=’numpy.array’ id=’139931683126432’&gt;], Union[float, &lt;Mock name=’numpy.array’ id=’139931683126432’&gt;], &lt;Mock name=’numpy.array’ id=’139931683126432’&gt;]<a class="reference internal" href="_modules/sadaco/utils/stats.html#ICBHI_Metrics.get_precision_recall_fbeta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sadaco.utils.stats.ICBHI_Metrics.get_precision_recall_fbeta" title="Permalink to this definition"></a></dt>
 <dd><p>Compute the precision, recall and fbeta score.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>

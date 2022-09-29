@@ -52,22 +52,6 @@ sadaco.apis.models.resnet module
    :undoc-members:
    :show-inheritance:
 
-sadaco.apis.models.vgg module
------------------------------
-
-.. automodule:: sadaco.apis.models.vgg
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-sadaco.apis.models.vgg\_dummy module
-------------------------------------
-
-.. automodule:: sadaco.apis.models.vgg_dummy
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 Module contents
 ---------------
 

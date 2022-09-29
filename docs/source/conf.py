@@ -33,10 +33,11 @@ except ImportError:
     for m in [
         "torch", "torchvision", "torch.nn", "torch.nn.parallel", "torch.distributed", "torch.multiprocessing", "torch.autograd",
         "torch.autograd.function", "torch.nn.modules", "torch.nn.modules.utils", "torch.utils", "torch.utils.data", "torch.onnx",
-        "torchvision", "torchvision.ops", "torch.cuda", "torch.utils.data.sampler", "torch.cuda.amp"
+        "torch.cuda", "torch.utils.data.sampler", "torch.cuda.amp",'torch.nn', 'torch.nn.functional', 'torchsummary', 'torch.optim', 
+        'torch.optim.lr_scheduler', "torchvision", "torchvision.ops", 'torchvision.transforms', 'torchvision.transforms.functional', 
     ]:
         sys.modules[m] = mock.Mock(name=m)
-    sys.modules['torch'].__version__ = "1.7"  # fake version
+    sys.modules['torch'].__version__ = "1.8"  # fake version
     HAS_TORCH = False
 
 try:
@@ -46,11 +47,12 @@ except ImportError:
         'torchaudio'
     ]:
         sys.modules[m] = mock.Mock(name=m)
-    sys.modules['torch'].__version__ = "1.7"  # fake version
+    sys.modules['torchaudio'].__version__ = "1.7"  # fake version
     HAS_TORCHAUDIO = False
 
 for m in [
-    "tqdm", "wget", "numpy", 'timm', 'munch', 'sklearn', 'sklearn.metrics'
+    "tqdm", "wget", "numpy", 'timm', 'timm.models', 'timm.models.layers','munch', 'sklearn', 'sklearn.metrics','cProfile',
+    'librosa', 'matplotlib', 'matplotlib.pyplot', 'torch2trt', 'cv2', 'resampy', 'soundfile', 'PIL'
 ]:
     sys.modules[m] = mock.Mock(name=m)
 
