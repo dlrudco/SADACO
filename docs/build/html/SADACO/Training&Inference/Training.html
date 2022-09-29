@@ -1,0 +1,320 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Training &mdash; SADACO 0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Inference / Evaluation" href="Inference.html" />
+    <link rel="prev" title="Training&amp;Inference" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> SADACO
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">SADACO</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Datasets.html">Datasets</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Training&amp;Inference</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Training</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Inference.html">Inference / Evaluation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../SADACO_WEB/index.html">SADACO_WEB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sadaco.html">SADACO APIs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SADACO</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">SADACO</a> &raquo;</li>
+        
+          <li><a href="index.html">Training&amp;Inference</a> &raquo;</li>
+        
+      <li>Training</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/SADACO/Training&amp;Inference/Training.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="training">
+<h1>Training<a class="headerlink" href="#training" title="Permalink to this headline">¶</a></h1>
+<p>With sadaco installed, we can now start training on prepared datasets. Here, we provide example pipeline on ICBHI dataset.</p>
+<p>First, import sadaco library, and build a trainer instance that will help us train a deep model.</p>
+<p>In order to build a trainer, we have to first load a trainer configuration written in <code class="docutils literal notranslate"><span class="pre">yaml</span></code> format.</p>
+<details>
+  <summary>YAML template example</summary>
+  <b> Master Config </b>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: We are planning to modify this structure with inheritance feature enabled, as in the detectron2(https://github.com/facebookresearch/detectron2/blob/main/configs/COCO-Detection/fast_rcnn_R_50_FPN_1x.yaml)</span><span class="w"></span>
+<span class="nt">prefix </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;PREFIX&gt;</span><span class="w"></span>
+<span class="nt">project_name </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;PROJECT NAME&gt;</span><span class="w"> </span><span class="c1">#This will be used as a wandb project name</span><span class="w"></span>
+<span class="nt">use_wandb </span><span class="p">:</span><span class="w"> </span><span class="kt">!!bool</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span><span class="w"></span>
+<span class="nt">data_configs </span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">file </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;DATA_CONFIG_FILE_PATH&gt;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">split </span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">train</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">test</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="nt">model_configs</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">file </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;MODEL_CONFIG_FILE_PATH&gt;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">resume </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span><span class="w"> </span><span class="c1"># If True, model will resume to the .pth file specified in MODEL_CONFIG</span><span class="w"></span>
+<span class="w">  </span><span class="nt">resume_optimizer </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span><span class="w"> </span><span class="c1"># If True, optimizer will also resume. Else, only model resumes.</span><span class="w"></span>
+
+<span class="nt">output_dir </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">checkpoints/</span><span class="w"></span>
+
+<span class="nt">train</span><span class="p">:</span><span class="w"> </span><span class="c1"># Training Pipeline Configuration</span><span class="w"></span>
+<span class="w">  </span><span class="nt">method </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">basic</span><span class="w"> </span><span class="c1"># TODO: Currently not handled by the trainer. </span><span class="w"></span>
+<span class="w">  </span><span class="nt">target_metric </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">F1-Score</span><span class="w"> </span><span class="c1"># Target metric that will be used to determine the best model.</span><span class="w"></span>
+<span class="w">  </span><span class="nt">max_epochs </span><span class="p">:</span><span class="w"> </span><span class="kt">!!int</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">650</span><span class="w"></span>
+<span class="w">  </span><span class="nt">save_interval </span><span class="p">:</span><span class="w"> </span><span class="kt">!!int</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"> </span><span class="c1"># Model saving interval. Only saves the last if -1.</span><span class="w"></span>
+<span class="w">  </span><span class="nt">update_interval </span><span class="p">:</span><span class="w"> </span><span class="kt">!!int</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span><span class="w"> </span><span class="c1"># Gradient Accumulation interval.</span><span class="w"></span>
+<span class="w">  </span><span class="nt">criterion</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CELoss</span><span class="w"></span>
+<span class="w">      </span><span class="nt">loss_mixup </span><span class="p">:</span><span class="w"> </span><span class="kt">!!bool</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span><span class="w"></span>
+<span class="w">      </span><span class="nt">params </span><span class="p">:</span><span class="w"> </span>
+<span class="w">          </span><span class="nt">mode </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">onehot</span><span class="w"></span>
+<span class="w">          </span><span class="nt">reduction </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mean</span><span class="w"></span>
+<span class="w">  </span><span class="nt">optimizer</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Adam</span><span class="w"></span>
+<span class="w">      </span><span class="nt">params</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">lr </span><span class="p">:</span><span class="w"> </span><span class="kt">!!float</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3e-6</span><span class="w"></span>
+<span class="w">      </span><span class="nt">weight_decay </span><span class="p">:</span><span class="w"> </span><span class="kt">!!float</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5e-7</span><span class="w"></span>
+<span class="w">      </span><span class="nt">betas </span><span class="p">:</span><span class="w"> </span><span class="kt">!!python/tuple</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.95</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.999</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">  </span><span class="nt">lr_scheduler</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">name </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CosineAnnealingWarmUpRestarts</span><span class="w"></span>
+<span class="w">      </span><span class="nt">params </span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">T_0</span><span class="p">:</span><span class="w"> </span><span class="kt">!!int</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">40</span><span class="w"></span>
+<span class="w">      </span><span class="nt">T_mult </span><span class="p">:</span><span class="w"> </span><span class="kt">!!int</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">      </span><span class="nt">eta_max </span><span class="p">:</span><span class="w"> </span><span class="kt">!!float</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5e-4</span><span class="w"></span>
+<span class="w">      </span><span class="nt">T_up </span><span class="p">:</span><span class="w"> </span><span class="kt">!!int</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span><span class="w"></span>
+<span class="w">      </span><span class="nt">gamma</span><span class="p">:</span><span class="w"> </span><span class="kt">!!float</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.</span><span class="w"></span>
+
+
+<span class="nt">data</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">train_dataloader</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">sampler </span><span class="p">:</span><span class="w"> </span>
+<span class="w">          </span><span class="nt">name </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BalancedBatchSampler</span><span class="w"></span>
+<span class="w">          </span><span class="nt">params</span><span class="p">:</span><span class="w"></span>
+<span class="w">              </span><span class="nt">n_classes </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w"></span>
+<span class="w">              </span><span class="nt">n_samples </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span><span class="w"></span>
+<span class="w">      </span><span class="nt">params </span><span class="p">:</span><span class="w"> </span>
+<span class="w">          </span><span class="nt">shuffle </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span><span class="w"></span>
+<span class="w">          </span><span class="nt">batch_size </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128</span><span class="w"></span>
+<span class="w">          </span><span class="nt">num_workers </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span><span class="w"></span>
+<span class="w">          </span><span class="nt">pin_memory </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span><span class="w"></span>
+<span class="w">          </span><span class="nt">persistent_workers </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span><span class="w"></span>
+<span class="w">          </span><span class="nt">drop_last </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span><span class="w"></span>
+<span class="w">  </span><span class="nt">val_dataloader</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">params </span><span class="p">:</span><span class="w"> </span>
+<span class="w">          </span><span class="nt">shuffle </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span><span class="w"></span>
+<span class="w">          </span><span class="nt">batch_size </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16</span><span class="w"></span>
+<span class="w">          </span><span class="nt">num_workers </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span><span class="w"></span>
+<span class="w">          </span><span class="nt">pin_memory </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span><span class="w"></span>
+<span class="w">          </span><span class="nt">persistent_workers </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span><span class="w"></span>
+<span class="w">          </span><span class="nt">drop_last </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span><span class="w"></span>
+</pre></div>
+</div>
+</details>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sadaco</span>
+<span class="kn">from</span> <span class="nn">sadaco.utils</span> <span class="kn">import</span> <span class="n">config_parser</span>
+
+<span class="n">master_config_path</span> <span class="o">=</span> <span class="s1">&#39;&lt;MASTER_CONFIG_PATH&gt;&#39;</span>
+<span class="n">my_configs</span> <span class="o">=</span> <span class="n">config_parser</span><span class="o">.</span><span class="n">parse_config_obj</span><span class="p">(</span><span class="n">yml_path</span><span class="o">=</span><span class="n">master_config_path</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>config_parser is designed to return configs in python object, so that we can access sub-configs like <code class="docutils literal notranslate"><span class="pre">foo.bar</span></code>. If you want to get an dictionary way of configs, simply call <code class="docutils literal notranslate"><span class="pre">my_configs.__dict__</span></code> or, change <code class="docutils literal notranslate"><span class="pre">config_parser.parse_config_obj</span></code> to <code class="docutils literal notranslate"><span class="pre">config_parser.parse_config_dict</span></code>.</p>
+<p>After loading the configuration, we can now create a trainer instance with our loaded configs as follows.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trainer</span> <span class="o">=</span> <span class="n">ICBHI_Basic_Trainer</span><span class="p">(</span><span class="n">my_configs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Once the trainer is initialized, all we have to do is then to call train method to proceed training.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>or, if you want to conduct a k-fold cross validation, simply call</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trainer</span><span class="o">.</span><span class="n">train_kfold</span><span class="p">(</span><span class="n">FOLD_NUM</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can see the full example of the training pipeline in the <code class="docutils literal notranslate"><span class="pre">main()</span></code> routine from <span class="xref myst">sadaco/pipelines/ICBHI</span></p>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="Inference.html" class="btn btn-neutral float-right" title="Inference / Evaluation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Training&amp;Inference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Kyungchae Lee, Ying Hui Tan.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -6,4 +6,4 @@ SADACO
 
    Installation
    Datasets
-   Training&Inference
+   Training&Inference/index

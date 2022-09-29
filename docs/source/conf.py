@@ -29,6 +29,9 @@ release = '0.1'
 
 to_import = list(sys.modules.keys())
 import torch
+import torchvision
+import torchaudio
+torchaudio.set_audio_backend("sox_io")
 # try:
 #     import torch  # noqa
 # except ImportError:
@@ -56,11 +59,11 @@ import torch
 # "tqdm", 'timm', 'timm.models', 'timm.models.layers', 'sklearn', 'sklearn.metrics','cProfile',
 #      'matplotlib', 'matplotlib.pyplot', 'torch2trt', 'resampy', 'PIL', 'torchsummary'
 for m in [
-    "tqdm", 'timm', 'timm.models', 'timm.models.layers', 'torchsummary', 'torch2trt'
+    "tqdm", 'timm', 'timm.models', 'timm.models.layers', 'torchsummary', 'torch2trt', 'soundfile'
 ]:
     sys.modules[m] = mock.Mock(name=m)
 
-import sadaco 
+import sadaco
 # -- General configuration ---------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be

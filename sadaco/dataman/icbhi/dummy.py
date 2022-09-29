@@ -9,7 +9,7 @@ from tqdm import tqdm
 import torch
 import librosa
 import torchaudio
-torchaudio.set_audio_backend("soundfile")
+
 torch.set_default_tensor_type(torch.FloatTensor)
 class RespiDatasetSTFT(Dataset):
     def __init__(self, split, mixup=False, initialize=True, data_dir="dataset/spec_cut", multi_label=False, mean=None, std=None, 
