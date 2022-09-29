@@ -28,9 +28,7 @@ author = 'Kyungchae Lee, Ying Hui Tan'
 release = '0.1'
 
 to_import = list(sys.modules.keys())
-import subprocess
-proc = subprocess.Popen('apt-get install -y libsndfile1-dev', shell=True, stdin=None, stdout=open(os.devnull,"wb"), stderr=subprocess.STDOUT, executable="/bin/bash")
-proc.wait()
+
 import torch
 import torchvision
 import torchaudio
