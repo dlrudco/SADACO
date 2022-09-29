@@ -12,7 +12,6 @@ tqdm
 Pillow==8.1.2
 sklearn
 matplotlib
-librosa
 wandb
 pandas
 sox
