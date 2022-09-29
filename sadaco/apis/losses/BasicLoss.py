@@ -1,9 +1,9 @@
 import torch
 import torch.nn
 from typing import Union
+from torch.nn import CrossEntropyLoss, BCEWithLogitsLoss, MSELoss
 
-
-class CELoss(torch.nn.CrossEntropyLoss):
+class CELoss(CrossEntropyLoss):
     def __init__(self, mode : Union[str, int] ='onehot', **kwargs):
         super().__init__(**kwargs)
         self.base_forward = super().forward
@@ -23,7 +23,12 @@ class CELoss(torch.nn.CrossEntropyLoss):
         return self.base_forward(output, target)
     
     
-class BCEWithLogitsLoss(torch.nn.BCEWithLogitsLoss):
+class BCEWithLogitsLoss(BCEWithLogitsLoss):
+    """A modified version of the BCEWithLogitsLoss
+
+    :param BCEWithLogitsLoss: Parent Loss fn from pytorch
+    :type BCEWithLogitsLoss: _type_
+    """    
     def __init__(self, mode : Union[str, int] ='multihot', max=None, **kwargs):
         super().__init__(**kwargs)
         self.base_forward = super().forward
@@ -37,7 +42,7 @@ class BCEWithLogitsLoss(torch.nn.BCEWithLogitsLoss):
         else:
             raise ValueError("Currently only Supporting Multi-hot or Integer")
         
-    def forward(self, input:torch.Tensor, label:torch.Tensor, **kwargs)->torch.Tensor:
+    def forward(self, input:torch.Tensor, label:torch.Tensor, **kwargs):
         if self.mode == 0:
             target = label
         else :
@@ -46,8 +51,15 @@ class BCEWithLogitsLoss(torch.nn.BCEWithLogitsLoss):
             target = temptar
         return self.base_forward(input, target)
 
-class Normalized_MSELoss(torch.nn.MSELoss):
-    r"""A modified version of the MSELoss for non-constrastive self-supervised learning in BYOL, which is between the normalized predictions and target projections."""
+
+class Normalized_MSELoss(MSELoss):
+    """A modified version of the MSELoss for non-constrastive self-supervised learning in BYOL, which is between the normalized predictions and target projections.
+
+    :param MSELoss: Parent Loss 'MSELoss' from pytorch
+    :type MSELoss: Loss fn
+    :return: MSE Loss value
+    :rtype: torch.Tensor
+    """ 
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -55,7 +67,7 @@ class Normalized_MSELoss(torch.nn.MSELoss):
 
     def forward(
         self, predictions: torch.Tensor, target_projections: torch.Tensor, **kwargs
-    ) -> torch.Tensor:
+    ):
         normalized_predictions = torch.nn.functional.normalize(predictions, dim=-1, p=2)
         normalized_target = torch.nn.functional.normalize(
             target_projections, dim=-1, p=2
