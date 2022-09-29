@@ -6,3 +6,4 @@ SADACO
 
    Installation
    Datasets
+   Training&Inference
