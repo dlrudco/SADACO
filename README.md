@@ -3,7 +3,7 @@
     SADACO : Swift Audio DAta COmprehension Framework + Stethoscope Audio DAtaset Collections
 </h1> 
 
-Welcome to SADACO repository! Where spooky chest sounds are brought to life.
+Welcome to SADACO repository! Where spooky chest sounds are brought to life. [[Docs](https://sadaco.readthedocs.io/en/latest/)]
 
 !!! Web Server for deploying sadaco service is available at [SADACO-WEB](https://github.com/dlrudco/SADACO_WEB) !!!
 
@@ -14,7 +14,19 @@ We currently provide basic train-test-explain pipelines for [ICBHI](https://bhic
 
 **** READMEs and Documentations are also getting in shape ****
 
+Most detailed information will be provided in the [official document](https://sadaco.readthedocs.io/en/latest/).
+
 # Installation
+## Environment Setting
+
+Using Conda <b> (Recommended) </b>
+<pre><code>conda create -n sadaco -f sadaco_env.yml</code></pre>
+
+Using pip
+<pre><code>python -m pip install -r requirements.txt</code></pre>
+
+
+## Installing SADACO
 RUN
 <pre><code>python setup.py develop</code></pre>
 or
