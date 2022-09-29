@@ -1,10 +1,8 @@
 ---
-sort: 3
+sort: 1
 ---
 
-# Training and Inference
-
-## Training
+# Training
 
 With sadaco installed, we can now start training on prepared datasets. Here, we provide example pipeline on ICBHI dataset.
 
@@ -92,5 +90,28 @@ import sadaco
 from sadaco.utils import config_parser
 
 master_config_path = '<MASTER_CONFIG_PATH>'
-my_configs = config_parser(master_config_path)
+my_configs = config_parser.parse_config_obj(yml_path=master_config_path)
 ```
+
+config_parser is designed to return configs in python object, so that we can access sub-configs like `foo.bar`. If you want to get an dictionary way of configs, simply call `my_configs.__dict__` or, change `config_parser.parse_config_obj` to `config_parser.parse_config_dict`.
+
+After loading the configuration, we can now create a trainer instance with our loaded configs as follows.
+
+```python
+trainer = ICBHI_Basic_Trainer(my_configs)
+```
+
+Once the trainer is initialized, all we have to do is then to call train method to proceed training.
+
+```python
+trainer.train()
+```
+
+or, if you want to conduct a k-fold cross validation, simply call
+
+```python
+trainer.train_kfold(FOLD_NUM)
+```
+
+You can see the full example of the training pipeline in the `main()` routine from [sadaco/pipelines/ICBHI]()
+
