@@ -1,6 +1,6 @@
 import os
-from .. import pipelines
-from . import config_parser
+from sadaco import pipelines
+from sadaco.utils import config_parser
 
 locate_configs = pipelines.__spec__.submodule_search_locations
 
