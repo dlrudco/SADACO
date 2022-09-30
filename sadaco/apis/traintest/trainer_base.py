@@ -22,11 +22,19 @@ class BaseTrainer():
     """Base template class for the trainers. Trainers for each datasets are made on top of this class
     inheriting basic functions like train, test, validate containing the typical pipeline procedures.
     Users can also override some of the functions in order to meet user-specific requirements.
+
+    :raises NotImplementedError: _description_
+    :raises NotImplementedError: _description_
+    :raises NotImplementedError: _description_
+    :return: _description_
+    :rtype: _type_
     """    
+
     def __init__(self, train_configs):
         """ 
         Trainer will parse and load configurations given yaml configuration path, including 
         model configs and data configs following the path information written in the master configs.
+        
         :param train_configs: YAML file path containing Master Configuration Settings.
         :type train_configs: munch - python object
         
@@ -35,7 +43,8 @@ class BaseTrainer():
         :ivar model_configs : Model configs parsed from train_configs.model_configs.file
         :ivar log_configs : Total Configuration containing all of the config settings. Logger will log this as a project configuration.
         :ivar logger : Logger instance that contains configuration information and the train/val stats. Recommend using wandb since our BaseLogger only provides raw data saving. Checkout https://docs.wandb.ai/quickstart to make wandb account.
-        :ivar model : 
+        :ivar model : Trainer build model from the given model configs. This will be used in training and inferencing.
+        :ivar optimizer : 
         """        
         self.configs = train_configs
         self.data_configs = parse_config_obj(yml_path=self.configs.data_configs.file)
