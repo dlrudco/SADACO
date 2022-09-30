@@ -23,11 +23,8 @@ class BaseTrainer():
     inheriting basic functions like train, test, validate containing the typical pipeline procedures.
     Users can also override some of the functions in order to meet user-specific requirements.
 
-    :raises NotImplementedError: _description_
-    :raises NotImplementedError: _description_
-    :raises NotImplementedError: _description_
-    :return: _description_
-    :rtype: _type_
+    :return: Trainer instance.
+    :rtype: BaseTrainer
     """    
 
     def __init__(self, train_configs):
@@ -43,8 +40,14 @@ class BaseTrainer():
         :cvar model_configs: Model configs parsed from train_configs.model_configs.file
         :cvar log_configs: Total Configuration containing all of the config settings. Logger will log this as a project configuration.
         :cvar logger: Logger instance that contains configuration information and the train/val stats. Recommend using wandb since our BaseLogger only provides raw data saving. Checkout https://docs.wandb.ai/quickstart to make wandb account.
-        :cvar model: Trainer build model from the given model configs. This will be used in training and inferencing.
-        :cvar optimizer: 
+        :cvar model: Built model from the given model configs. This will be used in training and inferencing.
+        :cvar optimizer: Model optimizer that will update the model while training. User can specify resume option wheter to resume optimizer too or not.
+        :cvar device: Model and Optimizer device location. cuda:0 by default if cuda is available, else cpu.
+        :cvar train_criterion: Criterion used in training. Currently supports only one criterion function. User have to create hybrid criterion Callable or override training procedures to use multiple target functions.
+        :cvar valid_criterion: Criterion used in validation. Currently supports only one criterion function. User have to create hybrid criterion Callable or override validation procedures to use multiple target functions.
+        :cvar scheduler: Training scheduler which controls hyperparameter(currently: LR only) and model versions.
+        :cvar preproc: Preprocessor(__Callable__) containing input preprocessing pipeline. Ignored when given None.
+        :cvar _progress: Training progress(#Epochs). Web session use this to query background training state.
         """        
         self.configs = train_configs
         self.data_configs = parse_config_obj(yml_path=self.configs.data_configs.file)

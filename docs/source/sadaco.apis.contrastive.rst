@@ -23,7 +23,17 @@ sadaco.apis.contrastive.train\_supcon module
 sadaco.apis.contrastive.trainer\_contrastive module
 ---------------------------------------------------
 
-.. automodule:: sadaco.apis.contrastive.trainer_contrastive
+.. autoclass:: sadaco.apis.contrastive.trainer_contrastive::ContrastTrainer
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. autoclass:: sadaco.apis.contrastive.trainer_contrastive::ContrastiveWrapper
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. autoclass:: sadaco.apis.contrastive.trainer_contrastive::NormLayer
    :members:
    :undoc-members:
    :show-inheritance:
