@@ -38,13 +38,13 @@ class BaseTrainer():
         :param train_configs: YAML file path containing Master Configuration Settings.
         :type train_configs: munch - python object
         
-        :var configs : Master configs given as the train_configs
-        :var data_configs : Data configs parsed from train_configs.data_configs.file
-        :var model_configs : Model configs parsed from train_configs.model_configs.file
-        :var log_configs : Total Configuration containing all of the config settings. Logger will log this as a project configuration.
-        :var logger : Logger instance that contains configuration information and the train/val stats. Recommend using wandb since our BaseLogger only provides raw data saving. Checkout https://docs.wandb.ai/quickstart to make wandb account.
-        :var model : Trainer build model from the given model configs. This will be used in training and inferencing.
-        :var optimizer : 
+        :cvar configs: Master configs given as the train_configs
+        :cvar data_configs: Data configs parsed from train_configs.data_configs.file
+        :cvar model_configs: Model configs parsed from train_configs.model_configs.file
+        :cvar log_configs: Total Configuration containing all of the config settings. Logger will log this as a project configuration.
+        :cvar logger: Logger instance that contains configuration information and the train/val stats. Recommend using wandb since our BaseLogger only provides raw data saving. Checkout https://docs.wandb.ai/quickstart to make wandb account.
+        :cvar model: Trainer build model from the given model configs. This will be used in training and inferencing.
+        :cvar optimizer: 
         """        
         self.configs = train_configs
         self.data_configs = parse_config_obj(yml_path=self.configs.data_configs.file)
@@ -174,7 +174,7 @@ class BaseTrainer():
     def reset_trainer(self):
         """_summary_
         
-        TODO : Currently calls __init__ again
+        .. todo:: Currently calls __init__ again
             which might cause unexpected behavior
             find a way to aviod this.
         """        
