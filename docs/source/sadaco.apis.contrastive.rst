@@ -26,6 +26,7 @@ sadaco.apis.contrastive.trainer\_contrastive module
 .. autoclass:: sadaco.apis.contrastive.trainer_contrastive::ContrastTrainer
    :members:
    :undoc-members:
+   :inherited-members:
    :show-inheritance:
 
 .. autoclass:: sadaco.apis.contrastive.trainer_contrastive::ContrastiveWrapper
