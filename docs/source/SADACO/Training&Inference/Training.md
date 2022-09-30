@@ -113,5 +113,5 @@ or, if you want to conduct a k-fold cross validation, simply call
 trainer.train_kfold(FOLD_NUM)
 ```
 
-You can see the full example of the training pipeline in the `main()` routine from [sadaco/pipelines/ICBHI]()
+You can see the full example of the training pipeline in the `main()` routine from [sadaco/pipelines/ICBHI](https://github.com/dlrudco/SADACO/blob/kc_development/sadaco/pipelines/ICBHI.py)
 

@@ -89,24 +89,23 @@ master_config_path = '<MASTER_CONFIG_PATH>'
 my_configs = config_parser.parse_config_obj(yml_path=master_config_path)
 ```
 
-config_parser is designed to return configs in python object, so that we can access sub-configs like `foo.bar`. If you want to get an dictionary way of configs, simply call `my_configs.__dict__` or, change `config_parser.parse_config_obj` to `config_parser.parse_config_dict`.
-
-After loading the configuration, we can now create a trainer instance with our loaded configs as follows.
+After loading the configuration, create a trainer instance with our loaded configs as follows.
 
 ```python
 trainer = ICBHI_Basic_Trainer(my_configs)
 ```
 
-Once the trainer is initialized, all we have to do is then to call train method to proceed training.
+Once the trainer is initialized, in order to load the evaluation target model call resume() method defined in the trainer class.
+
 
 ```python
-trainer.train()
+resume_path = <TARGET_MODEL_PTH_PATH>
+trainer.resume(resume_path)
 ```
 
-or, if you want to conduct a k-fold cross validation, simply call
+Once the model resume is done, you can start evaluating by executing the line below.
 
 ```python
-trainer.train_kfold(FOLD_NUM)
+stats = trainer.test()
 ```
-
-
+`stats` variable is a python dictionary that contains the evaluation metric scores. 

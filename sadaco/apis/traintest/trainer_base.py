@@ -217,10 +217,12 @@ class BaseTrainer():
         print(print_stats(valid_stats))
         if return_stats:
             return valid_stats
-        return 0
+        else:
+            return 0
     
     def test(self, **kwargs):
-        self.validate(**kwargs)
+        stats = self.validate(**kwargs)
+        return stats
 
     def train_epoch(self):
         raise NotImplementedError
