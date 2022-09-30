@@ -19,7 +19,24 @@ from sadaco.dataman.loader import _build_dataloader
 import sadaco.apis.losses as LF
 
 class BaseTrainer():
+    """Base template class for the trainers. Trainers for each datasets are made on top of this class
+    inheriting basic functions like train, test, validate containing the typical pipeline procedures.
+    Users can also override some of the functions in order to meet user-specific requirements.
+    """    
     def __init__(self, train_configs):
+        """ 
+        Trainer will parse and load configurations given yaml configuration path, including 
+        model configs and data configs following the path information written in the master configs.
+        :param train_configs: YAML file path containing Master Configuration Settings.
+        :type train_configs: munch - python object
+        
+        :ivar configs : Master configs given as the train_configs
+        :ivar data_configs : Data configs parsed from train_configs.data_configs.file
+        :ivar model_configs : Model configs parsed from train_configs.model_configs.file
+        :ivar log_configs : Total Configuration containing all of the config settings. Logger will log this as a project configuration.
+        :ivar logger : Logger instance that contains configuration information and the train/val stats. Recommend using wandb since our BaseLogger only provides raw data saving. Checkout https://docs.wandb.ai/quickstart to make wandb account.
+        :ivar model : 
+        """        
         self.configs = train_configs
         self.data_configs = parse_config_obj(yml_path=self.configs.data_configs.file)
         self.model_configs = parse_config_obj(yml_path=self.configs.model_configs.file)
