@@ -10,5 +10,5 @@ def _build_dataloader(dataset, train_configs, data_configs, split):
         sampler = None
     defaults = {'num_workers' : 8, 'shuffle' : split=='train' and sampler is None, 'drop_last' : split=='train', 'pin_memory' : True, 'persistent_workers' : False}
     defaults.update(train_configs.__dict__[f'{split}_dataloader']['params'])
-    dataloader = DataLoader(dataset, batch_sampler=sampler, **defaults)
+    dataloader = DataLoader(dataset, collate_fn=dataset.collate_fn, batch_sampler=sampler, **defaults)
     return dataloader

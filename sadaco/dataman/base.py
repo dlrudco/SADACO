@@ -2,11 +2,18 @@ from typing import List
 import torch
 import torchaudio
 from torch.utils.data import Dataset
+from torch.utils.data._utils.collate import default_collate
 import numpy as np
 
-class base_dataset(Dataset):
+import os
+import json 
+
+class BaseDataset(Dataset):
+    """Dataset Template
+    """    
     def __init__(self, configs, split='train'):
         super().__init__()
+        self.configs = configs
         self.split= split        
         self.sample_rate = configs.sample_rate
         if configs.size_mode == 'size':
@@ -17,64 +24,64 @@ class base_dataset(Dataset):
             self.window_size = int(1e-3*configs.window_size*self.sample_rate+1)
             self.hop_length = int(1e-3*configs.hop_length*self.sample_rate)
         
+        self.root_dir = self.configs[self.split].data_dir
+        
+        self.metadata = json.load(open(os.path.join(self.root_dir, 'meta.json')))
+        
+        self.data = self.metadata['data']
+        self.labels = self.metadata['labels']
+        
+        self.collate_fn = default_collate
+        
     def convert_wav(self, waveform):
-        # User can override this func to customize data format.
+        """Convert wav file to Mag+Phase matrix with STFT conversion.
+        User can override this func to customize data format.
+
+        :param waveform: Input wav file. Required shape : [Batch, Length]
+        :type waveform: torch.Tensor
+        :return: Tuple of mag, phase matrix
+        :rtype: Tuple[Torch.Tensor]
+        """        
+        # 
         # !! Always return in tuple !!
         cart = torch.stft(waveform, n_fft = self.window_size, 
                            hop_length=self.hop_length,
-                           window = torch.hann_window(self.window_size)
-                           )
-        phase = torch.atan2(cart[:,:,:,1], cart[:,:,:,0])
-        mag = cart[:,:,:,0]**2 + cart[...,1]**2
+                           window = torch.hann_window(self.window_size),
+                           return_complex=True, pad_mode='reflect')
+        phase = torch.atan2(cart.imag, cart.real)
+        mag = cart.abs()
         return (mag, phase)
+    
+    def recover_wav(self, mag, phase):
+        """Inverse function of convert_wav. User should modify both of the functions when customizing.
         
-    def _wav2fbank(self, filename, filename2=None):
-        if filename2 == None:
-            waveform, sr = torchaudio.load(filename)
-            waveform = waveform - waveform.mean()
-        else:
-            waveform1, sr = torchaudio.load(filename)
-            waveform2, _ = torchaudio.load(filename2)
-
-            waveform1 = waveform1 - waveform1.mean()
-            waveform2 = waveform2 - waveform2.mean()
-
-            if waveform1.shape[1] != waveform2.shape[1]:
-                if waveform1.shape[1] > waveform2.shape[1]:
-                    temp_wav = waveform2.repeat(1, waveform1.shape[-1]//waveform2.shape[-1] + 1)
-                    waveform2 = temp_wav[0, 0:waveform1.shape[-1]]
-                else:
-                    randidx = np.random.randint(low=0, high=waveform2.shape[1]-waveform1.shape[1], size=(1,))
-                    waveform2 = waveform2[0, randidx[0]:randidx[0]+waveform1.shape[1]]
-
-            mix_lambda = np.random.beta(10, 10)
-
-            mix_waveform = mix_lambda * waveform1 + (1 - mix_lambda) * waveform2
-            waveform = mix_waveform - mix_waveform.mean()
-
-        wav2freq = self.convert_wav(waveform)
-        
-        if filename2 == None:
-            return (*wav2freq, 0)
-        else:
-            return (*wav2freq, mix_lambda) 
-
-    def __len__(self):
-        return len(self.data)
-
-    def recover_stft(self, mag, phase):
-        # mag = torchaudio.functional.DB_to_amplitude(mag, power=1)
-        # mag = mag * self.norm_std * 2 + self.norm_mean
+        :param mag: Magnitude matrix from STFT.
+        :type mag: torch.Tensor
+        :param phase: Phase matrix from STFT
+        :type phase: torch.Tensor
+        :return: 
+        :rtype: _type_
+        """
         mag = torch.sqrt(torch.relu(mag))
         recombine_magnitude_phase = torch.cat(
             [(mag*torch.cos(phase)).unsqueeze(-1), (mag*torch.sin(phase)).unsqueeze(-1)], 
             dim=-1)
         recon = torch.istft(recombine_magnitude_phase, 
-                            n_fft = int(1e-3*self.window_size*self.sample_rate+1), 
-                            hop_length=int(1e-3*self.hop_length*self.sample_rate),
-                            window = torch.hann_window(int(1e-3*self.window_size*self.sample_rate+1)))
+                            n_fft = self.window_size, 
+                            hop_length=self.hop_length,
+                            window = torch.hann_window(self.window_size))
         return recon
+        
+    def load_datum(self, index):
+        datum, sr = torchaudio.load(self.data[index])
+        datum = self.convert_wav()
+        label = self.labels[index]
+        return datum, label
     
-    def amp2db(self, tensor):
-        tensor = torchaudio.functional.amplitude_to_DB(tensor, multiplier = 10., amin=1e-8, db_multiplier=1)
-        return tensor
+    def __getitem__(self, index):
+        datum, label = self.load_datum(index)
+        
+        return {'data' : datum, 'label' : label}
+
+    def __len__(self):
+        return len(self.data)
