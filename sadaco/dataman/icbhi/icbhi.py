@@ -1,4 +1,4 @@
-from sadaco.dataman.base import base_dataset
+from sadaco.dataman.base import BaseDataset
 
 import torch
 import torchaudio
@@ -9,7 +9,7 @@ import random
 import numpy as np
 from tqdm import tqdm
 
-class icbhi_dataset(base_dataset):
+class icbhi_dataset(BaseDataset):
     def __init__(self, configs, split='train'):
         super().__init__(configs, split)
         

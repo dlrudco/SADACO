@@ -20,7 +20,7 @@ class FGHandler(object):
                 self.layer_name = layer_name
             else:
                 self.layer_name = [layer_name]
-        self.layer_name = self.layer_name + ['module.'+l for l in self.layer_name]
+        self.layer_name = self.layer_name
         self.feature = {}
         self.gradient = {}
         for layer in self.layer_name:
