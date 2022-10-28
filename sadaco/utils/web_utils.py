@@ -2,7 +2,7 @@ import os
 from sadaco import pipelines
 from sadaco.utils import config_parser
 
-locate_configs = pipelines.__spec__.submodule_search_locations
+locate_configs = [''] + pipelines.__spec__.submodule_search_locations
 
 def get_configs():        
     paths = []
