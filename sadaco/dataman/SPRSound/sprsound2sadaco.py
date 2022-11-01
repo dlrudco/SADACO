@@ -95,7 +95,7 @@ def prepare_sprsound(args):
         #             cycles[cycle_idx]['symps'] = [symp]
         #             cycles[cycle_idx]['time'] = (start, end)
         #             cycle_idx += 1
-        
+        rean = ann['record_annotation']
         events = ann['event_annotation']
         pbar2 = tqdm(enumerate(events), total=len(events), leave=False)
         for sub_idx, cycle in pbar2:
@@ -119,6 +119,7 @@ def prepare_sprsound(args):
                 
             cycle_label = symp
             metadata[split]['labels'].append(cycle_label)
+            metadata[split]['labels_coarse'].append(rean)
             
             for lab in symp:
                 labels[lab] += 1
