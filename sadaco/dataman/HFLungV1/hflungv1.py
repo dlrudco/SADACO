@@ -10,7 +10,7 @@ import random
 import numpy as np
 from tqdm import tqdm
 
-class icbhi_dataset(BaseDataset):
+class HFLungV1(BaseDataset):
     def __init__(self, configs, split='train', transforms:Dict=None):
         super().__init__(configs, split)
         

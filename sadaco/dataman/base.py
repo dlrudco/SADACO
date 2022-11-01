@@ -24,7 +24,7 @@ class BaseDataset(Dataset):
             self.window_size = int(1e-3*configs.window_size*self.sample_rate+1)
             self.hop_length = int(1e-3*configs.hop_length*self.sample_rate)
         
-        self.root_dir = self.configs[self.split].data_dir
+        self.root_dir = self.configs.__dict__[self.split]['data_dir']
         
         self.metadata = json.load(open(os.path.join(self.root_dir, 'meta.json')))
         
@@ -49,7 +49,7 @@ class BaseDataset(Dataset):
                            window = torch.hann_window(self.window_size),
                            return_complex=True, pad_mode='reflect')
         phase = torch.atan2(cart.imag, cart.real)
-        mag = cart.abs()
+        mag = cart.abs()**2
         return (mag, phase)
     
     def recover_wav(self, mag, phase):
@@ -73,14 +73,36 @@ class BaseDataset(Dataset):
         return recon
         
     def load_datum(self, index):
-        datum, sr = torchaudio.load(self.data[index])
-        datum = self.convert_wav()
-        label = self.labels[index]
+        waveform, sample_rate = self.load_wav_from_path(self.data[index])
+        waveform = self.loudness_normalization(waveform)
+        datum = self.convert_wav(waveform=waveform)
+        label = self.parse_label(self.labels[index])
         return datum, label
     
+    @staticmethod
+    def load_wav_from_path(path):
+        waveform, sample_rate = torchaudio.load(path, normalize=False)
+        waveform = waveform.type(torch.FloatTensor) / (torch.iinfo(torch.int16).max +1)
+        return waveform, sample_rate
+    
+    def parse_label(self):
+        raise NotImplementedError
+
+    @staticmethod
+    def db_to_linear(samples):
+        return 10.0 ** (samples / 20.0)
+
+    def loudness_normalization(self, samples: torch.Tensor,
+                            target_db: float = 15.0,
+                            max_gain_db: float = 30.0):
+        std = torch.std(samples) + 1e-9
+        max_lin = self.db_to_linear(max_gain_db)
+        target_lin = self.db_to_linear(target_db)
+        gain = torch.min(torch.tensor(max_lin), target_lin / std)
+        return gain * samples
+
     def __getitem__(self, index):
         datum, label = self.load_datum(index)
-        
         return {'data' : datum, 'label' : label}
 
     def __len__(self):
