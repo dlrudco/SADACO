@@ -37,8 +37,22 @@ def figure_to_array(fig):
     fig.canvas.draw()
     return np.array(fig.canvas.renderer._renderer)
 
-def spec_display(spec, save_path=None, sr=16000, hop_length=int(16*70), return_array=False):
-    f = plt.figure(figsize=(4, 4))
+def spec_display(spec:torch.Tensor, mag2db = False, sharpen:float=None, save_path=None, sr=16000, hop_length=int(16*70), return_array=False,
+                 normalize_outliers=False):
+    if mag2db:
+        p2d =  torchaudio.transforms.AmplitudeToDB(stype='magnitude', top_db = 80)
+        spec = p2d(spec)
+    
+    if sharpen is not None:
+        # assume spec is in shape of CHW or at least HW
+        if len(spec.shape) < 4:
+            spec = spec[(None,)*(4-len(spec.shape))]
+        spec= enhance_sharpeness(spec, sharpen)
+        
+    spec = spec.squeeze().numpy()
+    f = plt.figure(figsize=(20, 8))
+    if normalize_outliers:
+        spec = clip_outliers(spec)
     display.specshow(spec, y_axis='mel', sr=sr, hop_length=hop_length, x_axis='time')
     plt.colorbar(format='%+2.0f dB')
     plt.tight_layout()
@@ -46,6 +60,7 @@ def spec_display(spec, save_path=None, sr=16000, hop_length=int(16*70), return_a
         plt.savefig(save_path)
     if return_array:
         arr = figure_to_array(f)
+        plt.close()
         return arr
     plt.close()
     
@@ -61,3 +76,24 @@ def get_input_img(sample_path):
     spec2 = cdf[spec]
     arr = spec_display(spec2.astype(np.float32)/1000, return_array=True)
     return arr
+
+def clip_outliers(data, range=[0.05, 0.95]):
+    #Following Box & Whiskers like manner of determining inliers.
+    q1, q3  = np.quantile(data, range)
+    iqr = np.abs(0.5 * (q3 - q1))
+    imin, imax = q1-iqr, q3+iqr
+    data[data>imax] = imax
+    data[data<imin] = imin
+    return data
+
+def enhance_sharpeness(data, magnitude=2):
+    sharpen = torch.Tensor(np.array(
+        [[[
+            [0,-0.25*(magnitude-1),0],
+            [-0.25*(magnitude-1),magnitude,-0.25*(magnitude-1)],
+            [0,-0.25*(magnitude-1),0]
+        ]]]
+    ))
+    data = torch.nn.functional.conv2d(data, sharpen, padding=1)
+    return data
+

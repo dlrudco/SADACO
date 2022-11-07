@@ -11,7 +11,7 @@ We currently provide conda environment that we test our development code on. So 
 ```console
 (base) user@server:~$ git clone https://github.com/dlrudco/SADACO.git
 (base) user@server:~$ cd SADACO
-(base) user@server:~$ conda create -n sadaco -f sadaco_env.yml
+(base) user@server:~$ conda env create -n sadaco -f sadaco_env.yml
 (base) user@server:~$ conda activate sadaco
 (sadaco) user@server:~$
 ```

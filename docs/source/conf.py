@@ -28,10 +28,11 @@ author = 'Kyungchae Lee, Ying Hui Tan'
 release = '0.1'
 
 to_import = list(sys.modules.keys())
+
 import torch
 import torchvision
 import torchaudio
-torchaudio.set_audio_backend("sox_io")
+# torchaudio.set_audio_backend("sox_io")
 # try:
 #     import torch  # noqa
 # except ImportError:
@@ -59,7 +60,7 @@ torchaudio.set_audio_backend("sox_io")
 # "tqdm", 'timm', 'timm.models', 'timm.models.layers', 'sklearn', 'sklearn.metrics','cProfile',
 #      'matplotlib', 'matplotlib.pyplot', 'torch2trt', 'resampy', 'PIL', 'torchsummary'
 for m in [
-    "tqdm", 'timm', 'timm.models', 'timm.models.layers', 'torchsummary', 'torch2trt', 'soundfile'
+    "tqdm", 'timm', 'timm.models', 'timm.models.layers', 'torchsummary', 'torch2trt',
 ]:
     sys.modules[m] = mock.Mock(name=m)
 

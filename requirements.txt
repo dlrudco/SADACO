@@ -1,9 +1,0 @@
-munch
-opencv-python
-tqdm
-Pillow
-sklearn
-matplotlib
-librosa
-wandb
-pandas

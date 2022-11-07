@@ -8,7 +8,7 @@ import random
 class BaseLogger:
     def __init__(self, config, log_path = 'logs'):
         self.configs = config
-        self.group_id = self.configs['prefix']
+        self.group_id = self.configs['Master']['prefix']
         self.now = datetime.now()
         self.name =  self.generate_expid()
         self.log_path = os.path.join(log_path, self.group_id, self.name)

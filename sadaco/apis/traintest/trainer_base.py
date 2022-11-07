@@ -19,7 +19,36 @@ from sadaco.dataman.loader import _build_dataloader
 import sadaco.apis.losses as LF
 
 class BaseTrainer():
+    """Base template class for the trainers. Trainers for each datasets are made on top of this class
+    inheriting basic functions like train, test, validate containing the typical pipeline procedures.
+    Users can also override some of the functions in order to meet user-specific requirements.
+
+    :return: Trainer instance.
+    :rtype: BaseTrainer
+    """    
+
     def __init__(self, train_configs):
+        """ 
+        Trainer will parse and load configurations given yaml configuration path, including 
+        model configs and data configs following the path information written in the master configs.
+        
+        :param train_configs: YAML file path containing Master Configuration Settings.
+        :type train_configs: munch - python object
+        
+        :cvar configs: Master configs given as the train_configs
+        :cvar data_configs: Data configs parsed from train_configs.data_configs.file
+        :cvar model_configs: Model configs parsed from train_configs.model_configs.file
+        :cvar log_configs: Total Configuration containing all of the config settings. Logger will log this as a project configuration.
+        :cvar logger: Logger instance that contains configuration information and the train/val stats. Recommend using wandb since our BaseLogger only provides raw data saving. Checkout https://docs.wandb.ai/quickstart to make wandb account.
+        :cvar model: Built model from the given model configs. This will be used in training and inferencing.
+        :cvar optimizer: Model optimizer that will update the model while training. User can specify resume option wheter to resume optimizer too or not.
+        :cvar device: Model and Optimizer device location. cuda:0 by default if cuda is available, else cpu.
+        :cvar train_criterion: Criterion used in training. Currently supports only one criterion function. User have to create hybrid criterion Callable or override training procedures to use multiple target functions.
+        :cvar valid_criterion: Criterion used in validation. Currently supports only one criterion function. User have to create hybrid criterion Callable or override validation procedures to use multiple target functions.
+        :cvar scheduler: Training scheduler which controls hyperparameter(currently: LR only) and model versions.
+        :cvar preproc: Preprocessor(__Callable__) containing input preprocessing pipeline. Ignored when given None.
+        :cvar _progress: Training progress(#Epochs). Web session use this to query background training state.
+        """        
         self.configs = train_configs
         self.data_configs = parse_config_obj(yml_path=self.configs.data_configs.file)
         self.model_configs = parse_config_obj(yml_path=self.configs.model_configs.file)
@@ -35,6 +64,7 @@ class BaseTrainer():
         self.logger = self.build_logger(self.configs.use_wandb)
                 
         self.model = self.build_model()
+        self.model.eval()
         # self.model = torch.hub.load('harritaylor/torchvggish', 'vggish')
         self.optimizer = self.build_optimizer()
         
@@ -60,11 +90,17 @@ class BaseTrainer():
         self._progress = -1
     
     def build_dataset(self):
+        """_summary_
+
+        :raises NotImplementedError: _description_
+        """        
         raise NotImplementedError
         self.train_dataset = None
         self.val_dataset = None
     
     def build_dataloader(self):
+        """_summary_
+        """        
         if self.configs.data.train_dataloader.sampler is not None:
             train_sampler = getattr(dataman, self.configs.data.train_dataloader.sampler.name)(
                                     self.train_dataset, **self.configs.data.train_dataloader.sampler.params)
@@ -81,14 +117,28 @@ class BaseTrainer():
         self.val_loader = DataLoader(self.val_dataset, **self.configs.data.val_dataloader.params)
         
     def build_model(self):
+        """_summary_
+
+        :return: _description_
+        :rtype: _type_
+        """        
         model = models.build_model(self.model_configs)
         return model
 
     def parallel(self):
+        """_summary_
+        """        
         if self.model_configs.data_parallel == True:
             self.model = torch.nn.DataParallel(self.model)    
         
     def build_optimizer(self, trainables = None):
+        """_summary_
+
+        :param trainables: _description_, defaults to None
+        :type trainables: _type_, optional
+        :return: _description_
+        :rtype: _type_
+        """        
         if trainables is None:
             trainables = [p for p in self.model.parameters() if p.requires_grad]
         else:
@@ -98,6 +148,13 @@ class BaseTrainer():
         return optimizer
     
     def build_logger(self, use_wandb=True):
+        """_summary_
+
+        :param use_wandb: _description_, defaults to True
+        :type use_wandb: bool, optional
+        :return: _description_
+        :rtype: _type_
+        """        
         if self.configs.fold is not None and f'{self.configs.fold}-Fold' not in self.configs.prefix:
             self.configs.prefix = f'{self.configs.fold}-Fold_{self.configs.prefix}'
         if use_wandb:
@@ -113,17 +170,18 @@ class BaseTrainer():
                 logger = BaseLogger(config=self.log_configs)
                 self.use_wandb = False
         else:
-            from apis.logger import BaseLogger
+            from sadaco.apis.logger import BaseLogger
             logger = BaseLogger(config=self.log_configs)
             self.use_wandb = False
         return logger
     
     def reset_trainer(self):
-        '''
-        TODO : Currently calls __init__ again
+        """_summary_
+        
+        .. todo:: Currently calls __init__ again
             which might cause unexpected behavior
             find a way to aviod this.
-        '''
+        """        
         if self.use_wandb:
             self.logger.finish(quiet=True)
         else:
@@ -131,6 +189,8 @@ class BaseTrainer():
         self.__init__(self.configs)
         
     def resume(self):
+        """_summary_
+        """        
         if self.model_configs.resume is not None and self.configs.model_configs.resume:
             checkpoint = torch.load(self.model_configs.resume)
             self.model.load_state_dict(checkpoint['state_dict'])
@@ -141,7 +201,12 @@ class BaseTrainer():
         else:
             pass
         
-    def train(self):    
+    def train(self): 
+        """_summary_
+
+        :return: _description_
+        :rtype: _type_
+        """           
         for epoch in tqdm(range(self.configs.train.max_epochs)):
             self._progress = epoch
             train_stats = self.train_epoch(epoch)
@@ -153,6 +218,13 @@ class BaseTrainer():
         return 0
     
     def train_kfold(self, k):
+        """_summary_
+
+        :param k: _description_
+        :type k: _type_
+        :return: _description_
+        :rtype: _type_
+        """        
         self.log_configs['K-Fold'] = k
         for i in tqdm(range(k)):
             self.prepare_kfold(i, k)
@@ -170,6 +242,13 @@ class BaseTrainer():
         return 0
         
     def prepare_kfold(self, i, k):
+        """_summary_
+
+        :param i: _description_
+        :type i: _type_
+        :param k: _description_
+        :type k: _type_
+        """        
         import random
         from random import randint
         import math
@@ -213,23 +292,61 @@ class BaseTrainer():
         self.build_dataloader()
     
     def validate(self, return_stats=True):
+        """_summary_
+
+        :param return_stats: _description_, defaults to True
+        :type return_stats: bool, optional
+        :return: _description_
+        :rtype: _type_
+        """        
         valid_stats = self.validate_epoch(0)
-        print(print_stats(valid_stats))
         if return_stats:
             return valid_stats
-        return 0
+        else:
+            return 0
     
     def test(self, **kwargs):
-        self.validate(**kwargs)
+        """_summary_
+
+        :return: _description_
+        :rtype: _type_
+        """        
+        stats = self.validate(**kwargs)
+        return stats
+    
+    def attach_layer_handler(self, layers):
+        from sadaco.apis.explain.hookman import FGHandler
+        handler = FGHandler(self.model, layers)
+        self.model.handler = handler
 
     def train_epoch(self):
+        """_summary_
+
+        :raises NotImplementedError: _description_
+        """        
         raise NotImplementedError
     
     def validate_epoch(self):
+        """_summary_
+
+        :raises NotImplementedError: _description_
+        """        
         raise NotImplementedError
     
     
+    
 def build_optimizer(model, train_configs, trainables = None):
+    """_summary_
+
+    :param model: _description_
+    :type model: _type_
+    :param train_configs: _description_
+    :type train_configs: _type_
+    :param trainables: _description_, defaults to None
+    :type trainables: _type_, optional
+    :return: _description_
+    :rtype: _type_
+    """    
     if trainables is None:
         trainables = [p for p in model.parameters() if p.requires_grad]
     else:
@@ -238,10 +355,30 @@ def build_optimizer(model, train_configs, trainables = None):
     return optimizer
     
 def build_dataloader(dataset, train_configs, data_configs):
+    """_summary_
+
+    :param dataset: _description_
+    :type dataset: _type_
+    :param train_configs: _description_
+    :type train_configs: _type_
+    :param data_configs: _description_
+    :type data_configs: _type_
+    :return: _description_
+    :rtype: _type_
+    """    
     loader = _build_dataloader(dataset, train_configs, data_configs)
     return loader
 
 def build_criterion(name, mixup=False, **kwargs):
+    """_summary_
+
+    :param name: _description_
+    :type name: _type_
+    :param mixup: _description_, defaults to False
+    :type mixup: bool, optional
+    :return: _description_
+    :rtype: _type_
+    """    
     criterion = getattr(LF, name)
     if mixup : 
         criterion = LF.mixup_criterion(criterion, **kwargs)

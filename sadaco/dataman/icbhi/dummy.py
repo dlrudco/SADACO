@@ -7,7 +7,6 @@ from torchvision.transforms.functional import InterpolationMode
 import random
 from tqdm import tqdm
 import torch
-import librosa
 import torchaudio
 
 torch.set_default_tensor_type(torch.FloatTensor)
@@ -46,7 +45,7 @@ class RespiDatasetSTFT(Dataset):
 
         
         
-        self.fm = torchaudio.transforms.FrequencyMasking(int(0.1*self.n_stft))
+        # self.fm = torchaudio.transforms.FrequencyMasking(int(0.1*self.n_stft))
         self.tm = torchaudio.transforms.TimeMasking(int(0.1*self.fixed_length))
         self.transforms = torchvision.transforms.Compose([
             torchvision.transforms.RandomCrop((self.n_stft, self.fixed_length))
@@ -86,7 +85,7 @@ class RespiDatasetSTFT(Dataset):
                            window = torch.hann_window(int(1e-3*self.window_size*self.sample_rate+1)),
                            return_complex=True, pad_mode='reflect')
         phase = torch.atan2(cart.imag, cart.real)
-        mag = cart.abs()
+        mag = cart.abs()**2
         if torch.isnan(mag).any():
             print(f'NaN mag!!! {filename}-{filename2}')
         if filename2 == None:
@@ -122,6 +121,7 @@ class RespiDatasetSTFT(Dataset):
             label2 = 0*label
 
         if mag.shape[-1] < self.fixed_length:
+            # print('UNEXPECTED!!!')
             mag = mag.repeat(1, 1, self.fixed_length//mag.shape[-1] + 1)
             phase = phase.repeat(1, 1, self.fixed_length//phase.shape[-1] + 1)
         # mag = (mag - self.norm_mean) / (self.norm_std * 2)
@@ -130,7 +130,7 @@ class RespiDatasetSTFT(Dataset):
             mag = magphase[0]
             phase = magphase[1]
             mag = self.tm(mag)
-            mag = self.fm(mag)
+            # mag = self.fm(mag)
         else:
             mag = mag[:,:,:self.fixed_length]
             phase = phase[:,:,:self.fixed_length]
@@ -179,7 +179,7 @@ class RespiDatasetSTFT(Dataset):
         return len(self.data)
 
     def recover(self, mag, phase):
-        mag = torch.relu(mag)
+        mag = torch.sqrt(torch.relu(mag))
         recombine_magnitude_phase = torch.cat(
             [(mag*torch.cos(phase)).unsqueeze(-1), (mag*torch.sin(phase)).unsqueeze(-1)], 
             dim=-1)

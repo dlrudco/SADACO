@@ -171,8 +171,6 @@ Small images should be shown at their actual size.
 
 Large images should always scale down and fit in the content container.
 
-![Branching](https://guides.github.com/activities/hello-world/branching.png)
-
 ```
 This is the final element on the page and there should be no margin below this.
 ```
