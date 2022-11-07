@@ -20,7 +20,7 @@ Most detailed information will be provided in the [official document](https://sa
 ## Environment Setting
 
 Using Conda <b> (Recommended) </b>
-<pre><code>conda create -n sadaco -f sadaco_env.yml</code></pre>
+<pre><code>conda env create -n sadaco -f sadaco_env.yml</code></pre>
 
 Using pip
 <pre><code>python -m pip install -r requirements.txt</code></pre>
