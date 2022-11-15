@@ -38,7 +38,14 @@ def figure_to_array(fig):
     return np.array(fig.canvas.renderer._renderer)
 
 def spec_display(spec:torch.Tensor, mag2db = False, sharpen:float=None, save_path=None, sr=16000, hop_length=int(16*70), return_array=False,
-                 normalize_outliers=False):
+                 normalize_outliers=False, y_axis='mel', font_size=22):
+    plt.rc('font', size=font_size)
+    plt.rc('axes', titlesize=font_size)
+    plt.rc('axes', labelsize=font_size)
+    plt.rc('xtick', labelsize=font_size)
+    plt.rc('ytick', labelsize=font_size)
+    plt.rc('legend', fontsize=font_size)
+    plt.rc('figure', titlesize=font_size+5)
     if mag2db:
         p2d =  torchaudio.transforms.AmplitudeToDB(stype='magnitude', top_db = 80)
         spec = p2d(spec)
@@ -53,7 +60,8 @@ def spec_display(spec:torch.Tensor, mag2db = False, sharpen:float=None, save_pat
     f = plt.figure(figsize=(20, 8))
     if normalize_outliers:
         spec = clip_outliers(spec)
-    display.specshow(spec, y_axis='mel', sr=sr, hop_length=hop_length, x_axis='time')
+    display.specshow(spec, y_axis=y_axis, sr=sr, hop_length=hop_length, x_axis='time')
+    plt.xlabel('Time(s)')
     plt.colorbar(format='%+2.0f dB')
     plt.tight_layout()
     if save_path is not None:
