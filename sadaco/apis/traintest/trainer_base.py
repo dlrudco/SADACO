@@ -64,6 +64,7 @@ class BaseTrainer():
         self.logger = self.build_logger(self.configs.use_wandb)
                 
         self.model = self.build_model()
+        self.model.eval()
         # self.model = torch.hub.load('harritaylor/torchvggish', 'vggish')
         self.optimizer = self.build_optimizer()
         
@@ -169,7 +170,7 @@ class BaseTrainer():
                 logger = BaseLogger(config=self.log_configs)
                 self.use_wandb = False
         else:
-            from apis.logger import BaseLogger
+            from sadaco.apis.logger import BaseLogger
             logger = BaseLogger(config=self.log_configs)
             self.use_wandb = False
         return logger
@@ -299,7 +300,6 @@ class BaseTrainer():
         :rtype: _type_
         """        
         valid_stats = self.validate_epoch(0)
-        print(print_stats(valid_stats))
         if return_stats:
             return valid_stats
         else:
@@ -313,6 +313,11 @@ class BaseTrainer():
         """        
         stats = self.validate(**kwargs)
         return stats
+    
+    def attach_layer_handler(self, layers):
+        from sadaco.apis.explain.hookman import FGHandler
+        handler = FGHandler(self.model, layers)
+        self.model.handler = handler
 
     def train_epoch(self):
         """_summary_
@@ -327,6 +332,7 @@ class BaseTrainer():
         :raises NotImplementedError: _description_
         """        
         raise NotImplementedError
+    
     
     
 def build_optimizer(model, train_configs, trainables = None):
