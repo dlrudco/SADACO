@@ -6,7 +6,6 @@
 *wandb*
 *.log
 sadaco.egg-info/*
-sadaco/demo/demo5_interactive/*
 sadaco/demo/demo6_CNN-MoE/*
 sadaco/demo/demo7_UNO/*
 sadaco/pipelines/configs/*
