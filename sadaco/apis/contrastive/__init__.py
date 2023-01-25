@@ -1,2 +1,2 @@
-from .train_supcon import train_mixcon_epoch
+from .train_supcon import train_mixcon_epoch,train_mixcon_epoch2
 from .trainer_contrastive import ContrastTrainer

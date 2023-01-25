@@ -12,6 +12,7 @@ class ICBHI_Metrics:
         normal_class_label: int = None,
         mixup: bool = False,
         mini_batch: bool = False,
+        multi_label: bool = False,
     ) -> None:
         """Evaluation metrics for ICBHI challenge.
 
@@ -71,40 +72,43 @@ class ICBHI_Metrics:
         self.normal_class_label = normal_class_label
         self.mixup = mixup
         self.mini_batch = mini_batch
+        self.multi_label = multi_label
 
         self._init_attr()
 
+
+    def binary2int(self, tensor):
+        tensor = tensor[:,0] + 2*tensor[:,1]
+        return tensor
+    
+    def int2onehot(self, tensor):
+        tensor = torch.stack([tensor==0, tensor==1, tensor==2, tensor==3], dim=1).int()
+        return tensor
+        
     def update_lists(
         self,
         logits: torch.Tensor = None,
         y_true: torch.Tensor = None,
         y_pred: torch.Tensor = None,
     ) -> None:
+        if self.multi_label:
+            y_pred = (torch.sigmoid(logits)>0.5).int()
+            
+            y_true = self.binary2int(y_true)
+            y_pred = self.binary2int(y_pred)
+        else:
+            y_true = y_true.argmax(dim=1)
+            _, y_pred = logits.max(1)
+        
         if self.mini_batch:
             self.y_true = torch.cat((self.y_true, y_true.detach().cpu()), dim=0)
             self.y_pred = torch.cat((self.y_pred, y_pred.detach().cpu()), dim=0)
         else:
-            _, y_pred = logits.max(1)
             self.y_true = torch.cat((self.y_true, y_true.detach().cpu()), dim=0)
             self.y_pred = torch.cat((self.y_pred, y_pred.detach().cpu()), dim=0)
             self.y_pred_prob = torch.cat(
                 (self.y_pred_prob, logits.softmax(-1).detach().cpu()), dim=0
             )
-
-    def update_mixup_stats(
-        self,
-        logits: torch.Tensor,
-        y_true_a: torch.Tensor,
-        y_true_b: torch.Tensor,
-        lam: torch.Tensor,
-    ) -> None:
-        _, y_pred = logits.max(1)
-        self.total += y_pred.size(0)
-        correct_hit = (
-            lam * y_pred.eq(y_true_a.data).detach().cpu().sum().float()
-            + (1 - lam) * y_pred.eq(y_true_b.data).detach().cpu().sum().float()
-        )
-        self.correct += correct_hit.mean()
 
     def get_stats(self) -> Tuple[float, float, float, float]:
         r"""Compute the sensitivity, specificity, score and balanced accuracy based on ICBHI challenge definition through confusion matrix.
@@ -168,7 +172,7 @@ class ICBHI_Metrics:
 
     def _compute_confusion_matrix(self):
         self.confusion_matrix = self.num_classes * self.y_true + self.y_pred
-        self.confusion_matrix = torch.bincount(self.confusion_matrix)
+        self.confusion_matrix = torch.bincount(self.confusion_matrix.int())
         if len(self.confusion_matrix) < self.num_classes * self.num_classes:
             self.confusion_matrix = torch.cat(
                 (

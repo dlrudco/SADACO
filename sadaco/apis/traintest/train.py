@@ -103,7 +103,7 @@ def train_basic_epoch(
                 optimizer.zero_grad(set_to_none=True)
             else:
                 pass
-            if criterion.reduction == 'mean':
+            if criterion.reduction in ['mean', 'none']:
                 train_loss += loss.item() * output.shape[0]
             else:
                 train_loss += loss.item()

@@ -27,7 +27,11 @@ class SupervisedContrastiveLoss(nn.Module):
         Returns:
             A loss scalar.
         """
-        labels = torch.argmax(label, axis=-1)
+        if len(label.shape)==1:
+            labels = label
+        else:
+            labels = torch.argmax(label, axis=-1)
+            
         if len(features.shape) < 3:
             if len(features.shape) == 2:
                 features = features.unsqueeze(1)

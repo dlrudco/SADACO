@@ -64,14 +64,10 @@ class BCEWithLogitsLoss(BCEWithLogitsLoss):
         
         if mode in ['multihot', 0]:
             self.mode = 0
-        elif mode in ['int', 1]:
-            self.mode = 1
-            if max is None:
-                raise ValueError("The number of Maximum Class should be provided, but given 'None' instead")
         else:
-            raise ValueError("Currently only Supporting Multi-hot or Integer")
+            raise ValueError("Currently only Supporting Multi-hot")
         
-    def forward(self, input:torch.Tensor, label:torch.Tensor, **kwargs):
+    def forward(self, output:torch.Tensor, label:torch.Tensor, **kwargs):
         """_summary_
 
         :param input: _description_
@@ -84,10 +80,8 @@ class BCEWithLogitsLoss(BCEWithLogitsLoss):
         if self.mode == 0:
             target = label
         else :
-            temptar = torch.zeros(label.shape[0], max).to(label.device)
-            temptar[:,label] = 1.
-            target = temptar
-        return self.base_forward(input, target)
+            raise ValueError("Currently only Supporting Multi-hot")
+        return self.base_forward(output, target)
 
 
 class Normalized_MSELoss(MSELoss):

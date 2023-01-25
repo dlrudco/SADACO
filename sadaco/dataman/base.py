@@ -24,7 +24,7 @@ class BaseDataset(Dataset):
             self.window_size = int(1e-3*configs.window_size*self.sample_rate+1)
             self.hop_length = int(1e-3*configs.hop_length*self.sample_rate)
         
-        self.root_dir = self.configs.__dict__[self.split]['data_dir']
+        self.root_dir = self.configs.__dict__['data_dir']
         
         self.metadata = json.load(open(os.path.join(self.root_dir, 'meta.json')))
         

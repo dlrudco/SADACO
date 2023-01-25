@@ -44,7 +44,7 @@ class ASTModel(nn.Module):
     :param audioset_pretrain: if pretrain the model with full AudioSet in addition to ImageNet
     :param model_size: the model size of AST, should be in [tiny224, small224, base224, base384], base224 and base 384 are same model, but are trained differently during pretraining.
     """
-    def __init__(self, label_dim=527, fstride=10, tstride=10, input_fdim=128, input_tdim=1024, imagenet_pretrain=True, audioset_pretrain=False, model_size='base384'):
+    def __init__(self, label_dim=527, fstride=10, tstride=10, input_fdim=128, input_tdim=1024, imagenet_pretrain=True, audioset_pretrain=False, model_size='base384',freeze_embed=False):
 
         super(ASTModel, self).__init__()
         print('---------------AST Model Summary---------------')
@@ -143,6 +143,12 @@ class ASTModel(nn.Module):
             new_pos_embed = new_pos_embed.reshape(1, 768, num_patches).transpose(1, 2)
             self.v.pos_embed = nn.Parameter(torch.cat([self.v.pos_embed[:, :2, :].detach(), new_pos_embed], dim=1))
 
+        # if freeze, then freeze the positional embedding and patch embedding
+        if freeze_embed:
+            self.v.pos_embed.requires_grad = False
+            self.v.patch_embed.proj.weight.requires_grad = False
+        
+        
     def get_shape(self, fstride, tstride, input_fdim=128, input_tdim=1024):
         test_input = torch.randn(1, 1, input_fdim, input_tdim)
         test_proj = nn.Conv2d(1, self.original_embedding_dim, kernel_size=(16, 16), stride=(fstride, tstride))
